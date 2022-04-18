@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.authority.mapper.AloneParameterMapper">
+  <resultMap id="BaseResultMap" type="com.farm.authority.domain.AloneParameter">
+    <!--@mbg.generated-->
+    <!--@Table alone_parameter-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="UTIME" jdbcType="VARCHAR" property="utime" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="MUSER" jdbcType="VARCHAR" property="muser" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="STATE" jdbcType="CHAR" property="state" />
+    <result column="PKEY" jdbcType="VARCHAR" property="pkey" />
+    <result column="PVALUE" jdbcType="VARCHAR" property="pvalue" />
+    <result column="RULES" jdbcType="VARCHAR" property="rules" />
+    <result column="DOMAIN" jdbcType="VARCHAR" property="domain" />
+    <result column="COMMENTS" jdbcType="VARCHAR" property="comments" />
+    <result column="VTYPE" jdbcType="CHAR" property="vtype" />
+    <result column="USERABLE" jdbcType="VARCHAR" property="userable" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CTIME, UTIME, CUSER, MUSER, `NAME`, `STATE`, PKEY, PVALUE, RULES, `DOMAIN`, COMMENTS, 
+    VTYPE, USERABLE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from alone_parameter
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_parameter
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.farm.authority.domain.AloneParameter">
+    <!--@mbg.generated-->
+    insert into alone_parameter (ID, CTIME, UTIME, 
+      CUSER, MUSER, `NAME`, 
+      `STATE`, PKEY, PVALUE, RULES, 
+      `DOMAIN`, COMMENTS, VTYPE, 
+      USERABLE)
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{utime,jdbcType=VARCHAR}, 
+      #{cuser,jdbcType=VARCHAR}, #{muser,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{state,jdbcType=CHAR}, #{pkey,jdbcType=VARCHAR}, #{pvalue,jdbcType=VARCHAR}, #{rules,jdbcType=VARCHAR}, 
+      #{domain,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, #{vtype,jdbcType=CHAR}, 
+      #{userable,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.farm.authority.domain.AloneParameter">
+    <!--@mbg.generated-->
+    insert into alone_parameter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="utime != null">
+        UTIME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="muser != null">
+        MUSER,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="state != null">
+        `STATE`,
+      </if>
+      <if test="pkey != null">
+        PKEY,
+      </if>
+      <if test="pvalue != null">
+        PVALUE,
+      </if>
+      <if test="rules != null">
+        RULES,
+      </if>
+      <if test="domain != null">
+        `DOMAIN`,
+      </if>
+      <if test="comments != null">
+        COMMENTS,
+      </if>
+      <if test="vtype != null">
+        VTYPE,
+      </if>
+      <if test="userable != null">
+        USERABLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="utime != null">
+        #{utime,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="muser != null">
+        #{muser,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="pkey != null">
+        #{pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="pvalue != null">
+        #{pvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="rules != null">
+        #{rules,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="vtype != null">
+        #{vtype,jdbcType=CHAR},
+      </if>
+      <if test="userable != null">
+        #{userable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.farm.authority.domain.AloneParameter">
+    <!--@mbg.generated-->
+    update alone_parameter
+    <set>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="utime != null">
+        UTIME = #{utime,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="muser != null">
+        MUSER = #{muser,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `STATE` = #{state,jdbcType=CHAR},
+      </if>
+      <if test="pkey != null">
+        PKEY = #{pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="pvalue != null">
+        PVALUE = #{pvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="rules != null">
+        RULES = #{rules,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null">
+        `DOMAIN` = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="vtype != null">
+        VTYPE = #{vtype,jdbcType=CHAR},
+      </if>
+      <if test="userable != null">
+        USERABLE = #{userable,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.farm.authority.domain.AloneParameter">
+    <!--@mbg.generated-->
+    update alone_parameter
+    set CTIME = #{ctime,jdbcType=VARCHAR},
+      UTIME = #{utime,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      MUSER = #{muser,jdbcType=VARCHAR},
+      `NAME` = #{name,jdbcType=VARCHAR},
+      `STATE` = #{state,jdbcType=CHAR},
+      PKEY = #{pkey,jdbcType=VARCHAR},
+      PVALUE = #{pvalue,jdbcType=VARCHAR},
+      RULES = #{rules,jdbcType=VARCHAR},
+      `DOMAIN` = #{domain,jdbcType=VARCHAR},
+      COMMENTS = #{comments,jdbcType=VARCHAR},
+      VTYPE = #{vtype,jdbcType=CHAR},
+      USERABLE = #{userable,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

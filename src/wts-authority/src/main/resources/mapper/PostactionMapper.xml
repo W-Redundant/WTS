@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.authority.mapper.PostactionMapper">
+  <resultMap id="BaseResultMap" type="com.farm.authority.domain.Postaction">
+    <!--@mbg.generated-->
+    <!--@Table alone_auth_postaction-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="MENUID" jdbcType="VARCHAR" property="menuid" />
+    <result column="POSTID" jdbcType="VARCHAR" property="postid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, MENUID, POSTID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from alone_auth_postaction
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_auth_postaction
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.farm.authority.domain.Postaction">
+    <!--@mbg.generated-->
+    insert into alone_auth_postaction (ID, MENUID, POSTID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{menuid,jdbcType=VARCHAR}, #{postid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.farm.authority.domain.Postaction">
+    <!--@mbg.generated-->
+    insert into alone_auth_postaction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="menuid != null">
+        MENUID,
+      </if>
+      <if test="postid != null">
+        POSTID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="menuid != null">
+        #{menuid,jdbcType=VARCHAR},
+      </if>
+      <if test="postid != null">
+        #{postid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.farm.authority.domain.Postaction">
+    <!--@mbg.generated-->
+    update alone_auth_postaction
+    <set>
+      <if test="menuid != null">
+        MENUID = #{menuid,jdbcType=VARCHAR},
+      </if>
+      <if test="postid != null">
+        POSTID = #{postid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.farm.authority.domain.Postaction">
+    <!--@mbg.generated-->
+    update alone_auth_postaction
+    set MENUID = #{menuid,jdbcType=VARCHAR},
+      POSTID = #{postid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

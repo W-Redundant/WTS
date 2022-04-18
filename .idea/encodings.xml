@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/wts-authority/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-authority/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-doc/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-doc/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-exam/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-exam/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-parameter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-parameter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-quartz/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-quartz/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-report/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-report/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-tag/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/wts-web/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="wts-tag" />
+        <module name="wts-core" />
+        <module name="wts-doc" />
+        <module name="wts-exam" />
+        <module name="wts-quartz" />
+        <module name="wts-parameter" />
+        <module name="wts-report" />
+        <module name="wts-authority" />
+        <module name="wts-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="wts-authority" target="1.7" />
+      <module name="wts-core" target="1.7" />
+      <module name="wts-doc" target="1.7" />
+      <module name="wts-exam" target="1.7" />
+      <module name="wts-parameter" target="1.7" />
+      <module name="wts-quartz" target="1.7" />
+      <module name="wts-report" target="1.7" />
+      <module name="wts-tag" target="1.7" />
+      <module name="wts-web" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

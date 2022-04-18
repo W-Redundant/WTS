@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="wts-web">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="wts-core-3.2.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wts-core/wts-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wts-authority-3.2.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wts-authority/wts-authority">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wts-report-3.2.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wts-report/wts-report">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wts-quartz-3.2.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wts-quartz/wts-quartz">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wts-parameter-3.2.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wts-parameter/wts-parameter">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wts-tag-3.2.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wts-tag/wts-tag">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wts-doc-3.2.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wts-doc/wts-doc">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="wts-exam-3.2.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wts-exam/wts-exam">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="wts"/>
+        <property name="java-output-path" value="/wts-web/target/classes"/>
+    </wb-module>
+</project-modules>

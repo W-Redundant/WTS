@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/WTS-master.iml" filepath="$PROJECT_DIR$/.idea/WTS-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/wts-authority/wts-authority.iml" filepath="$PROJECT_DIR$/src/wts-authority/wts-authority.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/wts-core/wts-core.iml" filepath="$PROJECT_DIR$/src/wts-core/wts-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/wts-doc/wts-doc.iml" filepath="$PROJECT_DIR$/src/wts-doc/wts-doc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/wts-exam/wts-exam.iml" filepath="$PROJECT_DIR$/src/wts-exam/wts-exam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/wts-parameter/wts-parameter.iml" filepath="$PROJECT_DIR$/src/wts-parameter/wts-parameter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/wts-quartz/wts-quartz.iml" filepath="$PROJECT_DIR$/src/wts-quartz/wts-quartz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/wts-report/wts-report.iml" filepath="$PROJECT_DIR$/src/wts-report/wts-report.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/wts-tag/wts-tag.iml" filepath="$PROJECT_DIR$/src/wts-tag/wts-tag.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/wts-web/wts-web.iml" filepath="$PROJECT_DIR$/src/wts-web/wts-web.iml" />
+    </modules>
+  </component>
+</project>

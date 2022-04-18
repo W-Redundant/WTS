@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/src/wts-web" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/wts-web/pom.xml" />
+        <option value="$PROJECT_DIR$/src/wts-authority/pom.xml" />
+        <option value="$PROJECT_DIR$/src/wts-core/pom.xml" />
+        <option value="$PROJECT_DIR$/src/wts-doc/pom.xml" />
+        <option value="$PROJECT_DIR$/src/wts-exam/pom.xml" />
+        <option value="$PROJECT_DIR$/src/wts-parameter/pom.xml" />
+        <option value="$PROJECT_DIR$/src/wts-quartz/pom.xml" />
+        <option value="$PROJECT_DIR$/src/wts-report/pom.xml" />
+        <option value="$PROJECT_DIR$/src/wts-tag/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_14" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+</project>

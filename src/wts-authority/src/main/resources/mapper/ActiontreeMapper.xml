@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.authority.mapper.ActiontreeMapper">
+  <resultMap id="BaseResultMap" type="com.farm.authority.domain.Actiontree">
+    <!--@mbg.generated-->
+    <!--@Table alone_auth_actiontree-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="PARENTID" jdbcType="VARCHAR" property="parentid" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="TREECODE" jdbcType="VARCHAR" property="treecode" />
+    <result column="COMMENTS" jdbcType="VARCHAR" property="comments" />
+    <result column="TYPE" jdbcType="CHAR" property="type" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="UTIME" jdbcType="VARCHAR" property="utime" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="UUSER" jdbcType="VARCHAR" property="uuser" />
+    <result column="STATE" jdbcType="CHAR" property="state" />
+    <result column="ACTIONID" jdbcType="VARCHAR" property="actionid" />
+    <result column="DOMAIN" jdbcType="VARCHAR" property="domain" />
+    <result column="ICON" jdbcType="VARCHAR" property="icon" />
+    <result column="IMGID" jdbcType="VARCHAR" property="imgid" />
+    <result column="PARAMS" jdbcType="VARCHAR" property="params" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, SORT, PARENTID, `NAME`, TREECODE, COMMENTS, `TYPE`, CTIME, UTIME, CUSER, UUSER, 
+    `STATE`, ACTIONID, `DOMAIN`, ICON, IMGID, PARAMS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from alone_auth_actiontree
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_auth_actiontree
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.farm.authority.domain.Actiontree">
+    <!--@mbg.generated-->
+    insert into alone_auth_actiontree (ID, SORT, PARENTID, 
+      `NAME`, TREECODE, COMMENTS, 
+      `TYPE`, CTIME, UTIME, CUSER, 
+      UUSER, `STATE`, ACTIONID, 
+      `DOMAIN`, ICON, IMGID, 
+      PARAMS)
+    values (#{id,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{parentid,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{treecode,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, 
+      #{type,jdbcType=CHAR}, #{ctime,jdbcType=VARCHAR}, #{utime,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, 
+      #{uuser,jdbcType=VARCHAR}, #{state,jdbcType=CHAR}, #{actionid,jdbcType=VARCHAR}, 
+      #{domain,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{imgid,jdbcType=VARCHAR}, 
+      #{params,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.farm.authority.domain.Actiontree">
+    <!--@mbg.generated-->
+    insert into alone_auth_actiontree
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="parentid != null">
+        PARENTID,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="treecode != null">
+        TREECODE,
+      </if>
+      <if test="comments != null">
+        COMMENTS,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="utime != null">
+        UTIME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="uuser != null">
+        UUSER,
+      </if>
+      <if test="state != null">
+        `STATE`,
+      </if>
+      <if test="actionid != null">
+        ACTIONID,
+      </if>
+      <if test="domain != null">
+        `DOMAIN`,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="imgid != null">
+        IMGID,
+      </if>
+      <if test="params != null">
+        PARAMS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="treecode != null">
+        #{treecode,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="utime != null">
+        #{utime,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="uuser != null">
+        #{uuser,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="actionid != null">
+        #{actionid,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null">
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="imgid != null">
+        #{imgid,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.farm.authority.domain.Actiontree">
+    <!--@mbg.generated-->
+    update alone_auth_actiontree
+    <set>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null">
+        PARENTID = #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="treecode != null">
+        TREECODE = #{treecode,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `TYPE` = #{type,jdbcType=CHAR},
+      </if>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="utime != null">
+        UTIME = #{utime,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="uuser != null">
+        UUSER = #{uuser,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `STATE` = #{state,jdbcType=CHAR},
+      </if>
+      <if test="actionid != null">
+        ACTIONID = #{actionid,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null">
+        `DOMAIN` = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="imgid != null">
+        IMGID = #{imgid,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        PARAMS = #{params,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.farm.authority.domain.Actiontree">
+    <!--@mbg.generated-->
+    update alone_auth_actiontree
+    set SORT = #{sort,jdbcType=INTEGER},
+      PARENTID = #{parentid,jdbcType=VARCHAR},
+      `NAME` = #{name,jdbcType=VARCHAR},
+      TREECODE = #{treecode,jdbcType=VARCHAR},
+      COMMENTS = #{comments,jdbcType=VARCHAR},
+      `TYPE` = #{type,jdbcType=CHAR},
+      CTIME = #{ctime,jdbcType=VARCHAR},
+      UTIME = #{utime,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      UUSER = #{uuser,jdbcType=VARCHAR},
+      `STATE` = #{state,jdbcType=CHAR},
+      ACTIONID = #{actionid,jdbcType=VARCHAR},
+      `DOMAIN` = #{domain,jdbcType=VARCHAR},
+      ICON = #{icon,jdbcType=VARCHAR},
+      IMGID = #{imgid,jdbcType=VARCHAR},
+      PARAMS = #{params,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

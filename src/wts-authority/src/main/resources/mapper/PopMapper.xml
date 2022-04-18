@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.authority.mapper.PopMapper">
+  <resultMap id="BaseResultMap" type="com.farm.authority.domain.Pop">
+    <!--@mbg.generated-->
+    <!--@Table alone_auth_pop-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="POPTYPE" jdbcType="VARCHAR" property="poptype" />
+    <result column="OID" jdbcType="VARCHAR" property="oid" />
+    <result column="ONAME" jdbcType="VARCHAR" property="oname" />
+    <result column="TARGETTYPE" jdbcType="VARCHAR" property="targettype" />
+    <result column="TARGETID" jdbcType="VARCHAR" property="targetid" />
+    <result column="TARGETNAME" jdbcType="VARCHAR" property="targetname" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="CUSERNAME" jdbcType="VARCHAR" property="cusername" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, POPTYPE, OID, ONAME, TARGETTYPE, TARGETID, TARGETNAME, CTIME, CUSERNAME, CUSER, 
+    PSTATE, PCONTENT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from alone_auth_pop
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_auth_pop
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.farm.authority.domain.Pop">
+    <!--@mbg.generated-->
+    insert into alone_auth_pop (ID, POPTYPE, OID, 
+      ONAME, TARGETTYPE, TARGETID, 
+      TARGETNAME, CTIME, CUSERNAME, 
+      CUSER, PSTATE, PCONTENT
+      )
+    values (#{id,jdbcType=VARCHAR}, #{poptype,jdbcType=VARCHAR}, #{oid,jdbcType=VARCHAR}, 
+      #{oname,jdbcType=VARCHAR}, #{targettype,jdbcType=VARCHAR}, #{targetid,jdbcType=VARCHAR}, 
+      #{targetname,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{cusername,jdbcType=VARCHAR}, 
+      #{cuser,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.farm.authority.domain.Pop">
+    <!--@mbg.generated-->
+    insert into alone_auth_pop
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="poptype != null">
+        POPTYPE,
+      </if>
+      <if test="oid != null">
+        OID,
+      </if>
+      <if test="oname != null">
+        ONAME,
+      </if>
+      <if test="targettype != null">
+        TARGETTYPE,
+      </if>
+      <if test="targetid != null">
+        TARGETID,
+      </if>
+      <if test="targetname != null">
+        TARGETNAME,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="cusername != null">
+        CUSERNAME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="poptype != null">
+        #{poptype,jdbcType=VARCHAR},
+      </if>
+      <if test="oid != null">
+        #{oid,jdbcType=VARCHAR},
+      </if>
+      <if test="oname != null">
+        #{oname,jdbcType=VARCHAR},
+      </if>
+      <if test="targettype != null">
+        #{targettype,jdbcType=VARCHAR},
+      </if>
+      <if test="targetid != null">
+        #{targetid,jdbcType=VARCHAR},
+      </if>
+      <if test="targetname != null">
+        #{targetname,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.farm.authority.domain.Pop">
+    <!--@mbg.generated-->
+    update alone_auth_pop
+    <set>
+      <if test="poptype != null">
+        POPTYPE = #{poptype,jdbcType=VARCHAR},
+      </if>
+      <if test="oid != null">
+        OID = #{oid,jdbcType=VARCHAR},
+      </if>
+      <if test="oname != null">
+        ONAME = #{oname,jdbcType=VARCHAR},
+      </if>
+      <if test="targettype != null">
+        TARGETTYPE = #{targettype,jdbcType=VARCHAR},
+      </if>
+      <if test="targetid != null">
+        TARGETID = #{targetid,jdbcType=VARCHAR},
+      </if>
+      <if test="targetname != null">
+        TARGETNAME = #{targetname,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.farm.authority.domain.Pop">
+    <!--@mbg.generated-->
+    update alone_auth_pop
+    set POPTYPE = #{poptype,jdbcType=VARCHAR},
+      OID = #{oid,jdbcType=VARCHAR},
+      ONAME = #{oname,jdbcType=VARCHAR},
+      TARGETTYPE = #{targettype,jdbcType=VARCHAR},
+      TARGETID = #{targetid,jdbcType=VARCHAR},
+      TARGETNAME = #{targetname,jdbcType=VARCHAR},
+      CTIME = #{ctime,jdbcType=VARCHAR},
+      CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
