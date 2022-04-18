@@ -2,8 +2,12 @@ package com.farm.authority.mapper;
 
 import com.farm.authority.domain.Action;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Mapper
+@Repository
 public interface ActionMapper {
     int deleteByPrimaryKey(String id);
 
@@ -16,4 +20,6 @@ public interface ActionMapper {
     int updateByPrimaryKeySelective(Action record);
 
     int updateByPrimaryKey(Action record);
+
+    List<Action> selectAll();
 }

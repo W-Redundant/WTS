@@ -20,6 +20,12 @@
     <!--@mbg.generated-->
     ID, AUTHKEY, `NAME`, COMMENTS, CTIME, UTIME, CUSER, MUSER, `STATE`, CHECKIS, LOGINIS
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_action
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 

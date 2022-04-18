@@ -2,8 +2,10 @@ package com.farm.authority.mapper;
 
 import com.farm.authority.domain.Postaction;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface PostactionMapper {
     int deleteByPrimaryKey(String id);
 

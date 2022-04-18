@@ -2,8 +2,10 @@ package com.farm.authority.mapper;
 
 import com.farm.authority.domain.AloneDictionaryType;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface AloneDictionaryTypeMapper {
     int deleteByPrimaryKey(String id);
 
