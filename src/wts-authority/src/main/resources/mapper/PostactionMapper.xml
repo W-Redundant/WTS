@@ -24,7 +24,7 @@
     delete from alone_auth_postaction
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.farm.authority.domain.Postaction">
+  <insert id="insertEntity" parameterType="com.farm.authority.domain.Postaction">
     <!--@mbg.generated-->
     insert into alone_auth_postaction (ID, MENUID, POSTID
       )

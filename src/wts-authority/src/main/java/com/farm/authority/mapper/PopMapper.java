@@ -7,13 +7,13 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface PopMapper {
-    int deleteByPrimaryKey(String id);
+    int deleteEntity(String id);
 
-    int insert(Pop record);
+    int insertEntity(Pop record);
 
     int insertSelective(Pop record);
 
-    Pop selectByPrimaryKey(String id);
+    Pop getEntity(String id);
 
     int updateByPrimaryKeySelective(Pop record);
 

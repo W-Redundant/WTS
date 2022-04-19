@@ -12,6 +12,17 @@
     <!--@mbg.generated-->
     ID, USERID, POSTID
   </sql>
+
+  <select id="getTempUserPost" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    SELECT a.USERID as userid,a.ID as id,a.ORGANIZATIONID as organizationid,
+    a.POSTID as postid FROM alone_auth_userorgpost a
+    LEFT JOIN alone_auth_post  b ON a.POSTID=b.ID
+    WHERE b.TYPE='2'
+    and a.USERID= #{userId,jdbcType=VARCHAR}
+  </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
@@ -24,7 +35,7 @@
     delete from alone_auth_userpost
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.farm.authority.domain.Userpost">
+  <insert id="insertEntity" parameterType="com.farm.authority.domain.Userpost">
     <!--@mbg.generated-->
     insert into alone_auth_userpost (ID, USERID, POSTID
       )

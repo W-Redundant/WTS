@@ -21,19 +21,19 @@
     ID, CTIME, ETIME, CUSERNAME, CUSER, EUSERNAME, EUSER, PSTATE, ORGANIZATIONID, `NAME`, 
     EXTENDIS
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
     from alone_auth_post
     where ID = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from alone_auth_post
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.farm.authority.domain.Post">
+  <insert id="insertEntity" parameterType="com.farm.authority.domain.Post">
     <!--@mbg.generated-->
     insert into alone_auth_post (ID, CTIME, ETIME, 
       CUSERNAME, CUSER, EUSERNAME, 
@@ -118,7 +118,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.farm.authority.domain.Post">
+  <update id="editEntity" parameterType="com.farm.authority.domain.Post">
     <!--@mbg.generated-->
     update alone_auth_post
     <set>

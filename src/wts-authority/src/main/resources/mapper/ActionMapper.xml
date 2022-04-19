@@ -20,6 +20,13 @@
     <!--@mbg.generated-->
     ID, AUTHKEY, `NAME`, COMMENTS, CTIME, UTIME, CUSER, MUSER, `STATE`, CHECKIS, LOGINIS
   </sql>
+  <select id="getEntityByKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_action
+    where authkey = #{authkey,jdbcType=VARCHAR}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select

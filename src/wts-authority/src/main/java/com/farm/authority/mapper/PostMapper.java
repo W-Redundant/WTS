@@ -7,15 +7,15 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface PostMapper {
-    int deleteByPrimaryKey(String id);
+    int deleteEntity(String id);
 
-    int insert(Post record);
+    int insertEntity(Post record);
 
     int insertSelective(Post record);
 
-    Post selectByPrimaryKey(String id);
+    Post getEntity(String id);
 
-    int updateByPrimaryKeySelective(Post record);
+    int editEntity(Post record);
 
     int updateByPrimaryKey(Post record);
 }

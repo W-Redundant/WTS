@@ -14,9 +14,11 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import com.farm.authority.mapper.*;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -73,15 +75,20 @@ public class UserServiceImpl implements UserServiceInter {
 	@Resource
 	private UserpostDaoInter userpostDaoImpl;
 	@Resource
-	private PostDaoInter postDaoImpl;
-	@Resource
-	private OrganizationDaoInter organizationDao;
-	@Resource
 	private OrganizationServiceInter organizationServiceImpl;
 	@Resource
 	private UserorgDaoInter userorgDaoImpl;
 	@Resource
 	private OutuserServiceInter outUserServiceImpl;
+
+	@Autowired
+	private UserMapper userMapper;
+	@Autowired
+	private UserpostMapper userpostMapper;
+	@Autowired
+	private PostMapper postMapper;
+	@Autowired
+	private UserorgMapper userorgMapper;
 
 	private AuthenticateInter authUtil = AuthenticateProvider.getInstance();
 	private final static Logger log = Logger.getLogger(UserServiceImpl.class);
@@ -109,16 +116,16 @@ public class UserServiceImpl implements UserServiceInter {
 		}
 		entity.setPassword(authUtil.encodeLoginPasswordOnMd5(
 				FarmParameterService.getInstance().getParameter("config.default.password"), entity.getLoginname()));
-		entity = userDaoImpl.insertEntity(entity);
+		userMapper.insertEntity(entity);
 		// 保存用户机构关系
 		if (StringUtils.isNotBlank(orgId)) {
-			userorgDaoImpl.insertEntity(new Userorg("", orgId, entity.getId()));
+			userorgMapper.insertEntity(new Userorg("", orgId, entity.getId()));
 		}
 		// 保存用户岗位关系
 		if (StringUtils.isNotBlank(postIds)) {
 			String[] postIdArr = postIds.split(",");
 			for (String postId : postIdArr) {
-				userpostDaoImpl.insertEntity(new Userpost("", postId, entity.getId()));
+				userpostMapper.insertEntity(new Userpost("", postId, entity.getId()));
 			}
 		}
 		return entity;
@@ -139,7 +146,7 @@ public class UserServiceImpl implements UserServiceInter {
 		}
 		entity.setPassword(authUtil.encodeLoginPasswordOnMd5(entity.getPassword(), entity.getLoginname()));
 
-		entity = userDaoImpl.insertEntity(entity);
+		userMapper.insertEntity(entity);
 		return entity;
 	}
 
@@ -221,7 +228,7 @@ public class UserServiceImpl implements UserServiceInter {
 	@Override
 	@Transactional
 	public User editUserEntity(User entity, LoginUser user) {
-		User entity2 = userDaoImpl.getEntity(entity.getId());
+		User entity2 = userMapper.getEntity(entity.getId());
 		if (validateIsRepeatLoginName(entity.getLoginname(), entity2.getId())) {
 			throw new RuntimeException("登录名已经存在!");
 		}
@@ -248,7 +255,7 @@ public class UserServiceImpl implements UserServiceInter {
 		if (!ValidUtils.isEmptyString(entity.getName())) {
 			entity2.setName(entity.getName());
 		}
-		userDaoImpl.editEntity(entity2);
+		userMapper.editEntity(entity2);
 		return entity2;
 	}
 
@@ -274,7 +281,7 @@ public class UserServiceImpl implements UserServiceInter {
 		userpostDaoImpl.deleteEntitys(new DBRule("USERID", userid, "=").getDBRules());
 		String[] postIdArr = postids.split(",");
 		for (String postId : postIdArr) {
-			userpostDaoImpl.insertEntity(new Userpost("", postId, userid));
+			userpostMapper.insertEntity(new Userpost("", postId, userid));
 		}
 	}
 
@@ -283,9 +290,9 @@ public class UserServiceImpl implements UserServiceInter {
 	public boolean validateIsRepeatLoginName(String loginname, String userId) {
 		List<User> list = null;
 		if (userId == null || userId.trim().equals("")) {
-			list = userDaoImpl.findUserByLoginName(loginname.trim());
+			list = userMapper.findUserByLoginName(loginname.trim());
 		} else {
-			list = userDaoImpl.findUserByLoginName(loginname.trim(), userId);
+			list = userMapper.findUserByLoginNameAndId(loginname.trim(), userId);
 		}
 		return list.size() > 0;
 	}
@@ -295,12 +302,12 @@ public class UserServiceImpl implements UserServiceInter {
 	public void deleteUserEntity(String id, LoginUser user) {
 		String[] idArr = id.split(",");
 		for (int i = 0; i < idArr.length; i++) {
-			User entity2 = userDaoImpl.getEntity(idArr[i]);
+			User entity2 = userMapper.getEntity(idArr[i]);
 			entity2.setMuser(user.getId());
 			entity2.setUtime(TimeTool.getTimeDate14());
 			entity2.setState("2");
 			entity2.setLoginname(entity2.getId());
-			userDaoImpl.editEntity(entity2);
+			userMapper.editEntity(entity2);
 		}
 	}
 
@@ -310,7 +317,7 @@ public class UserServiceImpl implements UserServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return userDaoImpl.getEntity(id);
+		return userMapper.getEntity(id);
 	}
 
 	@Override
@@ -321,7 +328,7 @@ public class UserServiceImpl implements UserServiceInter {
 						"( SELECT A.ID AS ID, A.LOGINTIME AS LOGINTIME, A.LOGINNAME AS LOGINNAME, A.STATE AS STATE, A.TYPE AS TYPE, A.COMMENTS AS COMMENTS, A. NAME AS NAME, A3. NAME AS ORGNAME,A3.TREECODE AS TREECODE, A.CTIME AS CTIME, ( SELECT count(*) FROM ALONE_AUTH_OUTUSER WHERE USERID = A.ID ) AS OUTUSER FROM ALONE_AUTH_USER A LEFT JOIN ALONE_AUTH_USERORG B ON A.ID = B.USERID LEFT JOIN ALONE_AUTH_ORGANIZATION A3 ON B.ORGANIZATIONID = A3.ID ) f LEFT JOIN ALONE_AUTH_USERPOST C ON C.USERID = f.ID LEFT JOIN ALONE_AUTH_POST D ON D.ID = C.POSTID",
 						"f.ID as ID,LOGINTIME,LOGINNAME,STATE,TYPE,COMMENTS,f.NAME as NAME,ORGNAME,f.CTIME as CTIME,OUTUSER,TREECODE")
 				.setDistinct(true);
-		User entity = userDaoImpl.getEntity(currentUser.getId());
+		User entity = userMapper.getEntity(currentUser.getId());
 		if (entity.getType() != null && (!entity.getType().equals("3"))) {
 			dbQuery.addRule(new DBRule("TYPE", 3, "!="));
 		}
@@ -333,20 +340,20 @@ public class UserServiceImpl implements UserServiceInter {
 	@Override
 	@Transactional
 	public void initDefaultPassWord(String userid, LoginUser currentUser) {
-		User entity2 = userDaoImpl.getEntity(userid);
+		User entity2 = userMapper.getEntity(userid);
 		entity2.setMuser(currentUser.getId());
 		entity2.setUtime(TimeTool.getTimeDate14());
 		String defaultPassword = FarmParameterService.getInstance().getParameter("config.default.password");
 		String userPassword = authUtil.encodeLoginPasswordOnMd5(defaultPassword, entity2.getLoginname());
 		entity2.setPassword(userPassword);
 		log.info("用户密码初始化,默认密码" + defaultPassword + ",当前用户" + entity2.getLoginname() + "密码为" + userPassword);
-		userDaoImpl.editEntity(entity2);
+		userMapper.editEntity(entity2);
 	}
 
 	@Override
 	@Transactional
 	public User getUserByLoginName(String loginName) {
-		List<User> users = userDaoImpl.findUserByLoginName(loginName);
+		List<User> users = userMapper.findUserByLoginName(loginName);
 		if (users.size() <= 0) {
 			return null;
 		}
@@ -359,10 +366,10 @@ public class UserServiceImpl implements UserServiceInter {
 	@Override
 	@Transactional
 	public String setLoginTime(String userId) {
-		User entity2 = userDaoImpl.getEntity(userId);
+		User entity2 = userMapper.getEntity(userId);
 		String lastLoginTime = entity2.getLogintime();
 		entity2.setLogintime(TimeTool.getTimeDate14());
-		userDaoImpl.editEntity(entity2);
+		userMapper.editEntity(entity2);
 		return lastLoginTime;
 	}
 
@@ -440,7 +447,7 @@ public class UserServiceImpl implements UserServiceInter {
 		List<Userpost> userposts = userpostDaoImpl.selectEntitys(new DBRule("USERID", userId, "=").getDBRules());
 		List<Post> list = new ArrayList<Post>();
 		for (Userpost userPost : userposts) {
-			Post post = postDaoImpl.getEntity(userPost.getPostid());
+			Post post = postMapper.getEntity(userPost.getPostid());
 			if (post != null) {
 				list.add(post);
 			}
@@ -458,7 +465,7 @@ public class UserServiceImpl implements UserServiceInter {
 		if (authUtil.encodeLoginPasswordOnMd5(oldPassword, loginname).equals(user.getPassword())) {
 			// 验证成功,修改密码
 			user.setPassword(authUtil.encodeLoginPasswordOnMd5(newPassword, loginname));
-			userDaoImpl.editEntity(user);
+			userMapper.editEntity(user);
 			return true;
 		} else {
 			throw new RuntimeException("原密码错误!");
@@ -606,17 +613,17 @@ public class UserServiceImpl implements UserServiceInter {
 	@Transactional
 	public void editCurrentUser(String id, String name, String photoid, String orgid) {
 		// 更新用户
-		User user = userDaoImpl.getEntity(id);
+		User user = userMapper.getEntity(id);
 		if (StringUtils.isNotBlank(name)) {
 			user.setName(name);
 		}
 		user.setImgid(photoid);
-		userDaoImpl.editEntity(user);
+		userMapper.editEntity(user);
 		// 更新机构
 		if (StringUtils.isNotBlank(orgid)) {
 			// 更新用户机构关系
 			userorgDaoImpl.deleteEntitys(new DBRule("USERID", id, "=").getDBRules());
-			userorgDaoImpl.insertEntity(new Userorg("", orgid, id));
+			userorgMapper.insertEntity(new Userorg("", orgid, id));
 			// 删除岗位（岗位暂时无用，wd说的）
 			userpostDaoImpl.deleteEntitys(new DBRule("userid", id, "=").getDBRules());
 		}
@@ -625,7 +632,7 @@ public class UserServiceImpl implements UserServiceInter {
 	@Override
 	@Transactional
 	public void editUserPassword(String id, String password, String newPassword) {
-		User user = userDaoImpl.getEntity(id);
+		User user = userMapper.getEntity(id);
 		String oldPwd = authUtil.encodeLoginPasswordOnMd5(password, user.getLoginname());
 		if (!user.getPassword().equals(oldPwd)) {
 			throw new RuntimeException("旧密码错误!");
@@ -633,22 +640,22 @@ public class UserServiceImpl implements UserServiceInter {
 
 		String newPwd = authUtil.encodeLoginPasswordOnMd5(newPassword, user.getLoginname());
 		user.setPassword(newPwd);
-		userDaoImpl.editEntity(user);
+		userMapper.editEntity(user);
 	}
 
 	@Override
 	@Transactional
 	public void editUserPassword(String userid, String newPassword) {
-		User user = userDaoImpl.getEntity(userid);
+		User user = userMapper.getEntity(userid);
 		String newPwd = authUtil.encodeLoginPasswordOnMd5(newPassword, user.getLoginname());
 		user.setPassword(newPwd);
-		userDaoImpl.editEntity(user);
+		userMapper.editEntity(user);
 	}
 
 	@Override
 	@Transactional
 	public boolean validCurrentUserPwd(String userid, String password) {
-		User user = userDaoImpl.getEntity(userid);
+		User user = userMapper.getEntity(userid);
 		String pwdForMd5 = authUtil.encodeLoginPasswordOnMd5(password, user.getLoginname());
 		if (!user.getPassword().equals(pwdForMd5)) {
 			return false;
@@ -658,7 +665,7 @@ public class UserServiceImpl implements UserServiceInter {
 
 	@Override
 	public Integer getUsersNum() {
-		return userDaoImpl.getUsersNum();
+		return userMapper.getUsersNum();
 	}
 
 	@Override
@@ -747,7 +754,7 @@ public class UserServiceImpl implements UserServiceInter {
 			});
 
 			for (Map<String, String> usernode : users) {
-				List<User> haveusers = userDaoImpl.findUserByLoginName(usernode.get("LOGINNAME"));
+				List<User> haveusers = userMapper.findUserByLoginName(usernode.get("LOGINNAME"));
 				if (haveusers.size() > 0) {
 					// 修改
 					User havuser = haveusers.get(0);
@@ -807,7 +814,7 @@ public class UserServiceImpl implements UserServiceInter {
 		}
 		// 更新用户机构关系
 		userorgDaoImpl.deleteEntitys(new DBRule("USERID", userid, "=").getDBRules());
-		userorgDaoImpl.insertEntity(new Userorg("", orgid, userid));
+		userorgMapper.insertEntity(new Userorg("", orgid, userid));
 		String currentUserId = "NONE";
 		if (currentUser != null) {
 			currentUserId = currentUser.getId();
@@ -826,9 +833,9 @@ public class UserServiceImpl implements UserServiceInter {
 	@Override
 	@Transactional
 	public User editUserState(String userid, String state, LoginUser currentUser) {
-		User entity = userDaoImpl.getEntity(userid);
+		User entity = userMapper.getEntity(userid);
 		entity.setState(state);
-		userDaoImpl.editEntity(entity);
+		userMapper.editEntity(entity);
 		return entity;
 	}
 
@@ -848,9 +855,9 @@ public class UserServiceImpl implements UserServiceInter {
 	@Override
 	@Transactional
 	public void editUserType(String userid, String type, LoginUser user) {
-		User entity = userDaoImpl.getEntity(userid);
+		User entity = userMapper.getEntity(userid);
 		entity.setType(type);
-		userDaoImpl.editEntity(entity);
+		userMapper.editEntity(entity);
 	}
 
 	@Override
@@ -889,7 +896,7 @@ public class UserServiceImpl implements UserServiceInter {
 			user.setName(remoteUser.getName());
 			user.setState(remoteUser.getState());
 			user.setType(remoteUser.getType());
-			userDaoImpl.editEntity(user);
+			userMapper.editEntity(user);
 			return user;
 		}
 	}
@@ -909,7 +916,7 @@ public class UserServiceImpl implements UserServiceInter {
 			if (ablePostSet.contains(postId)) {
 				userpostDaoImpl.deleteEntitys(DBRuleList.getInstance().add(new DBRule("USERID", userid, "="))
 						.add(new DBRule("POSTID", postId, "=")).toList());
-				userpostDaoImpl.insertEntity(new Userpost("", postId, userid));
+				userpostMapper.insertEntity(new Userpost("", postId, userid));
 			}
 		}
 	}
@@ -937,9 +944,9 @@ public class UserServiceImpl implements UserServiceInter {
 	public void editLoginName(String userid, String loginname) {
 		if (!validateIsRepeatLoginName(loginname, userid)) {
 			// 修改
-			User user = userDaoImpl.getEntity(userid);
+			User user = userMapper.getEntity(userid);
 			user.setLoginname(loginname);
-			userDaoImpl.editEntity(user);
+			userMapper.editEntity(user);
 			initDefaultPassWord(userid, user);
 		} else {
 			throw new RuntimeException("该登陆名" + loginname + "已经存在!");

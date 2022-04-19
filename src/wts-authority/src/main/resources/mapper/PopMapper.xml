@@ -22,19 +22,19 @@
     ID, POPTYPE, OID, ONAME, TARGETTYPE, TARGETID, TARGETNAME, CTIME, CUSERNAME, CUSER, 
     PSTATE, PCONTENT
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
     from alone_auth_pop
     where ID = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from alone_auth_pop
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.farm.authority.domain.Pop">
+  <insert id="insertEntity" parameterType="com.farm.authority.domain.Pop">
     <!--@mbg.generated-->
     insert into alone_auth_pop (ID, POPTYPE, OID, 
       ONAME, TARGETTYPE, TARGETID, 

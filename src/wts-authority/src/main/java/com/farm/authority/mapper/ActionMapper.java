@@ -22,4 +22,6 @@ public interface ActionMapper {
     int updateByPrimaryKey(Action record);
 
     List<Action> selectAll();
+
+    Action getEntityByKey(String authkey);
 }

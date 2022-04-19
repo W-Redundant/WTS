@@ -23,7 +23,25 @@
     ID, `NAME`, `PASSWORD`, COMMENTS, `TYPE`, CTIME, UTIME, CUSER, MUSER, `STATE`, LOGINNAME, 
     LOGINTIME, IMGID
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+  <select id="findUserByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_user
+    where loginname = #{loginname,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findUserByLoginNameAndId" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_user
+    where loginname = #{loginname,jdbcType=VARCHAR}
+    and id!= #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
@@ -35,7 +53,7 @@
     delete from alone_auth_user
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.farm.authority.domain.User">
+  <insert id="insertEntity" parameterType="com.farm.authority.domain.User">
     <!--@mbg.generated-->
     insert into alone_auth_user (ID, `NAME`, `PASSWORD`, 
       COMMENTS, `TYPE`, CTIME, 
@@ -134,7 +152,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.farm.authority.domain.User">
+  <update id="editEntity" parameterType="com.farm.authority.domain.User">
     <!--@mbg.generated-->
     update alone_auth_user
     <set>
@@ -194,4 +212,8 @@
       IMGID = #{imgid,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="getUsersNum" resultType="int">
+    select count(*) from ALONE_AUTH_USER where STATE=1
+  </select>
 </mapper>

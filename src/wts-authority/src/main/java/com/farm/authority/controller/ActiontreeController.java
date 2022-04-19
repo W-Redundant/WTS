@@ -155,7 +155,7 @@ public class ActiontreeController extends WebUtils {
 	public Map<String, Object> delSubmit(String ids, HttpSession session) {
 		try {
 			for (String id : parseIds(ids)) {
-				actionServiceImpl.deleteActiontreeEntity(id, getCurrentUser(session));
+					actionServiceImpl.deleteActiontreeEntity(id, getCurrentUser(session));
 			}
 			return ViewMode.getInstance().returnObjMode();
 		} catch (Exception e) {

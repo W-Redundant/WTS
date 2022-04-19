@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface UserorgMapper {
     int deleteByPrimaryKey(String id);
 
-    int insert(Userorg record);
+    int insertEntity(Userorg record);
 
     int insertSelective(Userorg record);
 

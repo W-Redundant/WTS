@@ -18,24 +18,52 @@
     <result column="TYPE" jdbcType="CHAR" property="type" />
     <result column="APPID" jdbcType="VARCHAR" property="appid" />
   </resultMap>
+
+  <resultMap id="commentsResult" type="java.lang.String" >
+    <result column="COMMENTS" jdbcType="VARCHAR" />
+  </resultMap>
+
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     ID, TREECODE, COMMENTS, `NAME`, CTIME, UTIME, `STATE`, CUSER, MUSER, PARENTID, SORT, 
     `TYPE`, APPID
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+  <select id="getAllOrgComments" parameterType="java.lang.String" resultMap="commentsResult">
+    <!--@mbg.generated-->
+    select COMMENTS
+    from alone_auth_organization
+  </select>
+
+  <select id="getList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_organization
+    state='1' order by ctime
+  </select>
+
+  <select id="getAllSubNodes" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_organization
+    where treecode like #{treecode,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
     from alone_auth_organization
     where ID = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from alone_auth_organization
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.farm.authority.domain.Organization">
+  <insert id="insertEntity" parameterType="com.farm.authority.domain.Organization">
     <!--@mbg.generated-->
     insert into alone_auth_organization (ID, TREECODE, COMMENTS, 
       `NAME`, CTIME, UTIME, 
@@ -132,7 +160,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.farm.authority.domain.Organization">
+  <update id="editEntity" parameterType="com.farm.authority.domain.Organization">
     <!--@mbg.generated-->
     update alone_auth_organization
     <set>

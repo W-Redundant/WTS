@@ -3,6 +3,7 @@ package com.farm.authority.service.impl;
 import com.farm.authority.domain.Organization;
 import com.farm.authority.domain.Pop;
 import com.farm.authority.domain.Post;
+import com.farm.authority.mapper.PopMapper;
 import com.farm.core.time.TimeTool;
 import com.farm.parameter.FarmParameterService;
 import com.farm.web.WebUtils;
@@ -18,6 +19,7 @@ import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DataQuery;
 import com.farm.core.sql.query.DataQuery.CACHE_UNIT;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,13 +55,16 @@ public class PopServiceImpl implements PopServiceInter {
 	@Resource
 	private UserServiceInter userServiceImpl;
 
+	@Autowired
+	private PopMapper popMapper;
+
 	@Override
 	@Transactional
 	public Pop getPopEntity(String id) {
 		if (id == null) {
 			return null;
 		}
-		return popDaoImpl.getEntity(id);
+		return popMapper.getEntity(id);
 	}
 
 	@Override
@@ -87,7 +92,7 @@ public class PopServiceImpl implements PopServiceInter {
 		pop.setTargettype(targetType);
 		popDaoImpl.deleteEntitys(new DBRule("TARGETID", targetId, "=").addRule("OID", oid, "=")
 				.addRule("TARGETTYPE", targetType, "=").getDBRules());
-		popDaoImpl.insertEntity(pop);
+		popMapper.insertEntity(pop);
 	}
 
 	@Override
@@ -107,7 +112,7 @@ public class PopServiceImpl implements PopServiceInter {
 		pop.setTargettype(targetType);
 		popDaoImpl.deleteEntitys(new DBRule("TARGETID", targetId, "=").addRule("OID", oid, "=")
 				.addRule("TARGETTYPE", targetType, "=").getDBRules());
-		popDaoImpl.insertEntity(pop);
+		popMapper.insertEntity(pop);
 
 	}
 
@@ -128,15 +133,15 @@ public class PopServiceImpl implements PopServiceInter {
 		pop.setTargettype(targetType);
 		popDaoImpl.deleteEntitys(new DBRule("TARGETID", targetId, "=").addRule("OID", oid, "=")
 				.addRule("TARGETTYPE", targetType, "=").getDBRules());
-		popDaoImpl.insertEntity(pop);
+		popMapper.insertEntity(pop);
 
 	}
 
 	@Override
 	@Transactional
 	public void delPop(String popId, LoginUser user) {
-		Pop pop = popDaoImpl.getEntity(popId);
-		popDaoImpl.deleteEntity(pop);
+		Pop pop = popMapper.getEntity(popId);
+		popMapper.deleteEntity(pop.getId());
 	}
 
 	@Override

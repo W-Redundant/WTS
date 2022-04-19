@@ -24,7 +24,7 @@
     delete from alone_auth_userorg
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.farm.authority.domain.Userorg">
+  <insert id="insertEntity" parameterType="com.farm.authority.domain.Userorg">
     <!--@mbg.generated-->
     insert into alone_auth_userorg (ID, USERID, ORGANIZATIONID
       )

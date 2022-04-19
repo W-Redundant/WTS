@@ -27,6 +27,29 @@
     ID, SORT, PARENTID, `NAME`, TREECODE, COMMENTS, `TYPE`, CTIME, UTIME, CUSER, UUSER, 
     `STATE`, ACTIONID, `DOMAIN`, ICON, IMGID, PARAMS
   </sql>
+
+  <select id="selectEntitys" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_actiontree
+    where parentid = #{parentid,jdbcType=VARCHAR}
+    </select>
+
+  <select id="getAllSubNodes" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_actiontree
+    where TREECODE like #{TREECODE,jdbcType=VARCHAR} order by ctime
+  </select>
+
+  <select id="selectByParentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_actiontree
+    where PARENTID = #{PARENTID,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
@@ -240,4 +263,6 @@
       PARAMS = #{params,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
+
 </mapper>

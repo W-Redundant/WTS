@@ -4,18 +4,26 @@ import com.farm.authority.domain.Organization;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface OrganizationMapper {
-    int deleteByPrimaryKey(String id);
+    int deleteEntity(String id);
 
-    int insert(Organization record);
+    int insertEntity(Organization record);
 
     int insertSelective(Organization record);
 
-    Organization selectByPrimaryKey(String id);
+    Organization getEntity(String id);
 
-    int updateByPrimaryKeySelective(Organization record);
+    int editEntity(Organization record);
 
     int updateByPrimaryKey(Organization record);
+
+    List<Organization> getAllSubNodes(String treecode);
+
+    List<Organization> getList();
+
+    List<String> getAllOrgComments();
 }

@@ -7,15 +7,15 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface OutuserMapper {
-    int deleteByPrimaryKey(String id);
+    int deleteEntity(String id);
 
-    int insert(Outuser record);
+    int insertEntity(Outuser record);
 
     int insertSelective(Outuser record);
 
-    Outuser selectByPrimaryKey(String id);
+    Outuser getEntity(String id);
 
-    int updateByPrimaryKeySelective(Outuser record);
+    int editEntity(Outuser record);
 
     int updateByPrimaryKey(Outuser record);
 }

@@ -16,19 +16,19 @@
     <!--@mbg.generated-->
     ID, CTIME, PSTATE, PCONTENT, USERID, ACCOUNTID, ACCOUNTNAME
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
     from alone_auth_outuser
     where ID = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from alone_auth_outuser
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.farm.authority.domain.Outuser">
+  <insert id="insertEntity" parameterType="com.farm.authority.domain.Outuser">
     <!--@mbg.generated-->
     insert into alone_auth_outuser (ID, CTIME, PSTATE, 
       PCONTENT, USERID, ACCOUNTID, 
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.farm.authority.domain.Outuser">
+  <update id="editEntity" parameterType="com.farm.authority.domain.Outuser">
     <!--@mbg.generated-->
     update alone_auth_outuser
     <set>

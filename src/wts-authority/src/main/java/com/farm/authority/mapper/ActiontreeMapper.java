@@ -4,6 +4,8 @@ import com.farm.authority.domain.Actiontree;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface ActiontreeMapper {
@@ -18,4 +20,10 @@ public interface ActiontreeMapper {
     int updateByPrimaryKeySelective(Actiontree record);
 
     int updateByPrimaryKey(Actiontree record);
+
+    Actiontree selectByParentId(String parentId);
+
+    List<Actiontree> getAllSubNodes(String treeCode);
+
+    List<Actiontree> selectEntitys(String parentid);
 }
