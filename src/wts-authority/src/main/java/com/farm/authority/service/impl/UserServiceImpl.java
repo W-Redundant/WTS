@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import com.farm.authority.mapper.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -59,26 +60,13 @@ import com.farm.exread.service.ReaderConfig.ColumnType;
 import com.farm.parameter.FarmParameterService;
 import com.farm.util.validate.ValidUtils;
 
-/* *
- *功能：用户服务层实现类
- *详细：
- *
- *版本：v0.1
- *作者：王东
- *日期：20141119144919
- *说明：
- */
 @Service
+@Slf4j
 public class UserServiceImpl implements UserServiceInter {
-	@Resource
-	private UserDaoInter userDaoImpl;
-	@Resource
-	private UserpostDaoInter userpostDaoImpl;
-	@Resource
+
+	@Autowired
 	private OrganizationServiceInter organizationServiceImpl;
-	@Resource
-	private UserorgDaoInter userorgDaoImpl;
-	@Resource
+	@Autowired
 	private OutuserServiceInter outUserServiceImpl;
 
 	@Autowired
@@ -91,12 +79,9 @@ public class UserServiceImpl implements UserServiceInter {
 	private UserorgMapper userorgMapper;
 
 	private AuthenticateInter authUtil = AuthenticateProvider.getInstance();
-	private final static Logger log = Logger.getLogger(UserServiceImpl.class);
 
-	// private static final Logger log =
-	// Logger.getLogger(UserServiceImpl.class);
 	private void checkUserLimit() {
-		int num = userDaoImpl.countEntitys(DBRuleList.getInstance().add(new DBRule("STATE", "2", "!=")).toList());
+		int num = userMapper.countEntitys();
 		if (num > FarmAuthorityService.getPLOGS_USERNUM()) {
 			// 默认5000人
 			throw new LicenceException("用户数量超出授权限制" + FarmAuthorityService.getPLOGS_USERNUM() + "人,已删除用户不计入限制人数!");
@@ -278,7 +263,7 @@ public class UserServiceImpl implements UserServiceInter {
 	@Transactional
 	public void setUserPost(String userid, String postids, LoginUser currentUser) {
 		// 更新用户岗位关系
-		userpostDaoImpl.deleteEntitys(new DBRule("USERID", userid, "=").getDBRules());
+		userpostMapper.deleteByUserid(userid);
 		String[] postIdArr = postids.split(",");
 		for (String postId : postIdArr) {
 			userpostMapper.insertEntity(new Userpost("", postId, userid));
@@ -444,7 +429,7 @@ public class UserServiceImpl implements UserServiceInter {
 	@Override
 	@Transactional
 	public List<Post> getUserPosts(String userId) {
-		List<Userpost> userposts = userpostDaoImpl.selectEntitys(new DBRule("USERID", userId, "=").getDBRules());
+		List<Userpost> userposts = userpostMapper.findByUserId(userId);
 		List<Post> list = new ArrayList<Post>();
 		for (Userpost userPost : userposts) {
 			Post post = postMapper.getEntity(userPost.getPostid());
@@ -475,7 +460,7 @@ public class UserServiceImpl implements UserServiceInter {
 	@Override
 	@Transactional
 	public List<String> getUserPostIds(String userId) {
-		List<Userpost> userposts = userpostDaoImpl.selectEntitys(new DBRule("USERID", userId, "=").getDBRules());
+		List<Userpost> userposts = userpostMapper.findByUserId(userId);
 		List<String> list = new ArrayList<String>();
 		for (Userpost userPost : userposts) {
 			list.add(userPost.getPostid());
@@ -622,10 +607,10 @@ public class UserServiceImpl implements UserServiceInter {
 		// 更新机构
 		if (StringUtils.isNotBlank(orgid)) {
 			// 更新用户机构关系
-			userorgDaoImpl.deleteEntitys(new DBRule("USERID", id, "=").getDBRules());
+			userorgMapper.deleteByUserId(id);
 			userorgMapper.insertEntity(new Userorg("", orgid, id));
 			// 删除岗位（岗位暂时无用，wd说的）
-			userpostDaoImpl.deleteEntitys(new DBRule("userid", id, "=").getDBRules());
+			userpostMapper.deleteByUserid(id);
 		}
 	}
 
@@ -813,7 +798,7 @@ public class UserServiceImpl implements UserServiceInter {
 			return;
 		}
 		// 更新用户机构关系
-		userorgDaoImpl.deleteEntitys(new DBRule("USERID", userid, "=").getDBRules());
+		userorgMapper.deleteByUserId(userid);
 		userorgMapper.insertEntity(new Userorg("", orgid, userid));
 		String currentUserId = "NONE";
 		if (currentUser != null) {
@@ -824,9 +809,7 @@ public class UserServiceImpl implements UserServiceInter {
 	@Override
 	@Transactional
 	public List<User> getSuperUsers() {
-		List<DBRule> rules = new ArrayList<>();
-		rules.add(new DBRule("type", "3", "="));
-		List<User> list = userDaoImpl.selectEntitys(rules);
+		List<User> list = userMapper.findByType();
 		return list;
 	}
 
@@ -842,9 +825,7 @@ public class UserServiceImpl implements UserServiceInter {
 	@Override
 	@Transactional
 	public List<String> getSuperUserids() {
-		List<DBRule> rules = new ArrayList<>();
-		rules.add(new DBRule("type", "3", "="));
-		List<User> list = userDaoImpl.selectEntitys(rules);
+		List<User> list = userMapper.findByType();
 		List<String> ids = new ArrayList<>();
 		for (User user : list) {
 			ids.add(user.getId());
@@ -886,7 +867,7 @@ public class UserServiceImpl implements UserServiceInter {
 			user.setState("1");
 			user.setType(remoteUser.getType());
 			user.setUtime(TimeTool.getTimeDate14());
-			user = userDaoImpl.insertEntity(user);
+			userMapper.insertEntity(user);
 			outUserServiceImpl.bindUser(outUserServiceImpl.getOutuserByAccountId(remoteUser.getLoginname()).getId(),
 					user.getId());
 			return user;
@@ -914,8 +895,7 @@ public class UserServiceImpl implements UserServiceInter {
 		}
 		for (String postId : postIdArr) {
 			if (ablePostSet.contains(postId)) {
-				userpostDaoImpl.deleteEntitys(DBRuleList.getInstance().add(new DBRule("USERID", userid, "="))
-						.add(new DBRule("POSTID", postId, "=")).toList());
+				userpostMapper.deleteByUseridAndPostid(userid,postId);
 				userpostMapper.insertEntity(new Userpost("", postId, userid));
 			}
 		}
@@ -926,16 +906,14 @@ public class UserServiceImpl implements UserServiceInter {
 	public void delUserPost(String userid, String postids, LoginUser currentUser) {
 		String[] postIdArr = postids.split(",");
 		for (String postId : postIdArr) {
-			userpostDaoImpl.deleteEntitys(DBRuleList.getInstance().add(new DBRule("USERID", userid, "="))
-					.add(new DBRule("POSTID", postId, "=")).toList());
+			userpostMapper.deleteByUseridAndPostid(userid,postId);
 		}
 	}
 
 	@Override
 	@Transactional
 	public List<User> getUsersByName(String username) {
-		List<User> users = userDaoImpl.selectEntitys(DBRuleList.getInstance().add(new DBRule("NAME", username, "="))
-				.add(new DBRule("STATE", "1", "=")).toList());
+		List<User> users = userMapper.findByName(username);
 		return users;
 	}
 

@@ -8,6 +8,7 @@ import com.farm.core.time.TimeTool;
 import com.farm.parameter.FarmParameterService;
 import com.farm.web.WebUtils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 
 import com.farm.authority.FarmAuthorityService;
@@ -36,23 +37,14 @@ import javax.servlet.http.HttpSession;
 
 import com.farm.core.auth.domain.LoginUser;
 
-/* *
- *功能：业务权限服务层实现类
- *详细：
- *
- *版本：v0.1
- *作者：FarmCode代码工程
- *日期：20150707114057
- *说明：
- */
 @Service
+@Slf4j
 public class PopServiceImpl implements PopServiceInter {
-	@Resource
-	private PopDaoInter popDaoImpl;
-	@Resource
+
+	@Autowired
 	private OrganizationServiceInter organizationServiceImpl;
-	private static final Logger log = Logger.getLogger(PopServiceImpl.class);
-	@Resource
+
+	@Autowired
 	private UserServiceInter userServiceImpl;
 
 	@Autowired
@@ -90,8 +82,7 @@ public class PopServiceImpl implements PopServiceInter {
 		pop.setTargetid(targetId);
 		pop.setTargetname(targetName);
 		pop.setTargettype(targetType);
-		popDaoImpl.deleteEntitys(new DBRule("TARGETID", targetId, "=").addRule("OID", oid, "=")
-				.addRule("TARGETTYPE", targetType, "=").getDBRules());
+		popMapper.deleteEntityByTargetidAndOid(targetId,oid,targetType);
 		popMapper.insertEntity(pop);
 	}
 
@@ -110,8 +101,7 @@ public class PopServiceImpl implements PopServiceInter {
 		pop.setTargetid(targetId);
 		pop.setTargetname(targetName);
 		pop.setTargettype(targetType);
-		popDaoImpl.deleteEntitys(new DBRule("TARGETID", targetId, "=").addRule("OID", oid, "=")
-				.addRule("TARGETTYPE", targetType, "=").getDBRules());
+		popMapper.deleteEntityByTargetidAndOid(targetId,oid,targetType);
 		popMapper.insertEntity(pop);
 
 	}
@@ -131,8 +121,7 @@ public class PopServiceImpl implements PopServiceInter {
 		pop.setTargetid(targetId);
 		pop.setTargetname(targetName);
 		pop.setTargettype(targetType);
-		popDaoImpl.deleteEntitys(new DBRule("TARGETID", targetId, "=").addRule("OID", oid, "=")
-				.addRule("TARGETTYPE", targetType, "=").getDBRules());
+		popMapper.deleteEntityByTargetidAndOid(targetId,oid,targetType);
 		popMapper.insertEntity(pop);
 
 	}
@@ -205,8 +194,7 @@ public class PopServiceImpl implements PopServiceInter {
 	 */
 	private boolean isCtrl(String targetId) {
 		// 如果有配置，权限则是受控权限，即使是没有可用权限，只有禁用权限也是受控权限
-		List<DBRule> rules = new DBRule("TARGETID", targetId, "=").getDBRules();
-		List<Pop> pops = popDaoImpl.selectEntitys(rules);
+		List<Pop> pops = popMapper.findBytargetId(targetId);
 		if (pops.size() > 0) {
 			return true;
 		}

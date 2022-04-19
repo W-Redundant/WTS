@@ -29,11 +29,29 @@
     from alone_auth_pop
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="findBytargetId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_pop
+    where TARGETID = #{targetId,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from alone_auth_pop
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
+
+  <delete id="deleteEntityByTargetidAndOid" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_auth_pop
+    where TARGETID = #{TARGETID,jdbcType=VARCHAR}
+    and OID = #{OID,jdbcType=VARCHAR}
+    and TARGETTYPE = #{TARGETTYPE,jdbcType=VARCHAR}
+  </delete>
+
   <insert id="insertEntity" parameterType="com.farm.authority.domain.Pop">
     <!--@mbg.generated-->
     insert into alone_auth_pop (ID, POPTYPE, OID, 

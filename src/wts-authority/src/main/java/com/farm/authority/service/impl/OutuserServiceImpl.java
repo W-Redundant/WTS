@@ -1,45 +1,28 @@
 package com.farm.authority.service.impl;
 
-import com.farm.authority.dao.OutuserDaoInter;
 import com.farm.authority.domain.Outuser;
 import com.farm.authority.domain.User;
 import com.farm.authority.mapper.OutuserMapper;
 import com.farm.authority.mapper.UserMapper;
 import com.farm.authority.service.OutuserServiceInter;
 import com.farm.core.auth.domain.LoginUser;
-import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DataQuery;
 import com.farm.core.time.TimeTool;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
-/* *
- *功能：外部账户服务层实现类
- *详细：
- *
- *版本：v0.1
- *作者：FarmCode代码工程
- *日期：20150707114057
- *说明：
- */
 @Service
+@Slf4j
 public class OutuserServiceImpl implements OutuserServiceInter {
-    @Resource
-    private OutuserDaoInter outuserDaoImpl;
-
     @Autowired
     private OutuserMapper outuserMapper;
     @Autowired
     private UserMapper userMapper;
-
-    @SuppressWarnings("unused")
-    private static final Logger log = Logger.getLogger(OutuserServiceImpl.class);
 
     @Override
     @Transactional
@@ -96,23 +79,12 @@ public class OutuserServiceImpl implements OutuserServiceInter {
         return dbQuery;
     }
 
-    // ----------------------------------------------------------------------------------
-    public OutuserDaoInter getOutuserDaoImpl() {
-        return outuserDaoImpl;
-    }
-
-    public void setOutuserDaoImpl(OutuserDaoInter dao) {
-        this.outuserDaoImpl = dao;
-    }
-
     @Override
     @Transactional
     public LoginUser getUserByAccountId(String outuserid, String name, String content) {
         // 通过外部用户id获得本地用户(如果没有则在关联表中创建对照关系，默认先不绑定用户)
         // 在表中找关联用户
-        List<DBRule> rules = new ArrayList<DBRule>();
-        rules.add(new DBRule("ACCOUNTID", outuserid, "="));
-        List<Outuser> outusers = outuserDaoImpl.selectEntitys(rules);
+        List<Outuser> outusers = outuserMapper.findByAccountid(outuserid);
         User user = null;
         if (outusers != null && outusers.size() > 0) {
             // 存在，查找用户id
@@ -141,9 +113,7 @@ public class OutuserServiceImpl implements OutuserServiceInter {
     public Outuser getOutuserByAccountId(String outuserid) {
         // 通过外部用户id获得本地用户(如果没有则在关联表中创建对照关系，默认先不绑定用户)
         // 在表中找关联用户
-        List<DBRule> rules = new ArrayList<DBRule>();
-        rules.add(new DBRule("ACCOUNTID", outuserid, "="));
-        List<Outuser> outusers = outuserDaoImpl.selectEntitys(rules);
+        List<Outuser> outusers = outuserMapper.findByAccountid(outuserid);
         if (outusers.size() > 0) {
             return outusers.get(0);
         }
@@ -153,11 +123,7 @@ public class OutuserServiceImpl implements OutuserServiceInter {
     @Override
     @Transactional
     public Outuser getOutuserByUserid(String readUserId, String contentLimitlike) {
-        List<DBRule> rules = new ArrayList<DBRule>();
-        rules.add(new DBRule("USERID", readUserId, "="));
-        rules.add(new DBRule("PCONTENT", contentLimitlike, "like"));
-        rules.add(new DBRule("PSTATE", "1", "="));
-        List<Outuser> outusers = outuserDaoImpl.selectEntitys(rules);
+        List<Outuser> outusers = outuserMapper.findOutuserByUserid(readUserId, contentLimitlike + "%");
         if (outusers.size() > 0) {
             return outusers.get(0);
         }

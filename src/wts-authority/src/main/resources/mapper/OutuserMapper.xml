@@ -23,6 +23,25 @@
     from alone_auth_outuser
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="findOutuserByUserid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_outuser
+    where USERID = #{USERID,jdbcType=VARCHAR}
+    and PCONTENT like #{PCONTENT,jdbcType=VARCHAR}
+    and PSTATE = 1
+  </select>
+
+  <select id="findByAccountid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_outuser
+    where accountid = #{accountid,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from alone_auth_outuser

@@ -1,6 +1,5 @@
 package com.farm.authority.service.impl;
 
-import com.farm.authority.dao.impl.ActiontreeDaoImpl;
 import com.farm.authority.domain.Action;
 import com.farm.authority.domain.Actiontree;
 import com.farm.authority.domain.AuthKeyImpl;
@@ -23,22 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/* *
- *功能：权限资源服务层实现类
- *详细：
- *
- *版本：v0.1
- *作者：王东
- *日期：20141119144919
- *说明：
- */
 @Service
 public class ActionServiceImpl implements ActionServiceInter {
 
@@ -255,12 +244,12 @@ public class ActionServiceImpl implements ActionServiceInter {
             throw new RuntimeException("不能够移动到其子节点下!");
         }
         node.setParentid(targetTreeNodeId);
-		actiontreeMapper.updateByPrimaryKeySelective(node);
+        actiontreeMapper.updateByPrimaryKeySelective(node);
         // 构造所有树TREECODE
         List<Actiontree> list = actiontreeMapper.getAllSubNodes(treeNodeId + "%");
         for (Actiontree action : list) {
             action.setDomain(target.getDomain());
-			actiontreeMapper.updateByPrimaryKeySelective(action);
+            actiontreeMapper.updateByPrimaryKeySelective(action);
             initTreeCode(action.getId());
         }
     }
@@ -272,7 +261,7 @@ public class ActionServiceImpl implements ActionServiceInter {
         } else {
             node.setTreecode(actiontreeMapper.selectByPrimaryKey(node.getParentid()).getTreecode() + node.getId());
         }
-		actiontreeMapper.updateByPrimaryKeySelective(node);
+        actiontreeMapper.updateByPrimaryKeySelective(node);
     }
 
     @Override

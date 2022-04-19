@@ -26,6 +26,12 @@ public interface UserMapper {
 
     List<User> findUserByLoginNameAndId(@Param("loginname")String loginname, @Param("id")String userId);
 
+    int countEntitys();
+
     int getUsersNum();
+
+    List<User> findByType();
+
+    List<User> findByName(String name);
 
 }

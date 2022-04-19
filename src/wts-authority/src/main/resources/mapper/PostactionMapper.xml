@@ -19,6 +19,13 @@
     from alone_auth_postaction
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+  <delete id="deleteByPostid" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_auth_postaction
+    where postid = #{postid,jdbcType=VARCHAR}
+  </delete>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from alone_auth_postaction

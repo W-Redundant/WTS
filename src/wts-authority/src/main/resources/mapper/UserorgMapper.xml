@@ -19,11 +19,26 @@
     from alone_auth_userorg
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from alone_auth_userorg
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
+
+  <delete id="deleteByUseridAndOrganizationid" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_auth_userorg
+    where USERID = #{USERID,jdbcType=VARCHAR}
+    where ORGANIZATIONID = #{ORGANIZATIONID,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByUserId" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_auth_userorg
+    where USERID = #{userId,jdbcType=VARCHAR}
+  </delete>
+
   <insert id="insertEntity" parameterType="com.farm.authority.domain.Userorg">
     <!--@mbg.generated-->
     insert into alone_auth_userorg (ID, USERID, ORGANIZATIONID

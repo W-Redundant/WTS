@@ -22,6 +22,13 @@
     and a.USERID= #{userId,jdbcType=VARCHAR}
   </select>
 
+  <select id="findByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_userpost
+    and a.USERID= #{userId,jdbcType=VARCHAR}
+  </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -30,6 +37,26 @@
     from alone_auth_userpost
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+  <delete id="deleteByUserid" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_auth_userpost
+    where userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByUseridAndPostid" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_auth_userpost
+    where userid = #{userid,jdbcType=VARCHAR}
+    and postid = #{postid,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByPostid" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_auth_userpost
+    where postid = #{postid,jdbcType=VARCHAR}
+  </delete>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from alone_auth_userpost

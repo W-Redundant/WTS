@@ -32,6 +32,23 @@
     where loginname = #{loginname,jdbcType=VARCHAR}
   </select>
 
+  <select id="findByType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_user a
+    where a.type = '3'
+  </select>
+
+  <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_user a
+    where a.NAME = #{name,jdbcType=VARCHAR}
+    and a.STATE = '1'
+  </select>
+
   <select id="findUserByLoginNameAndId" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select
@@ -214,6 +231,10 @@
   </update>
 
   <select id="getUsersNum" resultType="int">
-    select count(*) from ALONE_AUTH_USER where STATE=1
+    select count(*) from ALONE_AUTH_USER a where a.STATE= '1'
+  </select>
+
+  <select id="countEntitys" resultType="int">
+    select count(*) from ALONE_AUTH_USER where a.STATE!= '2'
   </select>
 </mapper>

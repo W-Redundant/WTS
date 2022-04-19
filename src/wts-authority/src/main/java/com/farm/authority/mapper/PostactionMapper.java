@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface PostactionMapper {
     int deleteByPrimaryKey(String id);
 
+    int deleteByPostid(String postid);
+
     int insertEntity(Postaction record);
 
     int insertSelective(Postaction record);

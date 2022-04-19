@@ -26,4 +26,10 @@ public interface OrganizationMapper {
     List<Organization> getList();
 
     List<String> getAllOrgComments();
+
+    List<Organization> selectEntitys(String parentid);
+
+    List<Organization> findByAppid(String appid);
+
+    List<Organization> getOrganizationByComments(String comments);
 }

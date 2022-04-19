@@ -29,10 +29,35 @@
     `TYPE`, APPID
   </sql>
 
+  <select id="getOrganizationByComments" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_organization a
+    where a.COMMENTS = #{parentid,jdbcType=VARCHAR}
+    and a.STATE = 1
+  </select>
+
   <select id="getAllOrgComments" parameterType="java.lang.String" resultMap="commentsResult">
     <!--@mbg.generated-->
     select COMMENTS
     from alone_auth_organization
+  </select>
+
+  <select id="selectEntitys" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_organization
+    where parentid = #{parentid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByAppid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_organization
+    where appid = #{appid,jdbcType=VARCHAR}
   </select>
 
   <select id="getList" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -220,4 +245,6 @@
       APPID = #{appid,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
+
 </mapper>

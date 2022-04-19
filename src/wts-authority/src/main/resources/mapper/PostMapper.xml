@@ -21,6 +21,16 @@
     ID, CTIME, ETIME, CUSERNAME, CUSER, EUSERNAME, EUSER, PSTATE, ORGANIZATIONID, `NAME`, 
     EXTENDIS
   </sql>
+
+  <select id="findByOrganizationid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from alone_auth_post
+    where organizationid = #{organizationid,jdbcType=VARCHAR}
+  </select>
+
+
   <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 

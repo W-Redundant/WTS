@@ -1,47 +1,28 @@
 package com.farm.authority.service.impl;
 
-import com.farm.authority.dao.*;
 import com.farm.authority.domain.*;
 import com.farm.authority.mapper.*;
 import com.farm.authority.service.OrganizationServiceInter;
 import com.farm.core.auth.domain.LoginUser;
-import com.farm.core.sql.query.*;
+import com.farm.core.sql.query.DBRule;
+import com.farm.core.sql.query.DBSort;
+import com.farm.core.sql.query.DataQuery;
+import com.farm.core.sql.query.DataQuerys;
 import com.farm.core.sql.result.DataResult;
 import com.farm.core.time.TimeTool;
 import com.farm.web.easyui.EasyUiTreeNode;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.*;
 
-/* *
- *功能：组织机构服务实现类
- *详细：
- *
- *版本：v0.1
- *作者：Farm代码工程自动生成
- *日期：20141122211253
- *说明：
- */
 @Service
+@Slf4j
 public class OrganizationServiceImpl implements OrganizationServiceInter {
-    @Resource
-    private OrganizationDaoInter organizationDao;
-    @Resource
-    private PostDaoInter postDao;
-    @Resource
-    private UserpostDaoInter userpostDao;
-    @Resource
-    private PostactionDaoInter postactionDao;
-    @Resource
-    private UserorgDaoInter userorgDaoImpl;
-
-    private static final Logger log = Logger.getLogger(OrganizationServiceImpl.class);
 
     @Autowired
     private OrganizationMapper organizationMapper;
@@ -96,11 +77,11 @@ public class OrganizationServiceImpl implements OrganizationServiceInter {
     @Override
     @Transactional
     public void deleteOrganizationEntity(String id, LoginUser user) {
-        if (organizationDao.selectEntitys(DBRule.addRule(new ArrayList<DBRule>(), "parentid", id, "=")).size() > 0) {
+        if (organizationMapper.selectEntitys(id).size() > 0) {
             throw new RuntimeException("不能删除该节点，请先删除其子节点");
         }
         // 删除岗位
-        for (Post post : postDao.selectEntitys(new DBRule("ORGANIZATIONID", id, "=").getDBRules())) {
+        for (Post post : postMapper.findByOrganizationid(id)) {
             deletePostEntity(post.getId(), user);
         }
         // 删除组织机构
@@ -131,9 +112,9 @@ public class OrganizationServiceImpl implements OrganizationServiceInter {
         String[] ids = id.split(",");
         for (String id1 : ids) {
             // 同时删除岗位用户
-            userpostDao.deleteEntitys(new DBRule("POSTID", id1, "=").getDBRules());
+            userpostMapper.deleteByPostid(id1);
             // 同时删除岗位权限
-            postactionDao.deleteEntitys(new DBRule("POSTID", id1, "=").getDBRules());
+            postactionMapper.deleteByPostid(id1);
             Post post = postMapper.getEntity(id1);
             postMapper.deleteEntity(post.getId());
         }
@@ -204,7 +185,7 @@ public class OrganizationServiceImpl implements OrganizationServiceInter {
         postMapper.editEntity(post);
 
         // 如果子机构设为不可用，则删除用户和该岗位的关系
-        userpostDao.deleteEntitys(new DBRule("POSTID", post.getId(), "=").getDBRules());
+        userpostMapper.deleteByPostid(post.getId());
         return post;
     }
 
@@ -284,7 +265,7 @@ public class OrganizationServiceImpl implements OrganizationServiceInter {
         Userpost userpost = new Userpost();
         userpost.setPostid(postId);
         userpost.setUserid(userId);
-		userpostMapper.insertEntity(userpost);
+        userpostMapper.insertEntity(userpost);
     }
 
     @Override
@@ -292,7 +273,7 @@ public class OrganizationServiceImpl implements OrganizationServiceInter {
     public void removePostUsers(String postId, String userid, LoginUser currentUser) {
         String[] userIds = userid.split(",");
         for (String userId : userIds) {
-            userpostDao.deleteEntitys(new DBRule("USERID", userId, "=").addRule("POSTID", postId, "=").getDBRules());
+            userpostMapper.deleteByUseridAndPostid(userId, postId);
         }
     }
 
@@ -303,19 +284,19 @@ public class OrganizationServiceImpl implements OrganizationServiceInter {
             throw new IllegalArgumentException("请选择一个岗位");
         }
         // 删除之前的菜单
-        postactionDao.deleteEntitys(new DBRule("POSTID", postId, "=").getDBRules());
+        postactionMapper.deleteByPostid(postId);
         for (String nodeId : actionTreeIds) {
             Postaction postaction = new Postaction();
             postaction.setMenuid(nodeId);
             postaction.setPostid(postId);
-			postactionMapper.insertEntity(postaction);
+            postactionMapper.insertEntity(postaction);
         }
     }
 
     @Override
     @Transactional
     public List<Organization> getTree() {
-        return organizationDao.selectEntitys(new DBRule("1", "1", "=").getDBRules());
+        return organizationMapper.getList();
     }
 
     @Override
@@ -456,9 +437,7 @@ public class OrganizationServiceImpl implements OrganizationServiceInter {
     @Override
     @Transactional
     public Organization getOrganizationByAppid(String appid) {
-        List<DBRule> rules = new ArrayList<>();
-        rules.add(new DBRule("appid", appid, "="));
-        List<Organization> orgs = organizationDao.selectEntitys(rules);
+        List<Organization> orgs = organizationMapper.findByAppid(appid);
         if (orgs.size() > 0) {
             return orgs.get(0);
         } else {
@@ -471,9 +450,8 @@ public class OrganizationServiceImpl implements OrganizationServiceInter {
     public void removeOrgUsers(String orgid, String userids, LoginUser currentUser) {
         String[] userIdArray = userids.split(",");
         for (String userId : userIdArray) {
-            userorgDaoImpl.deleteEntitys(
-                    new DBRule("USERID", userId, "=").addRule("ORGANIZATIONID", orgid, "=").getDBRules());
-            userpostDao.deleteEntitys(new DBRule("USERID", userId, "=").getDBRules());
+            userorgMapper.deleteByUseridAndOrganizationid(userId, orgid);
+            userpostMapper.deleteByUserid(userId);
         }
     }
 
@@ -539,8 +517,7 @@ public class OrganizationServiceImpl implements OrganizationServiceInter {
     @Override
     @Transactional
     public List<Organization> getOrganizationByComments(String orgComment) {
-        List<Organization> orgs = organizationDao.selectEntitys(DBRuleList.getInstance()
-                .add(new DBRule("COMMENTS", orgComment, "=")).add(new DBRule("STATE", "1", "=")).toList());
+        List<Organization> orgs = organizationMapper.getOrganizationByComments(orgComment);
         return orgs;
     }
 
