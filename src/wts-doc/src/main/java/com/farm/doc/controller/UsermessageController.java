@@ -1,6 +1,6 @@
 package com.farm.doc.controller;
 
-import com.farm.doc.domain.Usermessage;
+import com.farm.doc.domain.UserMessage;
 import com.farm.doc.server.UsermessageServiceInter;
 
 import org.springframework.stereotype.Controller;
@@ -147,7 +147,7 @@ public class UsermessageController extends WebUtils {
 	 */
 	@RequestMapping("/edit")
 	@ResponseBody
-	public Map<String, Object> editSubmit(Usermessage entity, HttpSession session) {
+	public Map<String, Object> editSubmit(UserMessage entity, HttpSession session) {
 
 		try {
 			entity = usermessageServiceImpl.editUsermessageEntity(entity, getCurrentUser(session));
@@ -166,7 +166,7 @@ public class UsermessageController extends WebUtils {
 	 */
 	@RequestMapping("/add")
 	@ResponseBody
-	public Map<String, Object> addSubmit(Usermessage entity, HttpSession session) {
+	public Map<String, Object> addSubmit(UserMessage entity, HttpSession session) {
 		try {
 			// entity = usermessageServiceImpl.insertUsermessageEntity(entity,
 			// getCurrentUser(session));
@@ -233,7 +233,7 @@ public class UsermessageController extends WebUtils {
 		try {
 			switch (pageset.getOperateType()) {
 			case (0): {// 查看
-				Usermessage entity = usermessageServiceImpl.getUsermessageEntity(ids);
+				UserMessage entity = usermessageServiceImpl.getUsermessageEntity(ids);
 
 				return ViewMode.getInstance().putAttr("pageset", pageset).putAttr("entity", entity)
 						.putAttr("readusername", userServiceImpl.getUserEntity(entity.getReaduserid()).getName())
@@ -243,7 +243,7 @@ public class UsermessageController extends WebUtils {
 				return ViewMode.getInstance().putAttr("pageset", pageset).returnModelAndView("doc/UsermessageForm");
 			}
 			case (2): {// 修改
-				Usermessage entity = usermessageServiceImpl.getUsermessageEntity(ids);
+				UserMessage entity = usermessageServiceImpl.getUsermessageEntity(ids);
 				return ViewMode.getInstance().putAttr("pageset", pageset).putAttr("entity", entity)
 						.putAttr("readusername", userServiceImpl.getUserEntity(entity.getReaduserid()).getName())
 						.returnModelAndView("doc/UsermessageForm");
@@ -284,7 +284,7 @@ public class UsermessageController extends WebUtils {
 	 */
 	@RequestMapping("/sendMessage")
 	@ResponseBody
-	public Map<String, Object> sendMessage(Usermessage entity, String userids, HttpSession session) {
+	public Map<String, Object> sendMessage(UserMessage entity, String userids, HttpSession session) {
 		try {
 			// entity = usermessageServiceImpl.insertUsermessageEntity(entity,
 			// getCurrentUser(session));

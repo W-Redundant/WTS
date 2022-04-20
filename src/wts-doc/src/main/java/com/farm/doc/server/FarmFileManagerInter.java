@@ -3,13 +3,11 @@ package com.farm.doc.server;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.farm.core.auth.domain.LoginUser;
-import com.farm.doc.domain.Docfiletext;
-import com.farm.doc.domain.FarmDocfile;
-import com.farm.doc.server.FarmFileManagerInter.FILE_TYPE;
+import com.farm.doc.domain.DocFileText;
+import com.farm.doc.domain.Docfile;
 
 public interface FarmFileManagerInter {
 	/**
@@ -190,7 +188,7 @@ public interface FarmFileManagerInter {
 	 * @param fileid
 	 * @return
 	 */
-	public FarmDocfile getFile(String fileid);
+	public Docfile getFile(String fileid);
 
 	/**
 	 * 获取物理文件（不走缓存）
@@ -198,7 +196,7 @@ public interface FarmFileManagerInter {
 	 * @param docFile
 	 * @return
 	 */
-	public File getFile(FarmDocfile docFile);
+	public File getFile(Docfile docFile);
 
 	/**
 	 * 由文件id获得文件对象
@@ -206,7 +204,7 @@ public interface FarmFileManagerInter {
 	 * @param fileid
 	 * @return
 	 */
-	public FarmDocfile getFileNoCache(String fileid);
+	public Docfile getFileNoCache(String fileid);
 
 	/**
 	 * 获得文件的文本内容预览
@@ -214,7 +212,7 @@ public interface FarmFileManagerInter {
 	 * @param fileid
 	 * @return
 	 */
-	public Docfiletext getFiletext(String fileid);
+	public DocFileText getFiletext(String fileid);
 
 	/**
 	 * 获得一个默认图片
@@ -283,7 +281,7 @@ public interface FarmFileManagerInter {
 	 * @param type
 	 * @return
 	 */
-	public File getFormatImgFile(FarmDocfile file, IMG_TYPE type);
+	public File getFormatImgFile(Docfile file, IMG_TYPE type);
 
 	/**
 	 * 将文件状态改为提交状态，否则为临时状态
@@ -345,35 +343,35 @@ public interface FarmFileManagerInter {
 	 * @param user
 	 * @return
 	 */
-	public FarmDocfile openFile(String exname, String content, LoginUser user);
+	public Docfile openFile(String exname, String content, LoginUser user);
 
 	/**
 	 * 获得文档的所有附件,带File对象
 	 * 
 	 * @param docid
 	 */
-	public List<FarmDocfile> getAllFileForDoc(String docid);
+	public List<Docfile> getAllFileForDoc(String docid);
 
 	/**
 	 * 获得文档某版本下的附件,带File对象
 	 * 
 	 * @param docid
 	 */
-	public List<FarmDocfile> getAllFileForText(String textid);
+	public List<Docfile> getAllFileForText(String textid);
 
 	/**
 	 * 获得文档某版本下的附件,不带File对象
 	 * 
 	 * @param docid
 	 */
-	public List<FarmDocfile> getAllDocFileForText(String textid);
+	public List<Docfile> getAllDocFileForText(String textid);
 
 	/**
 	 * 获得文档的所有附件,不带File对象
 	 * 
 	 * @param docid
 	 */
-	public List<FarmDocfile> getAllDocfileForDoc(String docid);
+	public List<Docfile> getAllDocfileForDoc(String docid);
 
 	/**
 	 * 获得文档的某类型的所有附件
@@ -383,7 +381,7 @@ public interface FarmFileManagerInter {
 	 *            扩展名如.doc
 	 * @return
 	 */
-	public List<FarmDocfile> getAllTypeFileForDoc(String docid, String exname);
+	public List<Docfile> getAllTypeFileForDoc(String docid, String exname);
 
 	/**
 	 * 文档是否包含一个附件

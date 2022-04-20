@@ -16,9 +16,9 @@ import org.hibernate.annotations.GenericGenerator;
  *日期：20150707114057
  *说明：
  */
-@Entity(name = "Usermessage")
+@Entity(name = "UserMessage")
 @Table(name = "farm_usermessage")
-public class Usermessage implements java.io.Serializable {
+public class UserMessage implements java.io.Serializable {
         private static final long serialVersionUID = 1L;
 
         @Id

@@ -14,7 +14,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.farm.core.auth.domain.LoginUser;
-import com.farm.doc.domain.FarmDocfile;
+import com.farm.doc.domain.Docfile;
 import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.doc.server.commons.FarmDocFiles;
 import com.farm.util.web.FarmHtmlUtils;
@@ -22,7 +22,7 @@ import com.farm.util.web.FarmHtmlUtils;
 public class HtmlUtils {
 
 	// 替换doc中的图片地址为物理地址
-	public static String escapeImgSrcToFileSrc(List<FarmDocfile> files, String htmltext) {
+	public static String escapeImgSrcToFileSrc(List<Docfile> files, String htmltext) {
 		Document document = Jsoup.parseBodyFragment(htmltext);
 		Elements imgs = document.getElementsByTag("img");
 		for (Element ele : imgs) {
@@ -30,7 +30,7 @@ public class HtmlUtils {
 			String fileid = FarmDocFiles.getFileIdFromImgUrl(urlStr);
 			if (fileid != null) {
 				// 查找并处理该文件
-				for (FarmDocfile file : files) {
+				for (Docfile file : files) {
 					if (file.getId().equals(fileid)) {
 						// 构造附件地址
 						String filePath = "file" + file.getDir().replaceAll("\\\\", "/") + file.getName();
@@ -100,7 +100,7 @@ public class HtmlUtils {
 				System.out.println(e + e.getMessage());
 				return eurl;
 			}
-			FarmDocfile file = farmFileManagerImpl.openFile(exname, eurl.length() > 128 ? eurl.substring(0, 128) : eurl,
+			Docfile file = farmFileManagerImpl.openFile(exname, eurl.length() > 128 ? eurl.substring(0, 128) : eurl,
 					new LoginUser() {
 						@Override
 						public String getName() {

@@ -13,7 +13,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.farm.doc.domain.FarmDocfile;
+import com.farm.doc.domain.Docfile;
 import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.doc.server.commons.FarmDocFiles;
 import com.farm.util.spring.BeanFactory;
@@ -171,7 +171,7 @@ public class InitHtmlContentTag extends TagSupport {
 		for (Element node : doc.getElementsByTag("embed")) {
 			String urlStr = node.attr("src");
 			String id = FarmDocFiles.getFileIdFromImgUrl(urlStr);
-			FarmDocfile file = aloneIMP.getFile(id);
+			Docfile file = aloneIMP.getFile(id);
 			String exname = null;
 			if (file != null) {
 				exname = file.getExname().toUpperCase();

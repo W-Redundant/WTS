@@ -20,8 +20,8 @@ import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DBSort;
 import com.farm.core.sql.query.DataQuery;
 import com.farm.core.sql.result.DataResult;
-import com.farm.doc.domain.Docfiletext;
-import com.farm.doc.domain.FarmDocfile;
+import com.farm.doc.domain.DocFileText;
+import com.farm.doc.domain.Docfile;
 import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.doc.server.FarmFileManagerInter.IMG_TYPE;
 import com.farm.web.WebUtils;
@@ -114,7 +114,7 @@ public class DocFileController extends WebUtils {
 	 */
 	@RequestMapping("/edit")
 	@ResponseBody
-	public Map<String, Object> editSubmit(FarmDocfile entity, HttpSession session) {
+	public Map<String, Object> editSubmit(Docfile entity, HttpSession session) {
 		try {
 			return ViewMode.getInstance().setOperate(OperateType.ADD).returnObjMode();
 		} catch (Exception e) {
@@ -189,8 +189,8 @@ public class DocFileController extends WebUtils {
 			}
 			case (0): {// 展示
 				ViewMode view = ViewMode.getInstance();
-				FarmDocfile entity = farmFileManagerImpl.getFile(ids);
-				Docfiletext filetext = farmFileManagerImpl.getFiletext(entity.getId());
+				Docfile entity = farmFileManagerImpl.getFile(ids);
+				DocFileText filetext = farmFileManagerImpl.getFiletext(entity.getId());
 				entity.setUrl(farmFileManagerImpl.getFileURL(ids));
 				entity.setMinurl(farmFileManagerImpl.getImgURL(ids, IMG_TYPE.MIN));
 				String realPath = entity.getFile().getPath();

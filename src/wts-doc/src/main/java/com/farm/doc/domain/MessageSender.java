@@ -18,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity(name = "MessageSender")
 @Table(name = "farm_message_sender")
-public class Messagesender implements java.io.Serializable {
+public class MessageSender implements java.io.Serializable {
         private static final long serialVersionUID = 1L;
 
         @Id

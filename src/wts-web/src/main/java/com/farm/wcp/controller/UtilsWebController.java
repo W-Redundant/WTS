@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.farm.core.page.ViewMode;
-import com.farm.doc.domain.FarmDocfile;
+import com.farm.doc.domain.Docfile;
 import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.doc.server.commons.FarmDocFiles;
 import com.farm.parameter.FarmParameterService;
@@ -123,7 +123,7 @@ public class UtilsWebController extends WebUtils {
 		for (Element node : doc.getElementsByTag("embed")) {
 			String urlStr = node.attr("src");
 			String id = FarmDocFiles.getFileIdFromImgUrl(urlStr);
-			FarmDocfile file = farmFileManagerImpl.getFile(id);
+			Docfile file = farmFileManagerImpl.getFile(id);
 			String exname = null;
 			if (file != null) {
 				exname = file.getExname().toUpperCase();

@@ -15,11 +15,11 @@ import javax.persistence.Transient;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 
-@Entity(name = "FarmDocfile")
+@Entity(name = "Docfile")
 @Table(name = "farm_docfile")
-public class FarmDocfile implements java.io.Serializable, java.lang.Cloneable {
+public class Docfile implements java.io.Serializable, java.lang.Cloneable {
 	private static final long serialVersionUID = 3911185369411888075L;
-	private static final Logger log = Logger.getLogger(FarmDocfile.class);
+	private static final Logger log = Logger.getLogger(Docfile.class);
 	@Id
 	@GenericGenerator(name = "systemUUID", strategy = "uuid")
 	@GeneratedValue(generator = "systemUUID")
@@ -70,22 +70,22 @@ public class FarmDocfile implements java.io.Serializable, java.lang.Cloneable {
 	@Transient
 	private String medurl;
 
-	public FarmDocfile() {
+	public Docfile() {
 	}
 
 	@Override
 	public Object clone() {
-		FarmDocfile stu = null;
+		Docfile stu = null;
 		try {
-			stu = (FarmDocfile) super.clone();
+			stu = (Docfile) super.clone();
 		} catch (CloneNotSupportedException e) {
 			log.error(e + e.getMessage(), e);
 		}
 		return stu;
 	}
 
-	public FarmDocfile(String dir, String serverid, String type, String name, String filename, String ctime,
-			String etime, String cusername, String cuser, String eusername, String euser, String pstate) {
+	public Docfile(String dir, String serverid, String type, String name, String filename, String ctime,
+				   String etime, String cusername, String cuser, String eusername, String euser, String pstate) {
 		this.dir = dir;
 		this.serverid = serverid;
 		this.type = type;
@@ -108,9 +108,9 @@ public class FarmDocfile implements java.io.Serializable, java.lang.Cloneable {
 		this.appid = appid;
 	}
 
-	public FarmDocfile(String dir, String serverid, String type, String name, String filename, String ctime,
-			String etime, String cusername, String cuser, String eusername, String euser, String pstate,
-			String pcontent, String exname, Float len) {
+	public Docfile(String dir, String serverid, String type, String name, String filename, String ctime,
+				   String etime, String cusername, String cuser, String eusername, String euser, String pstate,
+				   String pcontent, String exname, Float len) {
 		this.dir = dir;
 		this.serverid = serverid;
 		this.type = type;

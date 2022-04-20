@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.doc.mapper.MessageSenderMapper">
+  <resultMap id="BaseResultMap" type="com.farm.doc.domain.MessageSender">
+    <!--@mbg.generated-->
+    <!--@Table farm_message_sender-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="MODELID" jdbcType="VARCHAR" property="modelid" />
+    <result column="APPID" jdbcType="VARCHAR" property="appid" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, MODELID, APPID, `TYPE`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from farm_message_sender
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from farm_message_sender
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByAppidAndModelid" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from farm_message_sender
+    where APPID = #{appid,jdbcType=VARCHAR}
+    where MODELID = #{modelid,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteAll">
+    <!--@mbg.generated-->
+    delete from farm_message_sender
+  </delete>
+
+  <insert id="insertEntity" parameterType="com.farm.doc.domain.MessageSender">
+    <!--@mbg.generated-->
+    insert into farm_message_sender (ID, MODELID, APPID, 
+      `TYPE`)
+    values (#{id,jdbcType=VARCHAR}, #{modelid,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.farm.doc.domain.MessageSender">
+    <!--@mbg.generated-->
+    insert into farm_message_sender
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="modelid != null">
+        MODELID,
+      </if>
+      <if test="appid != null">
+        APPID,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="modelid != null">
+        #{modelid,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.farm.doc.domain.MessageSender">
+    <!--@mbg.generated-->
+    update farm_message_sender
+    <set>
+      <if test="modelid != null">
+        MODELID = #{modelid,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null">
+        APPID = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `TYPE` = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.farm.doc.domain.MessageSender">
+    <!--@mbg.generated-->
+    update farm_message_sender
+    set MODELID = #{modelid,jdbcType=VARCHAR},
+      APPID = #{appid,jdbcType=VARCHAR},
+      `TYPE` = #{type,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

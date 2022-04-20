@@ -7,7 +7,10 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.farm.doc.mapper.UserMessageMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +24,7 @@ import com.farm.core.sql.result.DataResult;
 import com.farm.core.sql.result.ResultsHandle;
 import com.farm.core.time.TimeTool;
 import com.farm.doc.dao.UsermessageDaoInter;
-import com.farm.doc.domain.Usermessage;
+import com.farm.doc.domain.UserMessage;
 import com.farm.doc.server.UsermessageServiceInter;
 import com.farm.doc.util.HtmlUtils;
 
@@ -35,32 +38,34 @@ import com.farm.doc.util.HtmlUtils;
  *说明：
  */
 @Service
+@Slf4j
 public class UsermessageServiceImpl implements UsermessageServiceInter {
-	private static final Logger log = Logger.getLogger(UsermessageServiceImpl.class);
-	@Resource
-	private UsermessageDaoInter usermessageDaoImpl;
+
+	@Autowired
+	private UserMessageMapper userMessageMapper;
 
 	@Override
 	@Transactional
-	public Usermessage insertUsermessageEntity(Usermessage entity, LoginUser user) {
+	public UserMessage insertUsermessageEntity(UserMessage entity, LoginUser user) {
 		entity.setCtime(TimeTool.getTimeDate12());
 		if (user != null) {
 			entity.setCuser(user.getId());
 			entity.setCusername(user.getName());
 		}
 		entity.setPstate("1");
-		return usermessageDaoImpl.insertEntity(entity);
+		userMessageMapper.insertEntity(entity);
+		return entity;
 	}
 
 	@Override
 	@Transactional
-	public Usermessage editUsermessageEntity(Usermessage entity, LoginUser user) {
-		Usermessage entity2 = usermessageDaoImpl.getEntity(entity.getId());
+	public UserMessage editUsermessageEntity(UserMessage entity, LoginUser user) {
+		UserMessage entity2 = userMessageMapper.getEntity(entity.getId());
 		entity2.setContent(entity.getContent());
 		entity2.setReadstate(entity.getReadstate());
 		entity2.setReaduserid(entity.getReaduserid());
 		entity2.setTitle(entity.getTitle());
-		usermessageDaoImpl.editEntity(entity2);
+		userMessageMapper.editEntity(entity2);
 		return entity2;
 	}
 
@@ -68,17 +73,17 @@ public class UsermessageServiceImpl implements UsermessageServiceInter {
 	@Transactional
 	public void deleteUsermessageEntity(String id, LoginUser user) {
 
-		usermessageDaoImpl.deleteEntity(usermessageDaoImpl.getEntity(id));
+		userMessageMapper.deleteEntity(id);
 	}
 
 	@Override
 	@Transactional
-	public Usermessage getUsermessageEntity(String id) {
+	public UserMessage getUsermessageEntity(String id) {
 
 		if (id == null) {
 			return null;
 		}
-		return usermessageDaoImpl.getEntity(id);
+		return userMessageMapper.getEntity(id);
 	}
 
 	@Override
@@ -97,7 +102,7 @@ public class UsermessageServiceImpl implements UsermessageServiceInter {
 	@Override
 	@Transactional
 	public void setRead(String id) {
-		Usermessage entity = usermessageDaoImpl.getEntity(id);
+		UserMessage entity = userMessageMapper.getEntity(id);
 		entity.setReadstate("1");
 	}
 

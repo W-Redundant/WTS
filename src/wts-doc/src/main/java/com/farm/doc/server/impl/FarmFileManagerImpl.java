@@ -13,9 +13,13 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
+import com.farm.doc.mapper.DocfileMapper;
+import com.farm.doc.mapper.DocfileTextMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +28,8 @@ import com.farm.core.sql.query.DBRule;
 import com.farm.core.time.TimeTool;
 import com.farm.doc.dao.DocfiletextDaoInter;
 import com.farm.doc.dao.FarmDocfileDaoInter;
-import com.farm.doc.domain.Docfiletext;
-import com.farm.doc.domain.FarmDocfile;
+import com.farm.doc.domain.DocFileText;
+import com.farm.doc.domain.Docfile;
 import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.doc.server.commons.FarmDocFiles;
 import com.farm.parameter.FarmParameterService;
@@ -37,12 +41,14 @@ import com.farm.web.WebUtils;
 import net.coobird.thumbnailator.Thumbnails;
 
 @Service
+@Slf4j
 public class FarmFileManagerImpl implements FarmFileManagerInter {
-	@Resource
-	private FarmDocfileDaoInter farmDocfileDao;
-	@Resource
-	private DocfiletextDaoInter docfiletextDaoImpl;
-	private static final Logger log = Logger.getLogger(FarmFileManagerImpl.class);
+
+	@Autowired
+	private DocfileMapper docfileMapper;
+
+	@Autowired
+	private DocfileTextMapper docfileTextMapper;
 
 	@Override
 	@Transactional
@@ -65,7 +71,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		}
 		// 重命名
 		file = FarmDocFiles.renameFile(file, UUID.randomUUID().toString().replaceAll("-", "") + exName + ".file");
-		FarmDocfile docfile = new FarmDocfile(FarmDocFiles.generateDir(),
+		Docfile docfile = new Docfile(FarmDocFiles.generateDir(),
 				UUID.randomUUID().toString().replaceAll("-", ""), type.getValue(), title, file.getName(),
 				TimeTool.getTimeDate14(), TimeTool.getTimeDate14(), userName, userId, userName, userId, "0", null,
 				exName, Float.valueOf(String.valueOf(file.length())));
@@ -74,7 +80,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 			docfile.setEusername("none");
 		}
 		FarmDocFiles.copyFile(file, FarmDocFiles.getFileDirPath() + docfile.getDir(), processKey);
-		docfile = farmDocfileDao.insertEntity(docfile);
+		docfileMapper.insertEntity(docfile);
 		return docfile.getId();
 	}
 
@@ -95,7 +101,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 			userId = user.getId();
 			userName = user.getName();
 		}
-		FarmDocfile docfile = new FarmDocfile(FarmDocFiles.generateDir(),
+		Docfile docfile = new Docfile(FarmDocFiles.generateDir(),
 				UUID.randomUUID().toString().replaceAll("-", ""), type.getValue(), title, filename,
 				TimeTool.getTimeDate14(), TimeTool.getTimeDate14(), userName, userId, userName, userId, "0", null,
 				exName, Float.valueOf(String.valueOf(0)));
@@ -105,7 +111,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		}
 		long length = FarmDocFiles.saveFile(fileData, filename, FarmDocFiles.getFileDirPath() + docfile.getDir());
 		docfile.setLen(Float.valueOf(String.valueOf(length)));
-		docfile = farmDocfileDao.insertEntity(docfile);
+		docfileMapper.insertEntity(docfile);
 		return docfile.getId();
 	}
 
@@ -126,7 +132,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 			userId = user.getId();
 			userName = user.getName();
 		}
-		FarmDocfile docfile = new FarmDocfile(FarmDocFiles.generateDir(),
+		Docfile docfile = new Docfile(FarmDocFiles.generateDir(),
 				UUID.randomUUID().toString().replaceAll("-", ""), type.getValue(), title, filename,
 				TimeTool.getTimeDate14(), TimeTool.getTimeDate14(), userName, userId, userName, userId, "0", null,
 				exName, Float.valueOf(String.valueOf(0)));
@@ -136,14 +142,14 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		}
 		long length = FarmDocFiles.saveFile(inStream, filename, FarmDocFiles.getFileDirPath() + docfile.getDir());
 		docfile.setLen(Float.valueOf(String.valueOf(length)));
-		docfile = farmDocfileDao.insertEntity(docfile);
+		docfileMapper.insertEntity(docfile);
 		return docfile.getId();
 	}
 
 	@Override
 	@Transactional
 	public String getFileURL(String fileid) {
-		FarmDocfile file = getFile(fileid);
+		Docfile file = getFile(fileid);
 		String url = FarmParameterService.getInstance().getParameter("config.doc.download.url") + fileid + "&safecode="
 				+ file.getServerid();
 		return url;
@@ -158,28 +164,28 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 
 	@Override
 	@Transactional
-	public FarmDocfile getFileNoCache(String fileid) {
-		FarmDocfile file = farmDocfileDao.getEntity(fileid);
+	public Docfile getFileNoCache(String fileid) {
+		Docfile file = docfileMapper.getEntity(fileid);
 		return file;
 	}
 
-	public File getFile(FarmDocfile docFile) {
+	public File getFile(Docfile docFile) {
 		return new File(FarmDocFiles.getFileDirPath() + File.separator + docFile.getDir() + docFile.getFilename());
 	}
 
 	@Override
 	@Transactional
-	public FarmDocfile getFile(String fileid) {
-		FarmDocfile docFile = null;
+	public Docfile getFile(String fileid) {
+		Docfile docFile = null;
 		if (fileid == null) {
 			return null;
 		}
-		FarmDocfile val = (FarmDocfile) FarmCaches.getInstance().getCacheData(fileid, FarmCacheName.FileCache);
+		Docfile val = (Docfile) FarmCaches.getInstance().getCacheData(fileid, FarmCacheName.FileCache);
 		if (val != null) {
 			log.debug("load file from cache");
 			docFile = val;
 		} else {
-			docFile = farmDocfileDao.getEntity(fileid);
+			docFile = docfileMapper.getEntity(fileid);
 			if (docFile == null) {
 				return null;
 			}
@@ -190,13 +196,13 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 				if (docFile.getLen() == 0) {
 					docFile.setLen(Float.valueOf(-1));
 				}
-				farmDocfileDao.editEntity(docFile);
+				docfileMapper.editEntity(docFile);
 			}
 			FarmCaches.getInstance().putCacheData(fileid, docFile, FarmCacheName.FileCache);
 		}
 		// 将对象克隆后传出，避免对象被污染
 		try {
-			return (FarmDocfile) BeanUtils.cloneBean(docFile);
+			return (Docfile) BeanUtils.cloneBean(docFile);
 		} catch (IllegalAccessException | InstantiationException | InvocationTargetException
 				| NoSuchMethodException e) {
 			log.warn("附件对象引用克隆失败", e);
@@ -216,7 +222,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		if (fileId == null) {
 			return;
 		}
-		FarmDocfile file = farmDocfileDao.getEntity(fileId);
+		Docfile file = docfileMapper.getEntity(fileId);
 		if (file == null) {
 			return;
 		}
@@ -225,7 +231,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 			return;
 		}
 		file.setPstate("0");
-		farmDocfileDao.editEntity(file);
+		docfileMapper.editEntity(file);
 		file.setFile(getFile(file));
 		FarmCaches.getInstance().putCacheData(file.getId(), file, FarmCacheName.FileCache);
 	}
@@ -236,7 +242,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		{
 			// 如果时使用中的文件不能被删除
 			// FarmDocfile file = getFile(fileId);
-			FarmDocfile file = farmDocfileDao.getEntity(fileId);
+			Docfile file = docfileMapper.getEntity(fileId);
 			if (file == null) {
 				return;
 			}
@@ -257,9 +263,9 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 					.toUpperCase().equals("TRUE");
 			if (isImg(fileId)) {
 				if (!isRemoveImgable) {
-					FarmDocfile docfile = farmDocfileDao.getEntity(fileId);
+					Docfile docfile = docfileMapper.getEntity(fileId);
 					docfile.setPcontent("因禁止删除图片而保留");
-					farmDocfileDao.editEntity(docfile);
+					docfileMapper.editEntity(docfile);
 					return;
 				}
 			}
@@ -267,14 +273,14 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		if (fileId == null) {
 			return;
 		}
-		FarmDocfile docfile = farmDocfileDao.getEntity(fileId);
+		Docfile docfile = docfileMapper.getEntity(fileId);
 		if (docfile == null) {
 			return;
 		}
 		File file = this.getFile(fileId).getFile();
 		{
 			// 删除附件得文字描述
-			docfiletextDaoImpl.deleteFileTextByFileid(fileId);
+			docfileTextMapper.deleteFileTextByFileid(fileId);
 		}
 		{ // 如果该附件时知识得内容图则删除该附件（不知道爲何在删除知识的时候报错了，所以先注释掉）
 			// Doc docbean = farmDocDao.getdocByImgid(fileId);
@@ -283,7 +289,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 			// farmDocDao.editEntity(docbean);
 			// }
 		}
-		farmDocfileDao.deleteEntity(docfile);
+		docfileMapper.deleteEntity(docfile.getId());
 		try {
 			if (file.exists()) {
 				if (file.delete()) {
@@ -300,11 +306,11 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 
 	@Override
 	@Transactional
-	public FarmDocfile openFile(String exname, String content, LoginUser user) {
+	public Docfile openFile(String exname, String content, LoginUser user) {
 		FILE_TYPE type = FILE_TYPE.OHTER;
 		String name = UUID.randomUUID().toString().replaceAll("-", "");
 		String filename = name + "." + exname + ".file";
-		FarmDocfile docfile = new FarmDocfile(FarmDocFiles.generateDir(),
+		Docfile docfile = new Docfile(FarmDocFiles.generateDir(),
 				UUID.randomUUID().toString().replaceAll("-", ""), type.getValue(), name + "." + exname, filename,
 				TimeTool.getTimeDate14(), TimeTool.getTimeDate14(), user.getName(), user.getId(), user.getName(),
 				user.getId(), "0", content, exname, Float.valueOf(0));
@@ -316,16 +322,16 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		docfile = farmDocfileDao.insertEntity(docfile);
+		docfileMapper.insertEntity(docfile);
 		docfile.setFile(file);
 		return docfile;
 	}
 
 	@Override
 	@Transactional
-	public List<FarmDocfile> getAllFileForDoc(String docid) {
-		List<FarmDocfile> refiles = farmDocfileDao.getDocFilesByDocId(docid);
-		for (FarmDocfile file : refiles) {
+	public List<Docfile> getAllFileForDoc(String docid) {
+		List<Docfile> refiles = docfileMapper.getDocFilesByDocId(docid);
+		for (Docfile file : refiles) {
 			file = getFile(file.getId());
 		}
 		return refiles;
@@ -333,9 +339,9 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 
 	@Override
 	@Transactional
-	public List<FarmDocfile> getAllFileForText(String textid) {
-		List<FarmDocfile> refiles = farmDocfileDao.getDocFilesByDocTextId(textid);
-		for (FarmDocfile file : refiles) {
+	public List<Docfile> getAllFileForText(String textid) {
+		List<Docfile> refiles = docfileMapper.getDocFilesByDocTextId(textid);
+		for (Docfile file : refiles) {
 			file = getFile(file.getId());
 		}
 		return refiles;
@@ -343,15 +349,15 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 
 	@Override
 	@Transactional
-	public List<FarmDocfile> getAllDocfileForDoc(String docid) {
-		return farmDocfileDao.getDocFilesByDocId(docid);
+	public List<Docfile> getAllDocfileForDoc(String docid) {
+		return docfileMapper.getDocFilesByDocId(docid);
 	}
 
 	@Override
-	public List<FarmDocfile> getAllTypeFileForDoc(String docid, String exname) {
-		List<FarmDocfile> refiles = farmDocfileDao.getDocFilesByDocId(docid);
-		List<FarmDocfile> newrefiles = new ArrayList<FarmDocfile>();
-		for (FarmDocfile file : refiles) {
+	public List<Docfile> getAllTypeFileForDoc(String docid, String exname) {
+		List<Docfile> refiles = docfileMapper.getDocFilesByDocId(docid);
+		List<Docfile> newrefiles = new ArrayList<Docfile>();
+		for (Docfile file : refiles) {
 			if (file.getExname().toUpperCase().equals(exname.toUpperCase())) {
 				file = getFile(file.getId());
 				newrefiles.add(file);
@@ -362,8 +368,8 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 
 	@Override
 	public boolean containFileByDoc(String docid, String fileId) {
-		List<FarmDocfile> list = farmDocfileDao.getDocFilesByDocId(docid);
-		for (FarmDocfile node : list) {
+		List<Docfile> list = docfileMapper.getDocFilesByDocId(docid);
+		for (Docfile node : list) {
 			if (node.getId().equals(fileId)) {
 				return true;
 			}
@@ -381,7 +387,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		List<DBRule> rules = new ArrayList<>();
 		rules.add(new DBRule("FILEID", fileid, "="));
 		rules.add(new DBRule("DOCID", docid, "="));
-		List<Docfiletext> lists = docfiletextDaoImpl.selectEntitys(rules);
+		List<DocFileText> lists = docfileTextMapper.findByFileIdAndDocId(fileid,docid);
 		if (text != null && text.length() > 60000) {
 			text = text.substring(0, 60000);
 		}
@@ -391,26 +397,25 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		}
 		if (lists.size() > 0) {
 			// 找到的话就更新
-			Docfiletext filetext = lists.get(0);
+			DocFileText filetext = lists.get(0);
 			filetext.setDescribes(text);
 			filetext.setDescribesmin(textmin);
-			docfiletextDaoImpl.editEntity(filetext);
+			docfileTextMapper.editEntity(filetext);
 		} else {// 找不到就插入
-			Docfiletext filetext = new Docfiletext();
+			DocFileText filetext = new DocFileText();
 			filetext.setDescribes(text);
 			filetext.setDocid(docid);
 			filetext.setFileid(fileid);
 			filetext.setDescribesmin(textmin);
-			docfiletextDaoImpl.insertEntity(filetext);
+			docfileTextMapper.insertEntity(filetext);
 		}
 	}
 
 	@Override
 	@Transactional
-	public Docfiletext getFiletext(String fileid) {
+	public DocFileText getFiletext(String fileid) {
 		List<DBRule> rules = new ArrayList<>();
-		rules.add(new DBRule("FILEID", fileid, "="));
-		List<Docfiletext> lists = docfiletextDaoImpl.selectEntitys(rules);
+		List<DocFileText> lists = docfileTextMapper.findByFileId(fileid);
 		if (lists.size() > 0) {
 			return lists.get(0);
 		}
@@ -422,7 +427,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 	public void updateFileState(String oldfileId, String newfileId, LoginUser user) {
 		String note = null;
 		if (StringUtils.isNotBlank(oldfileId)) {
-			FarmDocfile oldFile = farmDocfileDao.getEntity(oldfileId);
+			Docfile oldFile = docfileMapper.getEntity(oldfileId);
 			if (oldFile != null) {
 				note = oldFile.getPcontent();
 			}
@@ -480,7 +485,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 	}
 
 	@Override
-	public File getFormatImgFile(FarmDocfile docfile, IMG_TYPE type) {
+	public File getFormatImgFile(Docfile docfile, IMG_TYPE type) {
 		File file = new File(docfile.getFile().getPath());
 		// 变换图片
 		try {
@@ -567,7 +572,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 	@Override
 	@Transactional
 	public boolean isImg(String fileid) {
-		FarmDocfile docfile = getFile(fileid);
+		Docfile docfile = getFile(fileid);
 		if (docfile == null) {
 			return false;
 		}
@@ -616,18 +621,18 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 	@Override
 	@Transactional
 	public void recordDownload(String fileid, String ip, LoginUser currentUser) {
-		FarmDocfile file = farmDocfileDao.getEntity(fileid);
+		Docfile file = docfileMapper.getEntity(fileid);
 		WebVisitBuff visit = WebVisitBuff.getInstance("DOWNLOAD_NUM", 500);
 		if (visit.canVisite(fileid + ip)) {
 			file.setDownum(file.getDownum() + 1);
 		}
-		farmDocfileDao.editEntity(file);
+		docfileMapper.editEntity(file);
 	}
 
 	@Override
 	@Transactional
-	public List<FarmDocfile> getAllDocFileForText(String textid) {
-		List<FarmDocfile> refiles = farmDocfileDao.getDocFilesByDocTextId(textid);
+	public List<Docfile> getAllDocFileForText(String textid) {
+		List<Docfile> refiles = docfileMapper.getDocFilesByDocTextId(textid);
 		return refiles;
 	}
 
@@ -638,8 +643,8 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 
 	@Override
 	public boolean isFileExistByDocId(String docid, String fileid) {
-		List<FarmDocfile> files = getAllDocfileForDoc(docid);
-		for (FarmDocfile file : files) {
+		List<Docfile> files = getAllDocfileForDoc(docid);
+		for (Docfile file : files) {
 			if (file.getId().equals(fileid)) {
 				return true;
 			}
@@ -652,12 +657,12 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		if (fileid == null) {
 			return;
 		}
-		FarmDocfile file = farmDocfileDao.getEntity(fileid);
+		Docfile file = docfileMapper.getEntity(fileid);
 		if (file == null) {
 			return;
 		}
 		file.setPstate("3");
-		farmDocfileDao.editEntity(file);
+		docfileMapper.editEntity(file);
 		file.setFile(getFile(file));
 		FarmCaches.getInstance().putCacheData(file.getId(), file, FarmCacheName.FileCache);
 	}
@@ -668,7 +673,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		if (StringUtils.isBlank(fileId)) {
 			return;
 		}
-		FarmDocfile file = farmDocfileDao.getEntity(fileId);
+		Docfile file = docfileMapper.getEntity(fileId);
 		if (file == null) {
 			return;
 		}
@@ -682,7 +687,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		if (StringUtils.isNotBlank(appid)) {
 			file.setAppid(appid);
 		}
-		farmDocfileDao.editEntity(file);
+		docfileMapper.editEntity(file);
 	}
 
 	@Override
@@ -690,7 +695,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 	public void submitFileByAppHtml(String roomnote, String appid, FILE_APPLICATION_TYPE TYPE) {
 		List<String> files = FarmDocFiles.getFilesIdFromHtml(roomnote);
 		for (String fileid : files) {
-			FarmDocfile file = getFileNoCache(fileid);
+			Docfile file = getFileNoCache(fileid);
 			if (file != null) {
 				// 处理附件
 				submitFile(fileid, TYPE.getValue(), appid);
@@ -704,13 +709,11 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		if (StringUtils.isBlank(appid)) {
 			return;
 		}
-		List<DBRule> rules = new ArrayList<>();
-		rules.add(new DBRule("appid", appid, "="));
-		List<FarmDocfile> lists = farmDocfileDao.selectEntitys(rules);
-		for (FarmDocfile file : lists) {
+		List<Docfile> lists = docfileMapper.findByAppid(appid);
+		for (Docfile file : lists) {
 			file.setPstate("0");
 			file.setEtime(TimeTool.getTimeDate14());
-			farmDocfileDao.editEntity(file);
+			docfileMapper.editEntity(file);
 		}
 	}
 
@@ -721,7 +724,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		List<String> newfiles = FarmDocFiles.getFilesIdFromHtml(newText);
 		oldfiles.removeAll(FarmDocFiles.getFilesIdFromHtml(newText));
 		for (String fileid : oldfiles) {
-			FarmDocfile file = getFileNoCache(fileid);
+			Docfile file = getFileNoCache(fileid);
 			if (file != null) {
 				// 删除新得中没有得
 				cancelFile(fileid);
@@ -729,7 +732,7 @@ public class FarmFileManagerImpl implements FarmFileManagerInter {
 		}
 		newfiles.removeAll(FarmDocFiles.getFilesIdFromHtml(oldText));
 		for (String fileid : newfiles) {
-			FarmDocfile file = getFileNoCache(fileid);
+			Docfile file = getFileNoCache(fileid);
 			if (file != null) {
 				// 添加旧的中没有得
 				submitFile(fileid, TYPE.getValue(), appid);

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.doc.mapper.DocfileTextMapper">
+  <resultMap id="BaseResultMap" type="com.farm.doc.domain.DocFileText">
+    <!--@mbg.generated-->
+    <!--@Table farm_docfile_text-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="DESCRIBES" jdbcType="LONGVARCHAR" property="describes" />
+    <result column="FILEID" jdbcType="VARCHAR" property="fileid" />
+    <result column="DOCID" jdbcType="VARCHAR" property="docid" />
+    <result column="DESCRIBESMIN" jdbcType="VARCHAR" property="describesmin" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, DESCRIBES, FILEID, DOCID, DESCRIBESMIN
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from farm_docfile_text
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByFileIdAndDocId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from farm_docfile_text
+    where FILEID = #{fileId,jdbcType=VARCHAR}
+    and DOCID = #{docId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByFileId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from farm_docfile_text
+    where FILEID = #{fileId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from farm_docfile_text
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteFileTextByFileid" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from farm_docfile_text
+    where FILEID = #{fileId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertEntity" parameterType="com.farm.doc.domain.DocFileText">
+    <!--@mbg.generated-->
+    insert into farm_docfile_text (ID, DESCRIBES, FILEID, 
+      DOCID, DESCRIBESMIN)
+    values (#{id,jdbcType=VARCHAR}, #{describes,jdbcType=LONGVARCHAR}, #{fileid,jdbcType=VARCHAR}, 
+      #{docid,jdbcType=VARCHAR}, #{describesmin,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.farm.doc.domain.DocFileText">
+    <!--@mbg.generated-->
+    insert into farm_docfile_text
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="describes != null">
+        DESCRIBES,
+      </if>
+      <if test="fileid != null">
+        FILEID,
+      </if>
+      <if test="docid != null">
+        DOCID,
+      </if>
+      <if test="describesmin != null">
+        DESCRIBESMIN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="describes != null">
+        #{describes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fileid != null">
+        #{fileid,jdbcType=VARCHAR},
+      </if>
+      <if test="docid != null">
+        #{docid,jdbcType=VARCHAR},
+      </if>
+      <if test="describesmin != null">
+        #{describesmin,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.farm.doc.domain.DocFileText">
+    <!--@mbg.generated-->
+    update farm_docfile_text
+    <set>
+      <if test="describes != null">
+        DESCRIBES = #{describes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fileid != null">
+        FILEID = #{fileid,jdbcType=VARCHAR},
+      </if>
+      <if test="docid != null">
+        DOCID = #{docid,jdbcType=VARCHAR},
+      </if>
+      <if test="describesmin != null">
+        DESCRIBESMIN = #{describesmin,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.farm.doc.domain.DocFileText">
+    <!--@mbg.generated-->
+    update farm_docfile_text
+    set DESCRIBES = #{describes,jdbcType=LONGVARCHAR},
+      FILEID = #{fileid,jdbcType=VARCHAR},
+      DOCID = #{docid,jdbcType=VARCHAR},
+      DESCRIBESMIN = #{describesmin,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

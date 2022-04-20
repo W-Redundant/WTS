@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.doc.mapper.MessageModelMapper">
+  <resultMap id="BaseResultMap" type="com.farm.doc.domain.MessageModel">
+    <!--@mbg.generated-->
+    <!--@Table farm_message_model-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="ETIME" jdbcType="VARCHAR" property="etime" />
+    <result column="CUSERNAME" jdbcType="VARCHAR" property="cusername" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="EUSERNAME" jdbcType="VARCHAR" property="eusername" />
+    <result column="EUSER" jdbcType="VARCHAR" property="euser" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="TYPEKEY" jdbcType="VARCHAR" property="typekey" />
+    <result column="OVERER" jdbcType="VARCHAR" property="overer" />
+    <result column="TITLEMODEL" jdbcType="VARCHAR" property="titlemodel" />
+    <result column="CONTENTMODEL" jdbcType="VARCHAR" property="contentmodel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CTIME, ETIME, CUSERNAME, CUSER, EUSERNAME, EUSER, PSTATE, PCONTENT, TITLE, TYPEKEY, 
+    OVERER, TITLEMODEL, CONTENTMODEL
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from farm_message_model
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from farm_message_model
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteAll">
+    <!--@mbg.generated-->
+    delete from farm_message_model
+  </delete>
+
+  <insert id="insertEntity" parameterType="com.farm.doc.domain.MessageModel">
+    <!--@mbg.generated-->
+    insert into farm_message_model (ID, CTIME, ETIME, 
+      CUSERNAME, CUSER, EUSERNAME, 
+      EUSER, PSTATE, PCONTENT, 
+      TITLE, TYPEKEY, OVERER, 
+      TITLEMODEL, CONTENTMODEL)
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{etime,jdbcType=VARCHAR}, 
+      #{cusername,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, #{eusername,jdbcType=VARCHAR}, 
+      #{euser,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{typekey,jdbcType=VARCHAR}, #{overer,jdbcType=VARCHAR}, 
+      #{titlemodel,jdbcType=VARCHAR}, #{contentmodel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.farm.doc.domain.MessageModel">
+    <!--@mbg.generated-->
+    insert into farm_message_model
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="etime != null">
+        ETIME,
+      </if>
+      <if test="cusername != null">
+        CUSERNAME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="eusername != null">
+        EUSERNAME,
+      </if>
+      <if test="euser != null">
+        EUSER,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="typekey != null">
+        TYPEKEY,
+      </if>
+      <if test="overer != null">
+        OVERER,
+      </if>
+      <if test="titlemodel != null">
+        TITLEMODEL,
+      </if>
+      <if test="contentmodel != null">
+        CONTENTMODEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="typekey != null">
+        #{typekey,jdbcType=VARCHAR},
+      </if>
+      <if test="overer != null">
+        #{overer,jdbcType=VARCHAR},
+      </if>
+      <if test="titlemodel != null">
+        #{titlemodel,jdbcType=VARCHAR},
+      </if>
+      <if test="contentmodel != null">
+        #{contentmodel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.farm.doc.domain.MessageModel">
+    <!--@mbg.generated-->
+    update farm_message_model
+    <set>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        ETIME = #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        EUSER = #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="typekey != null">
+        TYPEKEY = #{typekey,jdbcType=VARCHAR},
+      </if>
+      <if test="overer != null">
+        OVERER = #{overer,jdbcType=VARCHAR},
+      </if>
+      <if test="titlemodel != null">
+        TITLEMODEL = #{titlemodel,jdbcType=VARCHAR},
+      </if>
+      <if test="contentmodel != null">
+        CONTENTMODEL = #{contentmodel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.farm.doc.domain.MessageModel">
+    <!--@mbg.generated-->
+    update farm_message_model
+    set CTIME = #{ctime,jdbcType=VARCHAR},
+      ETIME = #{etime,jdbcType=VARCHAR},
+      CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      EUSER = #{euser,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      TYPEKEY = #{typekey,jdbcType=VARCHAR},
+      OVERER = #{overer,jdbcType=VARCHAR},
+      TITLEMODEL = #{titlemodel,jdbcType=VARCHAR},
+      CONTENTMODEL = #{contentmodel,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

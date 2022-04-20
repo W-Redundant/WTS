@@ -1,6 +1,6 @@
 package com.farm.doc.server;
 
-import com.farm.doc.domain.Messagemodel;
+import com.farm.doc.domain.MessageModel;
 import com.farm.core.sql.query.DataQuery;
 import com.farm.core.auth.domain.LoginUser;
 
@@ -19,14 +19,14 @@ public interface MessagemodelServiceInter {
 	 * 
 	 * @param entity
 	 */
-	public Messagemodel insertMessagemodelEntity(Messagemodel entity, LoginUser user);
+	public MessageModel insertMessagemodelEntity(MessageModel entity, LoginUser user);
 
 	/**
 	 * 修改实体管理实体
 	 * 
 	 * @param entity
 	 */
-	public Messagemodel editMessagemodelEntity(Messagemodel entity, LoginUser user);
+	public MessageModel editMessagemodelEntity(MessageModel entity, LoginUser user);
 
 	/**
 	 * 删除实体管理实体
@@ -41,7 +41,7 @@ public interface MessagemodelServiceInter {
 	 * @param id
 	 * @return
 	 */
-	public Messagemodel getMessagemodelEntity(String id);
+	public MessageModel getMessagemodelEntity(String id);
 
 	/**
 	 * 创建一个基本查询用来查询当前实体管理实体
@@ -80,8 +80,8 @@ public interface MessagemodelServiceInter {
 	 * @param currentUser
 	 * @return
 	 */
-	public Messagemodel editMessagemodelEntity(String id, String titlemodel, String contentmodel, String pcontent,
-			LoginUser currentUser);
+	public MessageModel editMessagemodelEntity(String id, String titlemodel, String contentmodel, String pcontent,
+                                               LoginUser currentUser);
 
 	/**
 	 * 创建一个基本查询用来查询模型的抄送人

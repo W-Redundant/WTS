@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.farm.core.auth.domain.LoginUser;
 import com.farm.core.time.TimeTool;
-import com.farm.doc.domain.FarmDocfile;
+import com.farm.doc.domain.Docfile;
 import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.util.spring.BeanFactory;
 import com.wts.exam.dao.SubjectDaoInter;
@@ -104,7 +104,7 @@ public class FileupHandle implements SubjectTipHandle {
 			if (nuit.getVersion().getId().equals(val.getVersionid())) {
 				if (StringUtils.isNotBlank(val.getValstr())) {
 					nuit.setVal(val.getValstr());
-					FarmDocfile dfile = fileServerIMP.getFile(val.getValstr());
+					Docfile dfile = fileServerIMP.getFile(val.getValstr());
 					if (dfile != null) {
 						nuit.setValtitle(fileServerIMP.getFile(val.getValstr())
 								.getName());

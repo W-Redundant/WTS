@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity(name = "DocFileText")
 @Table(name = "farm_docfile_text")
-public class Docfiletext implements java.io.Serializable {
+public class DocFileText implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

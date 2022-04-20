@@ -15,7 +15,7 @@ import com.farm.authority.service.OrganizationServiceInter;
 import com.farm.authority.service.UserServiceInter;
 import com.farm.core.page.ViewMode;
 import com.farm.core.sql.result.DataResult;
-import com.farm.doc.domain.Usermessage;
+import com.farm.doc.domain.UserMessage;
 import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.doc.server.UsermessageServiceInter;
 import com.farm.parameter.FarmParameterService;
@@ -59,7 +59,7 @@ public class UserMsgWebController extends WebUtils {
 	public ModelAndView showMessage(String id, Integer num) {
 		try {
 			usermessageServiceImpl.setRead(id);
-			Usermessage usermessage = usermessageServiceImpl.getUsermessageEntity(id);
+			UserMessage usermessage = usermessageServiceImpl.getUsermessageEntity(id);
 			String readstatename = "";
 			if (usermessage.getReadstate().equals("0")) {// 0未读、1已读
 				readstatename = "未读";

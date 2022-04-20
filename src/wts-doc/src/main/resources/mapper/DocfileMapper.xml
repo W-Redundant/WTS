@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.doc.mapper.DocfileMapper">
+  <resultMap id="BaseResultMap" type="com.farm.doc.domain.Docfile">
+    <!--@mbg.generated-->
+    <!--@Table farm_docfile-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="DIR" jdbcType="VARCHAR" property="dir" />
+    <result column="SERVERID" jdbcType="VARCHAR" property="serverid" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="EXNAME" jdbcType="VARCHAR" property="exname" />
+    <result column="LEN" jdbcType="FLOAT" property="len" />
+    <result column="FILENAME" jdbcType="VARCHAR" property="filename" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="ETIME" jdbcType="VARCHAR" property="etime" />
+    <result column="CUSERNAME" jdbcType="VARCHAR" property="cusername" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="EUSERNAME" jdbcType="VARCHAR" property="eusername" />
+    <result column="EUSER" jdbcType="VARCHAR" property="euser" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="DOWNUM" jdbcType="INTEGER" property="downum" />
+    <result column="APPID" jdbcType="VARCHAR" property="appid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, DIR, SERVERID, `TYPE`, `NAME`, EXNAME, LEN, FILENAME, CTIME, ETIME, CUSERNAME, 
+    CUSER, EUSERNAME, EUSER, PCONTENT, PSTATE, DOWNUM, APPID
+  </sql>
+
+
+  <select id="getDocFilesByDocId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    SELECT DISTINCT b.* FROM farm_rf_doctextfile a
+    LEFT JOIN farm_docfile b ON a.FILEID=b.ID WHERE
+    PSTATE='1'
+    AND a.DOCID= #{docid,jdbcType=VARCHAR}
+    order by b.name asc
+  </select>
+
+  <select id="getDocFilesByDocTextId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    SELECT DISTINCT b.* FROM farm_rf_doctextfile a
+    LEFT JOIN farm_docfile b
+    ON a.FILEID=b.ID
+    WHERE  PSTATE='1' AND
+    a.TEXTID= #{textid,jdbcType=VARCHAR}
+    order by b.name asc
+  </select>
+
+  <select id="findByAppid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from farm_docfile
+    where appid = #{appid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from farm_docfile
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from farm_docfile
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.farm.doc.domain.Docfile">
+    <!--@mbg.generated-->
+    insert into farm_docfile (ID, DIR, SERVERID, 
+      `TYPE`, `NAME`, EXNAME, 
+      LEN, FILENAME, CTIME, 
+      ETIME, CUSERNAME, CUSER, 
+      EUSERNAME, EUSER, PCONTENT, 
+      PSTATE, DOWNUM, APPID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{dir,jdbcType=VARCHAR}, #{serverid,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{exname,jdbcType=VARCHAR}, 
+      #{len,jdbcType=FLOAT}, #{filename,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, 
+      #{etime,jdbcType=VARCHAR}, #{cusername,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, 
+      #{eusername,jdbcType=VARCHAR}, #{euser,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, 
+      #{pstate,jdbcType=VARCHAR}, #{downum,jdbcType=INTEGER}, #{appid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.farm.doc.domain.Docfile">
+    <!--@mbg.generated-->
+    insert into farm_docfile
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="dir != null">
+        DIR,
+      </if>
+      <if test="serverid != null">
+        SERVERID,
+      </if>
+      <if test="type != null">
+        `TYPE`,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="exname != null">
+        EXNAME,
+      </if>
+      <if test="len != null">
+        LEN,
+      </if>
+      <if test="filename != null">
+        FILENAME,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="etime != null">
+        ETIME,
+      </if>
+      <if test="cusername != null">
+        CUSERNAME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="eusername != null">
+        EUSERNAME,
+      </if>
+      <if test="euser != null">
+        EUSER,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="downum != null">
+        DOWNUM,
+      </if>
+      <if test="appid != null">
+        APPID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dir != null">
+        #{dir,jdbcType=VARCHAR},
+      </if>
+      <if test="serverid != null">
+        #{serverid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="exname != null">
+        #{exname,jdbcType=VARCHAR},
+      </if>
+      <if test="len != null">
+        #{len,jdbcType=FLOAT},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="downum != null">
+        #{downum,jdbcType=INTEGER},
+      </if>
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.farm.doc.domain.Docfile">
+    <!--@mbg.generated-->
+    update farm_docfile
+    <set>
+      <if test="dir != null">
+        DIR = #{dir,jdbcType=VARCHAR},
+      </if>
+      <if test="serverid != null">
+        SERVERID = #{serverid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `TYPE` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="exname != null">
+        EXNAME = #{exname,jdbcType=VARCHAR},
+      </if>
+      <if test="len != null">
+        LEN = #{len,jdbcType=FLOAT},
+      </if>
+      <if test="filename != null">
+        FILENAME = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        ETIME = #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        EUSER = #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="downum != null">
+        DOWNUM = #{downum,jdbcType=INTEGER},
+      </if>
+      <if test="appid != null">
+        APPID = #{appid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.farm.doc.domain.Docfile">
+    <!--@mbg.generated-->
+    update farm_docfile
+    set DIR = #{dir,jdbcType=VARCHAR},
+      SERVERID = #{serverid,jdbcType=VARCHAR},
+      `TYPE` = #{type,jdbcType=VARCHAR},
+      `NAME` = #{name,jdbcType=VARCHAR},
+      EXNAME = #{exname,jdbcType=VARCHAR},
+      LEN = #{len,jdbcType=FLOAT},
+      FILENAME = #{filename,jdbcType=VARCHAR},
+      CTIME = #{ctime,jdbcType=VARCHAR},
+      ETIME = #{etime,jdbcType=VARCHAR},
+      CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      EUSER = #{euser,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      DOWNUM = #{downum,jdbcType=INTEGER},
+      APPID = #{appid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

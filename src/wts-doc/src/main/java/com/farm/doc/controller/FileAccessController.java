@@ -2,7 +2,6 @@ package com.farm.doc.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.farm.core.page.ViewMode;
-import com.farm.doc.domain.FarmDocfile;
+import com.farm.doc.domain.Docfile;
 import com.farm.doc.domain.ex.PasteBase64Img;
 import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.doc.server.FarmFileManagerInter.FILE_TYPE;
@@ -33,7 +32,6 @@ import com.farm.doc.server.commons.FileCopyProcessCache;
 import com.farm.doc.server.utils.FileDownloadUtils;
 import com.farm.doc.util.VerifyCodeUtils;
 import com.farm.parameter.FarmParameterService;
-import com.farm.util.latex.LatexUtils;
 import com.farm.web.WebUtils;
 
 /**
@@ -297,14 +295,14 @@ public class FileAccessController extends WebUtils {
 	 */
 	@RequestMapping("/Publoadimg")
 	public void loadimg(String id, String type, HttpServletRequest request, HttpServletResponse response) {
-		FarmDocfile file = null;
+		Docfile file = null;
 		try {
 			file = farmFileManagerImpl.getFile(id);
 		} catch (Exception e) {
 			file = null;
 		}
 		if (file == null || file.getFile() == null || !file.getFile().exists()) {
-			file = new FarmDocfile();
+			file = new Docfile();
 			file.setFile(farmFileManagerImpl.getNoneImg());
 			file.setName("default.png");
 			file.setExname("png");
@@ -340,14 +338,14 @@ public class FileAccessController extends WebUtils {
 	 */
 	@RequestMapping("/PubPlayMedia")
 	public void playMedia(String id, HttpServletRequest request, HttpServletResponse response) {
-		FarmDocfile file = null;
+		Docfile file = null;
 		try {
 			file = farmFileManagerImpl.getFile(id);
 		} catch (Exception e) {
 			file = null;
 		}
 		if (file == null || file.getFile() == null || !file.getFile().exists()) {
-			file = new FarmDocfile();
+			file = new Docfile();
 			file.setFile(farmFileManagerImpl.getNoneImg());
 			file.setName("default.png");
 			file.setExname("png");
@@ -375,7 +373,7 @@ public class FileAccessController extends WebUtils {
 	@RequestMapping("/Publoadfile")
 	public void loadfile(String id, String safecode, HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) {
-		FarmDocfile file = null;
+		Docfile file = null;
 		try {
 			file = farmFileManagerImpl.getFile(id);
 		} catch (Exception e) {
@@ -383,7 +381,7 @@ public class FileAccessController extends WebUtils {
 		}
 		if (file == null || file.getFile() == null || !file.getFile().exists()) {
 			// 文件不存在
-			file = new FarmDocfile();
+			file = new Docfile();
 			file.setFile(farmFileManagerImpl.getNoneImg());
 			file.setName("default.png");
 			file.setExname("png");
@@ -394,7 +392,7 @@ public class FileAccessController extends WebUtils {
 						.getParameter("config.doc.downloadfile.safecode.valid");
 				// 是否验证安全码
 				if (isCheckSafecode.toUpperCase().equals("TRUE")) {
-					file = new FarmDocfile();
+					file = new Docfile();
 					file.setFile(farmFileManagerImpl.getNoRightImg());
 					file.setName("noRight.png");
 					file.setExname("png");
@@ -412,7 +410,7 @@ public class FileAccessController extends WebUtils {
 	 */
 	@RequestMapping("/Publoadphoto")
 	public void downloadPhone(String id, HttpServletRequest request, HttpServletResponse response) {
-		FarmDocfile file = null;
+		Docfile file = null;
 		try {
 			if (id != null && id.trim().toUpperCase().equals("NULL")) {
 				id = null;
@@ -422,7 +420,7 @@ public class FileAccessController extends WebUtils {
 			file = null;
 		}
 		if (file == null || file.getFile() == null || !file.getFile().exists()) {
-			file = new FarmDocfile();
+			file = new Docfile();
 			file.setFile(farmFileManagerImpl.getNonePhoto());
 			file.setName("default.png");
 			file.setExname("png");
@@ -491,7 +489,7 @@ public class FileAccessController extends WebUtils {
 	 */
 	@RequestMapping("/PubIcon")
 	public void icon(String id, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		FarmDocfile file = null;
+		Docfile file = null;
 		try {
 			file = farmFileManagerImpl.getFile(id);
 		} catch (Exception e) {
@@ -499,7 +497,7 @@ public class FileAccessController extends WebUtils {
 		}
 		if (file == null || file.getFile() == null || !file.getFile().exists()) {
 			// 文件不存在
-			file = new FarmDocfile();
+			file = new Docfile();
 			file.setFile(farmFileManagerImpl.getNoneImg());
 			file.setName("default.png");
 			file.setExname("png");

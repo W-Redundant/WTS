@@ -1,6 +1,6 @@
 package com.farm.doc.server;
 
-import com.farm.doc.domain.Usermessage;
+import com.farm.doc.domain.UserMessage;
 import com.farm.core.sql.query.DataQuery;
 import com.farm.core.sql.result.DataResult;
 
@@ -25,14 +25,14 @@ public interface UsermessageServiceInter {
 	 * 
 	 * @param entity
 	 */
-	public Usermessage insertUsermessageEntity(Usermessage entity, LoginUser user);
+	public UserMessage insertUsermessageEntity(UserMessage entity, LoginUser user);
 
 	/**
 	 * 修改实体管理实体
 	 * 
 	 * @param entity
 	 */
-	public Usermessage editUsermessageEntity(Usermessage entity, LoginUser user);
+	public UserMessage editUsermessageEntity(UserMessage entity, LoginUser user);
 
 	/**
 	 * 删除实体管理实体
@@ -47,7 +47,7 @@ public interface UsermessageServiceInter {
 	 * @param id
 	 * @return
 	 */
-	public Usermessage getUsermessageEntity(String id);
+	public UserMessage getUsermessageEntity(String id);
 
 	/**
 	 * 创建一个基本查询用来查询当前实体管理实体

@@ -1,6 +1,6 @@
 package com.farm.doc.controller;
 
-import com.farm.doc.domain.Messagemodel;
+import com.farm.doc.domain.MessageModel;
 import com.farm.doc.server.MessagemodelServiceInter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,7 +93,7 @@ public class MessagemodelController extends WebUtils {
 	 */
 	@RequestMapping("/edit")
 	@ResponseBody
-	public Map<String, Object> editSubmit(Messagemodel entity, HttpSession session) {
+	public Map<String, Object> editSubmit(MessageModel entity, HttpSession session) {
 		try {
 			entity = messageModelServiceImpl.editMessagemodelEntity(entity.getId(), entity.getTitlemodel(),
 					entity.getContentmodel(), entity.getPcontent(), getCurrentUser(session));
@@ -189,7 +189,7 @@ public class MessagemodelController extends WebUtils {
 		try {
 			switch (pageset.getOperateType()) {
 			case (2): {// 修改模板
-				Messagemodel model = messageModelServiceImpl.getMessagemodelEntity(ids);
+				MessageModel model = messageModelServiceImpl.getMessagemodelEntity(ids);
 				return ViewMode.getInstance().putAttr("pageset", pageset)
 						.putAttr("messageType",
 								MessageTypeFactory.getInstance()

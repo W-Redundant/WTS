@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.doc.mapper.UserMessageMapper">
+  <resultMap id="BaseResultMap" type="com.farm.doc.domain.UserMessage">
+    <!--@mbg.generated-->
+    <!--@Table farm_usermessage-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="CUSERNAME" jdbcType="VARCHAR" property="cusername" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="READUSERID" jdbcType="VARCHAR" property="readuserid" />
+    <result column="CONTENT" jdbcType="LONGVARCHAR" property="content" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="READSTATE" jdbcType="VARCHAR" property="readstate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CTIME, CUSER, CUSERNAME, PSTATE, PCONTENT, READUSERID, CONTENT, TITLE, READSTATE
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from farm_usermessage
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from farm_usermessage
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.farm.doc.domain.UserMessage">
+    <!--@mbg.generated-->
+    insert into farm_usermessage (ID, CTIME, CUSER, 
+      CUSERNAME, PSTATE, PCONTENT, 
+      READUSERID, CONTENT, TITLE, 
+      READSTATE)
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, 
+      #{cusername,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, 
+      #{readuserid,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{readstate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.farm.doc.domain.UserMessage">
+    <!--@mbg.generated-->
+    insert into farm_usermessage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="cusername != null">
+        CUSERNAME,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="readuserid != null">
+        READUSERID,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="readstate != null">
+        READSTATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="readuserid != null">
+        #{readuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="readstate != null">
+        #{readstate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.farm.doc.domain.UserMessage">
+    <!--@mbg.generated-->
+    update farm_usermessage
+    <set>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="readuserid != null">
+        READUSERID = #{readuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="readstate != null">
+        READSTATE = #{readstate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.farm.doc.domain.UserMessage">
+    <!--@mbg.generated-->
+    update farm_usermessage
+    set CTIME = #{ctime,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      READUSERID = #{readuserid,jdbcType=VARCHAR},
+      CONTENT = #{content,jdbcType=LONGVARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      READSTATE = #{readstate,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

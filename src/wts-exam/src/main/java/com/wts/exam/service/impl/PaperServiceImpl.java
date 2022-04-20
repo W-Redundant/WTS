@@ -17,7 +17,7 @@ import com.wts.exam.domain.ex.SubjectUnit;
 import com.wts.exam.domain.ex.TipType;
 import com.farm.core.time.TimeTool;
 import com.farm.doc.dao.FarmDocfileDaoInter;
-import com.farm.doc.domain.FarmDocfile;
+import com.farm.doc.domain.Docfile;
 import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.doc.server.FarmFileManagerInter.FILE_APPLICATION_TYPE;
 import com.farm.doc.server.FarmFileManagerInter.FILE_TYPE;
@@ -63,7 +63,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -79,7 +78,6 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import com.alibaba.fastjson.JSON;
 import com.farm.core.auth.domain.LoginUser;
 
 /* *
@@ -662,10 +660,10 @@ public class PaperServiceImpl implements PaperServiceInter {
 		paperj.setSubjectAnswers(subjectanswerDaoImpl
 				.getAnswersByPaperId(paperId));
 		paperj.setMaterials(materialDaoImpl.getMaterialsByPaperId(paperId));
-		List<FarmDocfile> files = farmDocfileDao.getfilesByAppids(paperj
+		List<Docfile> files = farmDocfileDao.getfilesByAppids(paperj
 				.getAllAppid());
 		List<FileJsonBean> jsonfiles = new ArrayList<>();
-		for (FarmDocfile file : files) {
+		for (Docfile file : files) {
 			FileJsonBean jfile = new FileJsonBean();
 			File drivefile = farmFileManagerImpl.getFile(file);
 			if (drivefile.exists()) {
@@ -865,7 +863,7 @@ public class PaperServiceImpl implements PaperServiceInter {
 		{// 处理无用附件
 			for (Entry<String, String> file : fileIdDic.entrySet()) {
 				String fileid = file.getValue();
-				FarmDocfile dfile = farmFileManagerImpl.getFile(fileid);
+				Docfile dfile = farmFileManagerImpl.getFile(fileid);
 				if (dfile.getPstate().equals("0")) {
 					farmFileManagerImpl.delFile(fileid, user);
 				}
