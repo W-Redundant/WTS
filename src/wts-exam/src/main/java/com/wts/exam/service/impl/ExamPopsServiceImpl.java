@@ -6,6 +6,9 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import com.wts.exam.mapper.ExamPopMapper;
+import com.wts.exam.mapper.RoomMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,12 +27,15 @@ import com.wts.exam.service.ExamTypeServiceInter;
 
 @Service
 public class ExamPopsServiceImpl implements ExamPopsServiceInter {
-	@Resource
-	private ExamPopDaoInter exampopDaoImpl;
-	@Resource
+
+	@Autowired
+	private ExamPopMapper examPopMapper;
+
+	@Autowired
+	private RoomMapper roomMapper;
+
+	@Autowired
 	private ExamTypeServiceInter examTypeServiceImpl;
-	@Resource
-	private RoomDaoInter roomDaoImpl;
 
 	@Override
 	@Transactional
@@ -42,7 +48,7 @@ public class ExamPopsServiceImpl implements ExamPopsServiceInter {
 	public boolean isJudger(String roomId, LoginUser currentUser) {
 		Set<String> typeids = examTypeServiceImpl.getUserPopTypeids(
 				currentUser.getId(), "2");
-		Room room = roomDaoImpl.getEntity(roomId);
+		Room room = roomMapper.getEntity(roomId);
 		if (room == null) {
 			throw new RuntimeException("the room[" + roomId + "] is not exist!");
 		}
@@ -55,7 +61,7 @@ public class ExamPopsServiceImpl implements ExamPopsServiceInter {
 	public boolean isManager(String roomId, LoginUser currentUser) {
 		Set<String> typeids = examTypeServiceImpl.getUserPopTypeids(
 				currentUser.getId(), "1");
-		String typeid = roomDaoImpl.getEntity(roomId).getExamtypeid();
+		String typeid = roomMapper.getEntity(roomId).getExamtypeid();
 		return typeids.contains(typeid);
 	}
 
@@ -70,14 +76,15 @@ public class ExamPopsServiceImpl implements ExamPopsServiceInter {
 		// entity.setEusername(user.getName());
 		// entity.setEtime(TimeTool.getTimeDate14());
 		// entity.setPstate("1");
-		return exampopDaoImpl.insertEntity(entity);
+		examPopMapper.insertEntity(entity);
+		return entity;
 	}
 
 	@Override
 	@Transactional
 	public ExamPop editExampopEntity(ExamPop entity, LoginUser user) {
 		// TODO 自动生成代码,修改后请去除本注释
-		ExamPop entity2 = exampopDaoImpl.getEntity(entity.getId());
+		ExamPop entity2 = examPopMapper.getEntity(entity.getId());
 		// entity2.setEuser(user.getId());
 		// entity2.setEusername(user.getName());
 		// entity2.setEtime(TimeTool.getTimeDate14());
@@ -86,29 +93,23 @@ public class ExamPopsServiceImpl implements ExamPopsServiceInter {
 		entity2.setUserid(entity.getUserid());
 		entity2.setFuntype(entity.getFuntype());
 		entity2.setId(entity.getId());
-		exampopDaoImpl.editEntity(entity2);
+		examPopMapper.editEntity(entity2);
 		return entity2;
 	}
 
 	@Override
 	@Transactional
 	public void deleteExampopEntity(String id, LoginUser user) {
-		ExamPop pop = exampopDaoImpl.getEntity(id);
+		ExamPop pop = examPopMapper.getEntity(id);
 		{
 			List<String> ids = new ArrayList<>();
 			ids.add(pop.getTypeid());
 			List<String> typeIds = examTypeServiceImpl.getAllSubType(ids);
 			for (String typeid : typeIds) {
-				exampopDaoImpl.deleteEntitys(DBRuleList.getInstance()
-						.add(new DBRule("TYPEID", typeid, "="))
-						.add(new DBRule("USERID", pop.getUserid(), "="))
-						.add(new DBRule("FUNTYPE", pop.getFuntype(), "="))
-						.toList());
+				examPopMapper.deleteByTypeIdAndUserIdAndFuntype(typeid,pop.getUserid(),pop.getFuntype());
 
-				List<ExamPop> pops = exampopDaoImpl.selectEntitys(DBRuleList
-						.getInstance().add(new DBRule("TYPEID", typeid, "="))
-						.add(new DBRule("FUNTYPE", pop.getFuntype(), "="))
-						.toList());
+				List<ExamPop> pops = examPopMapper.findByTypeIdAndFunType(typeid,pop.getFuntype());
+
 				if (pops.size() == 0) {
 					ExamType type = examTypeServiceImpl
 							.getExamtypeEntity(typeid);
@@ -139,7 +140,7 @@ public class ExamPopsServiceImpl implements ExamPopsServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return exampopDaoImpl.getEntity(id);
+		return examPopMapper.getEntity(id);
 	}
 
 	@Override
@@ -167,13 +168,8 @@ public class ExamPopsServiceImpl implements ExamPopsServiceInter {
 						.getUserById(userid);
 				if (user != null) {
 					pop.setUsername(user.getName());
-					exampopDaoImpl
-							.deleteEntitys(DBRuleList.getInstance()
-									.add(new DBRule("TYPEID", typeid, "="))
-									.add(new DBRule("USERID", userid, "="))
-									.add(new DBRule("FUNTYPE", functype, "="))
-									.toList());
-					exampopDaoImpl.insertEntity(pop);
+					examPopMapper.deleteByTypeIdAndUserIdAndFuntype(typeid,userid,functype);
+					examPopMapper.insertEntity(pop);
 					ExamType type = examTypeServiceImpl
 							.getExamtypeEntity(typeid);
 					// 1:管理权限.2:判卷权限.3:查询权限.4:超级权限

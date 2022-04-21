@@ -2,7 +2,7 @@ package com.wts.exam.service.impl;
 
 import com.wts.exam.domain.Card;
 import com.wts.exam.domain.Paper;
-import com.wts.exam.domain.PaperUserOwn;
+import com.wts.exam.domain.PaperUserown;
 import com.wts.exam.domain.Room;
 import com.farm.core.time.TimeTool;
 
@@ -51,8 +51,8 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 	 * @param userOwn
 	 * @param user
 	 */
-	private PaperUserOwn insertAndUpdatePaperUserOwn(String modeltype,
-			String paperid, String papername, LoginUser user) {
+	private PaperUserown insertAndUpdatePaperUserOwn(String modeltype,
+                                                     String paperid, String papername, LoginUser user) {
 		if (paperuserownDaoImpl.countEntitys(DBRuleList.getInstance()
 				.add(new DBRule("CUSER", user.getId(), "="))
 				.add(new DBRule("MODELTYPE", modeltype, "=")).toList()) > 1000) {
@@ -63,7 +63,7 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 				.add(new DBRule("PAPERID", paperid, "="))
 				.add(new DBRule("MODELTYPE", modeltype, "="))
 				.add(new DBRule("CUSER", user.getId(), "=")).toList());
-		PaperUserOwn userOwn = new PaperUserOwn();
+		PaperUserown userOwn = new PaperUserown();
 		userOwn.setCtime(TimeTool.getTimeDate14());
 		userOwn.setCuser(user.getId());
 		userOwn.setCusername(user.getName());
@@ -79,10 +79,10 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 
 	@Override
 	@Transactional
-	public PaperUserOwn editPaperuserownEntity(PaperUserOwn entity,
-			LoginUser user) {
+	public PaperUserown editPaperuserownEntity(PaperUserown entity,
+                                               LoginUser user) {
 		// TODO 自动生成代码,修改后请去除本注释
-		PaperUserOwn entity2 = paperuserownDaoImpl.getEntity(entity.getId());
+		PaperUserown entity2 = paperuserownDaoImpl.getEntity(entity.getId());
 		// entity2.setEuser(user.getId());
 		// entity2.setEusername(user.getName());
 		// entity2.setEtime(TimeTool.getTimeDate14());
@@ -104,7 +104,7 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 	@Override
 	@Transactional
 	public void deletePaperuserownEntity(String id, LoginUser user) {
-		PaperUserOwn paperUserOwn = paperuserownDaoImpl.getEntity(id);
+		PaperUserown paperUserOwn = paperuserownDaoImpl.getEntity(id);
 		String paperid = null;
 		if (paperUserOwn.getModeltype().equals("2")) {
 			paperid = paperUserOwn.getPaperid();
@@ -125,7 +125,7 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 
 	@Override
 	@Transactional
-	public PaperUserOwn getPaperuserownEntity(String id) {
+	public PaperUserown getPaperuserownEntity(String id) {
 		// TODO 自动生成代码,修改后请去除本注释
 		if (id == null) {
 			return null;
@@ -147,7 +147,7 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 	@Transactional
 	public void addDoPaperInfo(String paperId, int RPcent, LoginUser user) {
 		Paper paper = paperServiceImpl.getPaperEntity(paperId);
-		PaperUserOwn userOwn = insertAndUpdatePaperUserOwn("1", paperId,
+		PaperUserown userOwn = insertAndUpdatePaperUserOwn("1", paperId,
 				paper.getName(), user);
 		userOwn.setRpcent(RPcent);
 		paperuserownDaoImpl.editEntity(userOwn);
@@ -159,7 +159,7 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 		Card card = cardServiceImpl.getCardEntity(cardId);
 		Room room = roomServiceImpl.getRoomEntity(card.getRoomid());
 		Paper paper = paperServiceImpl.getPaperEntity(card.getPaperid());
-		PaperUserOwn userOwn = insertAndUpdatePaperUserOwn("1", paper.getId(),
+		PaperUserown userOwn = insertAndUpdatePaperUserOwn("1", paper.getId(),
 				paper.getName(), user);
 		userOwn.setRoomid(room.getId());
 		userOwn.setRoomname(room.getName());
@@ -170,11 +170,11 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 	@Override
 	@Transactional
 	public void refreshScore(String cardId, Float allnum) {
-		List<PaperUserOwn> list = paperuserownDaoImpl.selectEntitys(DBRuleList
+		List<PaperUserown> list = paperuserownDaoImpl.selectEntitys(DBRuleList
 				.getInstance().add(new DBRule("CARDID", cardId, "=")).toList());
 		if (list.size() > 0) {
-			PaperUserOwn userown = list.get(0);
-			PaperUserOwn entity = paperuserownDaoImpl
+			PaperUserown userown = list.get(0);
+			PaperUserown entity = paperuserownDaoImpl
 					.getEntity(userown.getId());
 			entity.setScore(allnum);
 			paperuserownDaoImpl.editEntity(entity);
@@ -198,7 +198,7 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 			Room room = roomServiceImpl.getRoomEntity(roomid);
 			Paper paper = paperServiceImpl.getPaperEntity(paperid);
 			// 訂閲
-			PaperUserOwn userOwn = insertAndUpdatePaperUserOwn("2",
+			PaperUserown userOwn = insertAndUpdatePaperUserOwn("2",
 					paper.getId(), paper.getName(), user);
 			userOwn.setRoomid(room.getId());
 			userOwn.setRoomname(room.getName());

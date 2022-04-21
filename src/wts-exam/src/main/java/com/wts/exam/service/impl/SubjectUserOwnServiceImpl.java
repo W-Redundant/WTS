@@ -1,6 +1,6 @@
 package com.wts.exam.service.impl;
 
-import com.wts.exam.domain.SubjectUserOwn;
+import com.wts.exam.domain.SubjectUserown;
 import com.farm.core.time.TimeTool;
 
 import org.apache.commons.lang.StringUtils;
@@ -93,8 +93,8 @@ public class SubjectUserOwnServiceImpl implements SubjectUserOwnServiceInter {
 	 * @param user
 	 * @return
 	 */
-	private SubjectUserOwn insertSubjectuserownEntity(String subjectid,
-			String modeltype, String cardId, LoginUser user) {
+	private SubjectUserown insertSubjectuserownEntity(String subjectid,
+                                                      String modeltype, String cardId, LoginUser user) {
 		if (subjectuserownDaoImpl.countEntitys(DBRuleList.getInstance()
 				.add(new DBRule("CUSER", user.getId(), "="))
 				.add(new DBRule("MODELTYPE", modeltype, "=")).toList()) > 1000) {
@@ -105,7 +105,7 @@ public class SubjectUserOwnServiceImpl implements SubjectUserOwnServiceInter {
 				.add(new DBRule("SUBJECTID", subjectid, "="))
 				.add(new DBRule("MODELTYPE", modeltype, "="))
 				.add(new DBRule("CUSER", user.getId(), "=")).toList());
-		SubjectUserOwn userOwn = new SubjectUserOwn();
+		SubjectUserown userOwn = new SubjectUserown();
 		userOwn.setCuser(user.getId());
 		userOwn.setCtime(TimeTool.getTimeDate14());
 		userOwn.setCusername(user.getName());
@@ -127,7 +127,7 @@ public class SubjectUserOwnServiceImpl implements SubjectUserOwnServiceInter {
 
 	@Override
 	@Transactional
-	public SubjectUserOwn getSubjectuserownEntity(String id) {
+	public SubjectUserown getSubjectuserownEntity(String id) {
 		if (id == null) {
 			return null;
 		}
@@ -169,7 +169,7 @@ public class SubjectUserOwnServiceImpl implements SubjectUserOwnServiceInter {
 			return false;
 		} else {
 			// 訂閲
-			SubjectUserOwn userOwn = new SubjectUserOwn();
+			SubjectUserown userOwn = new SubjectUserown();
 			userOwn.setCuser(userid);
 			userOwn.setCtime(TimeTool.getTimeDate14());
 			userOwn.setCusername(FarmAuthorityService.getInstance()

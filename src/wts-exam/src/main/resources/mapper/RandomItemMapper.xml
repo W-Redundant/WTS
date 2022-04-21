@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.RandomItemMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.RandomItem">
+    <!--@mbg.generated-->
+    <!--@Table wts_random_item-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CTIME, CUSER, PSTATE, PCONTENT, `NAME`
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_random_item
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_random_item
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.RandomItem">
+    <!--@mbg.generated-->
+    insert into wts_random_item (ID, CTIME, CUSER, 
+      PSTATE, PCONTENT, `NAME`
+      )
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, 
+      #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.RandomItem">
+    <!--@mbg.generated-->
+    insert into wts_random_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.RandomItem">
+    <!--@mbg.generated-->
+    update wts_random_item
+    <set>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.RandomItem">
+    <!--@mbg.generated-->
+    update wts_random_item
+    set CTIME = #{ctime,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      `NAME` = #{name,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

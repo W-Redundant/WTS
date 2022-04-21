@@ -7,7 +7,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.wts.exam.domain.PaperUserOwn;
+import com.wts.exam.domain.PaperUserown;
 import com.wts.exam.dao.PaperUserOwnDaoInter;
 import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DataQuery;
@@ -31,14 +31,14 @@ import javax.annotation.Resource;
  *说明：
  */
 @Repository
-public class PaperUserOwnDaoImpl extends HibernateSQLTools<PaperUserOwn>
+public class PaperUserOwnDaoImpl extends HibernateSQLTools<PaperUserown>
 		implements PaperUserOwnDaoInter {
 	@Resource(name = "sessionFactory")
 	private SessionFactory sessionFatory;
 	private SqlSessionFactory sqlSessionFactory;
 
 	@Override
-	public void deleteEntity(PaperUserOwn paperuserown) {
+	public void deleteEntity(PaperUserown paperuserown) {
 		// TODO 自动生成代码,修改后请去除本注释
 		Session session = sessionFatory.getCurrentSession();
 		session.delete(paperuserown);
@@ -55,14 +55,14 @@ public class PaperUserOwnDaoImpl extends HibernateSQLTools<PaperUserOwn>
 	}
 
 	@Override
-	public PaperUserOwn getEntity(String paperuserownid) {
+	public PaperUserown getEntity(String paperuserownid) {
 		// TODO 自动生成代码,修改后请去除本注释
 		Session session = sessionFatory.getCurrentSession();
-		return (PaperUserOwn) session.get(PaperUserOwn.class, paperuserownid);
+		return (PaperUserown) session.get(PaperUserown.class, paperuserownid);
 	}
 
 	@Override
-	public PaperUserOwn insertEntity(PaperUserOwn paperuserown) {
+	public PaperUserown insertEntity(PaperUserown paperuserown) {
 		// TODO 自动生成代码,修改后请去除本注释
 		Session session = sessionFatory.getCurrentSession();
 		session.save(paperuserown);
@@ -70,7 +70,7 @@ public class PaperUserOwnDaoImpl extends HibernateSQLTools<PaperUserOwn>
 	}
 
 	@Override
-	public void editEntity(PaperUserOwn paperuserown) {
+	public void editEntity(PaperUserown paperuserown) {
 		// TODO 自动生成代码,修改后请去除本注释
 		Session session = sessionFatory.getCurrentSession();
 		session.update(paperuserown);
@@ -99,7 +99,7 @@ public class PaperUserOwnDaoImpl extends HibernateSQLTools<PaperUserOwn>
 	}
 
 	@Override
-	public List<PaperUserOwn> selectEntitys(List<DBRule> rules) {
+	public List<PaperUserown> selectEntitys(List<DBRule> rules) {
 		// TODO 自动生成代码,修改后请去除本注释
 		return selectSqlFromFunction(sessionFatory.getCurrentSession(), rules);
 	}
@@ -126,7 +126,7 @@ public class PaperUserOwnDaoImpl extends HibernateSQLTools<PaperUserOwn>
 
 	@Override
 	protected Class<?> getTypeClass() {
-		return PaperUserOwn.class;
+		return PaperUserown.class;
 	}
 
 	@Override

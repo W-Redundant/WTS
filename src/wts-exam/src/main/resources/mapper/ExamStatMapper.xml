@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.ExamStatMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.ExamStat">
+    <!--@mbg.generated-->
+    <!--@Table wts_exam_stat-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="ETIME" jdbcType="VARCHAR" property="etime" />
+    <result column="CUSERNAME" jdbcType="VARCHAR" property="cusername" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="EUSERNAME" jdbcType="VARCHAR" property="eusername" />
+    <result column="EUSER" jdbcType="VARCHAR" property="euser" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="SUBJECTNUM" jdbcType="INTEGER" property="subjectnum" />
+    <result column="ERRORSUBNUM" jdbcType="INTEGER" property="errorsubnum" />
+    <result column="PAPERNUM" jdbcType="INTEGER" property="papernum" />
+    <result column="TESTNUM" jdbcType="INTEGER" property="testnum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CTIME, ETIME, CUSERNAME, CUSER, EUSERNAME, EUSER, PSTATE, PCONTENT, SUBJECTNUM, 
+    ERRORSUBNUM, PAPERNUM, TESTNUM
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_exam_stat
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_exam_stat
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.ExamStat">
+    <!--@mbg.generated-->
+    insert into wts_exam_stat (ID, CTIME, ETIME, 
+      CUSERNAME, CUSER, EUSERNAME, 
+      EUSER, PSTATE, PCONTENT, 
+      SUBJECTNUM, ERRORSUBNUM, PAPERNUM, 
+      TESTNUM)
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{etime,jdbcType=VARCHAR}, 
+      #{cusername,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, #{eusername,jdbcType=VARCHAR}, 
+      #{euser,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, 
+      #{subjectnum,jdbcType=INTEGER}, #{errorsubnum,jdbcType=INTEGER}, #{papernum,jdbcType=INTEGER}, 
+      #{testnum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.ExamStat">
+    <!--@mbg.generated-->
+    insert into wts_exam_stat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="etime != null">
+        ETIME,
+      </if>
+      <if test="cusername != null">
+        CUSERNAME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="eusername != null">
+        EUSERNAME,
+      </if>
+      <if test="euser != null">
+        EUSER,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="subjectnum != null">
+        SUBJECTNUM,
+      </if>
+      <if test="errorsubnum != null">
+        ERRORSUBNUM,
+      </if>
+      <if test="papernum != null">
+        PAPERNUM,
+      </if>
+      <if test="testnum != null">
+        TESTNUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectnum != null">
+        #{subjectnum,jdbcType=INTEGER},
+      </if>
+      <if test="errorsubnum != null">
+        #{errorsubnum,jdbcType=INTEGER},
+      </if>
+      <if test="papernum != null">
+        #{papernum,jdbcType=INTEGER},
+      </if>
+      <if test="testnum != null">
+        #{testnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.ExamStat">
+    <!--@mbg.generated-->
+    update wts_exam_stat
+    <set>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        ETIME = #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        EUSER = #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectnum != null">
+        SUBJECTNUM = #{subjectnum,jdbcType=INTEGER},
+      </if>
+      <if test="errorsubnum != null">
+        ERRORSUBNUM = #{errorsubnum,jdbcType=INTEGER},
+      </if>
+      <if test="papernum != null">
+        PAPERNUM = #{papernum,jdbcType=INTEGER},
+      </if>
+      <if test="testnum != null">
+        TESTNUM = #{testnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.ExamStat">
+    <!--@mbg.generated-->
+    update wts_exam_stat
+    set CTIME = #{ctime,jdbcType=VARCHAR},
+      ETIME = #{etime,jdbcType=VARCHAR},
+      CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      EUSER = #{euser,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      SUBJECTNUM = #{subjectnum,jdbcType=INTEGER},
+      ERRORSUBNUM = #{errorsubnum,jdbcType=INTEGER},
+      PAPERNUM = #{papernum,jdbcType=INTEGER},
+      TESTNUM = #{testnum,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

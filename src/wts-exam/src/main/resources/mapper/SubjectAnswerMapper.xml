@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.SubjectAnswerMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.SubjectAnswer">
+    <!--@mbg.generated-->
+    <!--@Table wts_subject_answer-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="CUSERNAME" jdbcType="VARCHAR" property="cusername" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="VERSIONID" jdbcType="VARCHAR" property="versionid" />
+    <result column="ANSWER" jdbcType="VARCHAR" property="answer" />
+    <result column="ANSWERNOTE" jdbcType="LONGVARCHAR" property="answernote" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="RIGHTANSWER" jdbcType="VARCHAR" property="rightanswer" />
+    <result column="POINTWEIGHT" jdbcType="INTEGER" property="pointweight" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CTIME, CUSERNAME, CUSER, PSTATE, PCONTENT, VERSIONID, ANSWER, ANSWERNOTE, SORT, 
+    RIGHTANSWER, POINTWEIGHT
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_subject_answer
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_subject_answer
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.SubjectAnswer">
+    <!--@mbg.generated-->
+    insert into wts_subject_answer (ID, CTIME, CUSERNAME, 
+      CUSER, PSTATE, PCONTENT, 
+      VERSIONID, ANSWER, ANSWERNOTE, 
+      SORT, RIGHTANSWER, POINTWEIGHT
+      )
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{cusername,jdbcType=VARCHAR}, 
+      #{cuser,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, 
+      #{versionid,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{answernote,jdbcType=LONGVARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{rightanswer,jdbcType=VARCHAR}, #{pointweight,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.SubjectAnswer">
+    <!--@mbg.generated-->
+    insert into wts_subject_answer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="cusername != null">
+        CUSERNAME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="versionid != null">
+        VERSIONID,
+      </if>
+      <if test="answer != null">
+        ANSWER,
+      </if>
+      <if test="answernote != null">
+        ANSWERNOTE,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="rightanswer != null">
+        RIGHTANSWER,
+      </if>
+      <if test="pointweight != null">
+        POINTWEIGHT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="versionid != null">
+        #{versionid,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="answernote != null">
+        #{answernote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="rightanswer != null">
+        #{rightanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="pointweight != null">
+        #{pointweight,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.SubjectAnswer">
+    <!--@mbg.generated-->
+    update wts_subject_answer
+    <set>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="versionid != null">
+        VERSIONID = #{versionid,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        ANSWER = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="answernote != null">
+        ANSWERNOTE = #{answernote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="rightanswer != null">
+        RIGHTANSWER = #{rightanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="pointweight != null">
+        POINTWEIGHT = #{pointweight,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.SubjectAnswer">
+    <!--@mbg.generated-->
+    update wts_subject_answer
+    set CTIME = #{ctime,jdbcType=VARCHAR},
+      CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      VERSIONID = #{versionid,jdbcType=VARCHAR},
+      ANSWER = #{answer,jdbcType=VARCHAR},
+      ANSWERNOTE = #{answernote,jdbcType=LONGVARCHAR},
+      SORT = #{sort,jdbcType=INTEGER},
+      RIGHTANSWER = #{rightanswer,jdbcType=VARCHAR},
+      POINTWEIGHT = #{pointweight,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

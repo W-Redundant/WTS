@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.ExamPopMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.ExamPop">
+    <!--@mbg.generated-->
+    <!--@Table wts_exam_pop-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="FUNTYPE" jdbcType="VARCHAR" property="funtype" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="TYPEID" jdbcType="VARCHAR" property="typeid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, FUNTYPE, USERID, USERNAME, TYPEID
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_exam_pop
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByTypeIdAndFunType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_exam_pop
+    where TYPEID = #{typeId,jdbcType=VARCHAR}
+    and FUNTYPE = #{funType,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_exam_pop
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.ExamPop">
+    <!--@mbg.generated-->
+    insert into wts_exam_pop (ID, FUNTYPE, USERID, 
+      USERNAME, TYPEID)
+    values (#{id,jdbcType=VARCHAR}, #{funtype,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.ExamPop">
+    <!--@mbg.generated-->
+    insert into wts_exam_pop
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="funtype != null">
+        FUNTYPE,
+      </if>
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="typeid != null">
+        TYPEID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="funtype != null">
+        #{funtype,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.ExamPop">
+    <!--@mbg.generated-->
+    update wts_exam_pop
+    <set>
+      <if test="funtype != null">
+        FUNTYPE = #{funtype,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null">
+        TYPEID = #{typeid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.ExamPop">
+    <!--@mbg.generated-->
+    update wts_exam_pop
+    set FUNTYPE = #{funtype,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      TYPEID = #{typeid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="deleteByTypeIdAndUserIdAndFuntype">
+    delete from wts_exam_pop a
+    where a.TYPEID = #{TYPEID,jdbcType=VARCHAR}
+    and a.USERID = #{USERID,jdbcType=VARCHAR}
+    and a.FUNTYPE = #{FUNTYPE,jdbcType=VARCHAR}
+  </delete>
+</mapper>

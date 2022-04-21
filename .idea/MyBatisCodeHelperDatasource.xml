@@ -5,11 +5,11 @@
       <ProjectProfile>
         <option name="addSerializeUid" value="true" />
         <option name="controllerTemplateString" value="&#10;#* @vtlvariable name=&quot;tableName&quot; type=&quot;java.lang.String&quot; *#&#10;#* @vtlvariable name=&quot;entityPackageName&quot; type=&quot;java.lang.String&quot; *#&#10;#* @vtlvariable name=&quot;entityClassName&quot; type=&quot;java.lang.String&quot; *#&#10;#* @vtlvariable name=&quot;servicePackageName&quot; type=&quot;java.lang.String&quot; *#&#10;#* @vtlvariable name=&quot;serviceInterfacePackage&quot; type=&quot;java.lang.String&quot; *#&#10;#* @vtlvariable name=&quot;serviceClassName&quot; type=&quot;java.lang.String&quot; *#&#10;#* @vtlvariable name=&quot;serviceInterfaceClassName&quot; type=&quot;java.lang.String&quot; *#&#10;#* @vtlvariable name=&quot;mapperPackageName&quot; type=&quot;java.lang.String&quot; *#&#10;#* @vtlvariable name=&quot;mapperClassName&quot; type=&quot;java.lang.String&quot; *#&#10;#* @vtlvariable name=&quot;controllerPackage&quot; type=&quot;java.lang.String&quot; *#&#10;#* @vtlvariable name=&quot;info&quot; type=&quot;com.ccnode.codegenerator.mybatisGenerator.MybatisGeneratorTableInfo&quot; *#&#10;package $!{controllerPackage};&#10;import $!{entityPackageName}.$!{entityClassName};&#10;#set($realServiceName = $!{serviceClassName}+'Impl')&#10;import $!{servicePackageName}.$!{realServiceName};&#10;import org.springframework.web.bind.annotation.*;&#10;&#10;#set($serviceFirstLower = $!{serviceClassName.substring(0,1).toLowerCase()}+$!{serviceClassName.substring(1,$!{serviceClassName.length()})})&#10;import javax.annotation.Resource;&#10;&#10;/**&#10;* $!{info.tableRemarks}($!{tableName})表控制层&#10;*&#10;* @author xxxxx&#10;*/&#10;@RestController&#10;@RequestMapping(&quot;/$!{tableName}&quot;)&#10;public class $!{entityClassName}Controller {&#10;/**&#10;* 服务对象&#10;*/&#10;@Resource&#10;private $!{serviceClassName} $!{serviceFirstLower};&#10;&#10;/**&#10;* 通过主键查询单条数据&#10;*&#10;* @param id 主键&#10;* @return 单条数据&#10;*/&#10;@GetMapping(&quot;selectOne&quot;)&#10;public $!{entityClassName} selectOne(Integer id) {&#10;return $!{serviceFirstLower}.selectByPrimaryKey(id);&#10;}&#10;&#10;}" />
-        <option name="javaMapperPackage" value="com.farm.doc.mapper" />
-        <option name="javaMapperPath" value="$PROJECT_DIR$/src/wts-doc/src/main/java" />
-        <option name="javaModelPackage" value="com.farm.doc.domain" />
-        <option name="javaModelPath" value="$PROJECT_DIR$/src/wts-doc/src/main/java" />
-        <option name="lastDatabaseCrudChooseModuleName" value="wts-doc" />
+        <option name="javaMapperPackage" value="com.wts.exam.mapper" />
+        <option name="javaMapperPath" value="$PROJECT_DIR$/src/wts-exam/src/main/java" />
+        <option name="javaModelPackage" value="com.wts.exam.domain" />
+        <option name="javaModelPath" value="$PROJECT_DIR$/src/wts-exam/src/main/java" />
+        <option name="lastDatabaseCrudChooseModuleName" value="wts-exam" />
         <option name="lombokDataAnnotation" value="true" />
         <option name="mapperAnnotaion" value="true" />
         <option name="moduleNameToPackageAndPathMap">
@@ -35,14 +35,28 @@
                   <option name="javaMapperPath" value="$PROJECT_DIR$/src/wts-doc/src/main/java" />
                   <option name="javaModelPacakge" value="com.farm.doc.domain" />
                   <option name="javaModelPath" value="$PROJECT_DIR$/src/wts-doc/src/main/java" />
+                  <option name="javaServiceInterfacePath" value="$PROJECT_DIR$/src/wts-doc/src/main/java" />
+                  <option name="javaServicePath" value="$PROJECT_DIR$/src/wts-doc/src/main/java" />
                   <option name="xmlPackage" value="mapper" />
                   <option name="xmlPath" value="E:\codespace\WTS\src\wts-doc\src\main\resources" />
                 </UserPackageAndPathInfoByModule>
               </value>
             </entry>
+            <entry key="wts-exam">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="com.wts.exam.mapper" />
+                  <option name="javaMapperPath" value="$PROJECT_DIR$/src/wts-exam/src/main/java" />
+                  <option name="javaModelPacakge" value="com.wts.exam.domain" />
+                  <option name="javaModelPath" value="$PROJECT_DIR$/src/wts-exam/src/main/java" />
+                  <option name="xmlPackage" value="mapper" />
+                  <option name="xmlPath" value="$PROJECT_DIR$/src/wts-exam/src/main/resources" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
           </map>
         </option>
-        <option name="removeTablePreName" value="farm_" />
+        <option name="removeTablePreName" value="wts_" />
         <option name="tableGenerateConfigs">
           <map>
             <entry key="wts:alone_app_version">
@@ -234,10 +248,280 @@
                 </TableGenerateConfig>
               </value>
             </entry>
+            <entry key="wts:wts_card">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="Card" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_card_answer">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="CardAnswer" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_card_answer_his">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="CardAnswerHis" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_card_his">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="CardHis" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_card_point">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="CardPoint" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_card_point_his">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="CardPointHis" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_exam_pop">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="ExamPop" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_exam_stat">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="ExamStat" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_exam_type">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="ExamType" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_material">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="Material" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_paper">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="Paper" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_paper_answer">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="PaperAnswer" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_paper_card">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="PaperCard" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_paper_cardsub">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="PaperCardsub" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_paper_chapter">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="PaperChapter" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_paper_subject">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="PaperSubject" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_paper_userown">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="PaperUserown" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_random_item">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="RandomItem" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_random_step">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="RandomStep" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_room">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="Room" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_room_paper">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="RoomPaper" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_room_user">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="RoomUser" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_subject">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="Subject" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_subject_analysis">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="SubjectAnalysis" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_subject_answer">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="SubjectAnswer" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_subject_comment">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="SubjectComment" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_subject_pop">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="SubjectPop" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_subject_type">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="SubjectType" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_subject_userown">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="SubjectUserown" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="wts:wts_subject_version">
+              <value>
+                <TableGenerateConfig>
+                  <option name="javaModelName" value="SubjectVersion" />
+                  <option name="moduleName" value="wts-exam" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
           </map>
         </option>
         <option name="xmlMapperPackage" value="mapper" />
-        <option name="xmlMapperPath" value="E:\codespace\WTS\src\wts-doc\src\main\resources" />
+        <option name="xmlMapperPath" value="$PROJECT_DIR$/src/wts-exam/src/main/resources" />
       </ProjectProfile>
     </option>
   </component>

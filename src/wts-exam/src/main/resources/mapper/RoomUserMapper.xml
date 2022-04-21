@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.RoomUserMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.RoomUser">
+    <!--@mbg.generated-->
+    <!--@Table wts_room_user-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="ROOMID" jdbcType="VARCHAR" property="roomid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, USERID, ROOMID
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_room_user
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="countByRoomId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <!--@mbg.generated-->
+    select
+    count(*)
+    from wts_room_user
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_room_user
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.RoomUser">
+    <!--@mbg.generated-->
+    insert into wts_room_user (ID, USERID, ROOMID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{roomid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.RoomUser">
+    <!--@mbg.generated-->
+    insert into wts_room_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="roomid != null">
+        ROOMID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        #{roomid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.RoomUser">
+    <!--@mbg.generated-->
+    update wts_room_user
+    <set>
+      <if test="userid != null">
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        ROOMID = #{roomid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.RoomUser">
+    <!--@mbg.generated-->
+    update wts_room_user
+    set USERID = #{userid,jdbcType=VARCHAR},
+      ROOMID = #{roomid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

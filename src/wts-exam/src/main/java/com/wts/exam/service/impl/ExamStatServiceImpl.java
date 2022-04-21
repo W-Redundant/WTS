@@ -3,11 +3,14 @@ package com.wts.exam.service.impl;
 import com.wts.exam.domain.ExamStat;
 import com.farm.core.time.TimeTool;
 
+import com.wts.exam.mapper.ExamStatMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import com.wts.exam.dao.ExamStatDaoInter;
 import com.wts.exam.service.ExamStatServiceInter;
 import com.farm.core.sql.query.DataQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
@@ -25,12 +28,13 @@ import com.farm.core.auth.domain.LoginUser;
  *说明：
  */
 @Service
+@Slf4j
 public class ExamStatServiceImpl implements ExamStatServiceInter {
 	@Resource
 	private ExamStatDaoInter examstatDaoImpl;
 
-	private static final Logger log = Logger
-			.getLogger(ExamStatServiceImpl.class);
+	@Autowired
+	private ExamStatMapper examStatMapper;
 
 	@Override
 	@Transactional
@@ -43,14 +47,15 @@ public class ExamStatServiceImpl implements ExamStatServiceInter {
 		// entity.setEusername(user.getName());
 		// entity.setEtime(TimeTool.getTimeDate14());
 		// entity.setPstate("1");
-		return examstatDaoImpl.insertEntity(entity);
+		examStatMapper.insertEntity(entity);
+		return entity;
 	}
 
 	@Override
 	@Transactional
 	public ExamStat editExamstatEntity(ExamStat entity, LoginUser user) {
 		// TODO 自动生成代码,修改后请去除本注释
-		ExamStat entity2 = examstatDaoImpl.getEntity(entity.getId());
+		ExamStat entity2 = examStatMapper.getEntity(entity.getId());
 		// entity2.setEuser(user.getId());
 		// entity2.setEusername(user.getName());
 		// entity2.setEtime(TimeTool.getTimeDate14());
@@ -66,7 +71,7 @@ public class ExamStatServiceImpl implements ExamStatServiceInter {
 		entity2.setEtime(entity.getEtime());
 		entity2.setCtime(entity.getCtime());
 		entity2.setId(entity.getId());
-		examstatDaoImpl.editEntity(entity2);
+		examStatMapper.editEntity(entity2);
 		return entity2;
 	}
 
@@ -74,7 +79,7 @@ public class ExamStatServiceImpl implements ExamStatServiceInter {
 	@Transactional
 	public void deleteExamstatEntity(String id, LoginUser user) {
 		// TODO 自动生成代码,修改后请去除本注释
-		examstatDaoImpl.deleteEntity(examstatDaoImpl.getEntity(id));
+		examStatMapper.deleteEntity(id);
 	}
 
 	@Override
@@ -84,7 +89,7 @@ public class ExamStatServiceImpl implements ExamStatServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return examstatDaoImpl.getEntity(id);
+		return examStatMapper.getEntity(id);
 	}
 
 	@Override
@@ -106,7 +111,7 @@ public class ExamStatServiceImpl implements ExamStatServiceInter {
 			return null;
 		}
 		// 取出用戶答題量
-		ExamStat stat = examstatDaoImpl.getEntity(user);
+		ExamStat stat = examStatMapper.getEntity(user.getId());
 		if (stat == null) {
 			stat = insertStat(user);
 		}
@@ -114,14 +119,14 @@ public class ExamStatServiceImpl implements ExamStatServiceInter {
 			stat.setErrorsubnum(stat.getErrorsubnum() + 1);
 		}
 		stat.setSubjectnum(stat.getSubjectnum() + 1);
-		examstatDaoImpl.editEntity(stat);
+		examStatMapper.editEntity(stat);
 		return stat;
 	}
 
 	@Override
 	@Transactional
 	public ExamStat getExamstatEntity(User user) {
-		ExamStat stat = examstatDaoImpl.getEntity(user);
+		ExamStat stat = examStatMapper.getEntity(user.getId());
 		return stat;
 	}
 
@@ -132,7 +137,7 @@ public class ExamStatServiceImpl implements ExamStatServiceInter {
 			return null;
 		}
 		// 取出用戶答題量
-		ExamStat stat = examstatDaoImpl.getEntity(user);
+		ExamStat stat = examStatMapper.getEntity(user.getId());
 		if (stat == null) {
 			stat = insertStat(user);
 		}
@@ -140,7 +145,7 @@ public class ExamStatServiceImpl implements ExamStatServiceInter {
 			stat.setPapernum(0);
 		}
 		stat.setPapernum(stat.getPapernum() + 1);
-		examstatDaoImpl.editEntity(stat);
+		examStatMapper.editEntity(stat);
 		return stat;
 	}
 

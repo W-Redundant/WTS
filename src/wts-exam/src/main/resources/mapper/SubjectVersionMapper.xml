@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.SubjectVersionMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.SubjectVersion">
+    <!--@mbg.generated-->
+    <!--@Table wts_subject_version-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="CUSERNAME" jdbcType="VARCHAR" property="cusername" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="TIPSTR" jdbcType="VARCHAR" property="tipstr" />
+    <result column="TIPNOTE" jdbcType="LONGVARCHAR" property="tipnote" />
+    <result column="TIPTYPE" jdbcType="VARCHAR" property="tiptype" />
+    <result column="SUBJECTID" jdbcType="VARCHAR" property="subjectid" />
+    <result column="ANSWERED" jdbcType="VARCHAR" property="answered" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CTIME, CUSERNAME, CUSER, PSTATE, PCONTENT, TIPSTR, TIPNOTE, TIPTYPE, SUBJECTID, 
+    ANSWERED
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_subject_version
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_subject_version
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.SubjectVersion">
+    <!--@mbg.generated-->
+    insert into wts_subject_version (ID, CTIME, CUSERNAME, 
+      CUSER, PSTATE, PCONTENT, 
+      TIPSTR, TIPNOTE, TIPTYPE, 
+      SUBJECTID, ANSWERED)
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{cusername,jdbcType=VARCHAR}, 
+      #{cuser,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, 
+      #{tipstr,jdbcType=VARCHAR}, #{tipnote,jdbcType=LONGVARCHAR}, #{tiptype,jdbcType=VARCHAR}, 
+      #{subjectid,jdbcType=VARCHAR}, #{answered,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.SubjectVersion">
+    <!--@mbg.generated-->
+    insert into wts_subject_version
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="cusername != null">
+        CUSERNAME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="tipstr != null">
+        TIPSTR,
+      </if>
+      <if test="tipnote != null">
+        TIPNOTE,
+      </if>
+      <if test="tiptype != null">
+        TIPTYPE,
+      </if>
+      <if test="subjectid != null">
+        SUBJECTID,
+      </if>
+      <if test="answered != null">
+        ANSWERED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="tipstr != null">
+        #{tipstr,jdbcType=VARCHAR},
+      </if>
+      <if test="tipnote != null">
+        #{tipnote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tiptype != null">
+        #{tiptype,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectid != null">
+        #{subjectid,jdbcType=VARCHAR},
+      </if>
+      <if test="answered != null">
+        #{answered,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.SubjectVersion">
+    <!--@mbg.generated-->
+    update wts_subject_version
+    <set>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="tipstr != null">
+        TIPSTR = #{tipstr,jdbcType=VARCHAR},
+      </if>
+      <if test="tipnote != null">
+        TIPNOTE = #{tipnote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tiptype != null">
+        TIPTYPE = #{tiptype,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectid != null">
+        SUBJECTID = #{subjectid,jdbcType=VARCHAR},
+      </if>
+      <if test="answered != null">
+        ANSWERED = #{answered,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.SubjectVersion">
+    <!--@mbg.generated-->
+    update wts_subject_version
+    set CTIME = #{ctime,jdbcType=VARCHAR},
+      CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      TIPSTR = #{tipstr,jdbcType=VARCHAR},
+      TIPNOTE = #{tipnote,jdbcType=LONGVARCHAR},
+      TIPTYPE = #{tiptype,jdbcType=VARCHAR},
+      SUBJECTID = #{subjectid,jdbcType=VARCHAR},
+      ANSWERED = #{answered,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -17,9 +17,9 @@ import org.hibernate.annotations.GenericGenerator;
  *日期：20150707114057
  *说明：
  */
-@Entity(name = "SubjectUserOwn")
+@Entity(name = "SubjectUserown")
 @Table(name = "wts_subject_userown")
-public class SubjectUserOwn implements java.io.Serializable {
+public class SubjectUserown implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

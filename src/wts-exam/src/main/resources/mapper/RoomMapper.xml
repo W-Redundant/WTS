@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.RoomMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.Room">
+    <!--@mbg.generated-->
+    <!--@Table wts_room-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="DUSERNAME" jdbcType="VARCHAR" property="dusername" />
+    <result column="DUSER" jdbcType="VARCHAR" property="duser" />
+    <result column="DTIME" jdbcType="VARCHAR" property="dtime" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="EUSER" jdbcType="VARCHAR" property="euser" />
+    <result column="EUSERNAME" jdbcType="VARCHAR" property="eusername" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="CUSERNAME" jdbcType="VARCHAR" property="cusername" />
+    <result column="ETIME" jdbcType="VARCHAR" property="etime" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="EXAMTYPEID" jdbcType="VARCHAR" property="examtypeid" />
+    <result column="TIMETYPE" jdbcType="VARCHAR" property="timetype" />
+    <result column="STARTTIME" jdbcType="VARCHAR" property="starttime" />
+    <result column="ENDTIME" jdbcType="VARCHAR" property="endtime" />
+    <result column="WRITETYPE" jdbcType="VARCHAR" property="writetype" />
+    <result column="ROOMNOTE" jdbcType="LONGVARCHAR" property="roomnote" />
+    <result column="TIMELEN" jdbcType="INTEGER" property="timelen" />
+    <result column="COUNTTYPE" jdbcType="VARCHAR" property="counttype" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="RESTARTTYPE" jdbcType="VARCHAR" property="restarttype" />
+    <result column="IMGID" jdbcType="VARCHAR" property="imgid" />
+    <result column="SSORTTYPE" jdbcType="VARCHAR" property="ssorttype" />
+    <result column="OSORTTYPE" jdbcType="VARCHAR" property="osorttype" />
+    <result column="PSHOWTYPE" jdbcType="VARCHAR" property="pshowtype" />
+    <result column="UUID" jdbcType="VARCHAR" property="uuid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, DUSERNAME, DUSER, DTIME, PCONTENT, PSTATE, EUSER, EUSERNAME, CUSER, CUSERNAME, 
+    ETIME, CTIME, EXAMTYPEID, TIMETYPE, STARTTIME, ENDTIME, WRITETYPE, ROOMNOTE, TIMELEN, 
+    COUNTTYPE, `NAME`, RESTARTTYPE, IMGID, SSORTTYPE, OSORTTYPE, PSHOWTYPE, UUID
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_room
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_room
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.Room">
+    <!--@mbg.generated-->
+    insert into wts_room (ID, DUSERNAME, DUSER, 
+      DTIME, PCONTENT, PSTATE, 
+      EUSER, EUSERNAME, CUSER, 
+      CUSERNAME, ETIME, CTIME, 
+      EXAMTYPEID, TIMETYPE, STARTTIME, 
+      ENDTIME, WRITETYPE, ROOMNOTE, 
+      TIMELEN, COUNTTYPE, `NAME`, 
+      RESTARTTYPE, IMGID, SSORTTYPE, 
+      OSORTTYPE, PSHOWTYPE, UUID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{dusername,jdbcType=VARCHAR}, #{duser,jdbcType=VARCHAR}, 
+      #{dtime,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, 
+      #{euser,jdbcType=VARCHAR}, #{eusername,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, 
+      #{cusername,jdbcType=VARCHAR}, #{etime,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, 
+      #{examtypeid,jdbcType=VARCHAR}, #{timetype,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, 
+      #{endtime,jdbcType=VARCHAR}, #{writetype,jdbcType=VARCHAR}, #{roomnote,jdbcType=LONGVARCHAR}, 
+      #{timelen,jdbcType=INTEGER}, #{counttype,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{restarttype,jdbcType=VARCHAR}, #{imgid,jdbcType=VARCHAR}, #{ssorttype,jdbcType=VARCHAR}, 
+      #{osorttype,jdbcType=VARCHAR}, #{pshowtype,jdbcType=VARCHAR}, #{uuid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.Room">
+    <!--@mbg.generated-->
+    insert into wts_room
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="dusername != null">
+        DUSERNAME,
+      </if>
+      <if test="duser != null">
+        DUSER,
+      </if>
+      <if test="dtime != null">
+        DTIME,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="euser != null">
+        EUSER,
+      </if>
+      <if test="eusername != null">
+        EUSERNAME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="cusername != null">
+        CUSERNAME,
+      </if>
+      <if test="etime != null">
+        ETIME,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="examtypeid != null">
+        EXAMTYPEID,
+      </if>
+      <if test="timetype != null">
+        TIMETYPE,
+      </if>
+      <if test="starttime != null">
+        STARTTIME,
+      </if>
+      <if test="endtime != null">
+        ENDTIME,
+      </if>
+      <if test="writetype != null">
+        WRITETYPE,
+      </if>
+      <if test="roomnote != null">
+        ROOMNOTE,
+      </if>
+      <if test="timelen != null">
+        TIMELEN,
+      </if>
+      <if test="counttype != null">
+        COUNTTYPE,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="restarttype != null">
+        RESTARTTYPE,
+      </if>
+      <if test="imgid != null">
+        IMGID,
+      </if>
+      <if test="ssorttype != null">
+        SSORTTYPE,
+      </if>
+      <if test="osorttype != null">
+        OSORTTYPE,
+      </if>
+      <if test="pshowtype != null">
+        PSHOWTYPE,
+      </if>
+      <if test="uuid != null">
+        UUID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dusername != null">
+        #{dusername,jdbcType=VARCHAR},
+      </if>
+      <if test="duser != null">
+        #{duser,jdbcType=VARCHAR},
+      </if>
+      <if test="dtime != null">
+        #{dtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="examtypeid != null">
+        #{examtypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="timetype != null">
+        #{timetype,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="writetype != null">
+        #{writetype,jdbcType=VARCHAR},
+      </if>
+      <if test="roomnote != null">
+        #{roomnote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="timelen != null">
+        #{timelen,jdbcType=INTEGER},
+      </if>
+      <if test="counttype != null">
+        #{counttype,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="restarttype != null">
+        #{restarttype,jdbcType=VARCHAR},
+      </if>
+      <if test="imgid != null">
+        #{imgid,jdbcType=VARCHAR},
+      </if>
+      <if test="ssorttype != null">
+        #{ssorttype,jdbcType=VARCHAR},
+      </if>
+      <if test="osorttype != null">
+        #{osorttype,jdbcType=VARCHAR},
+      </if>
+      <if test="pshowtype != null">
+        #{pshowtype,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.Room">
+    <!--@mbg.generated-->
+    update wts_room
+    <set>
+      <if test="dusername != null">
+        DUSERNAME = #{dusername,jdbcType=VARCHAR},
+      </if>
+      <if test="duser != null">
+        DUSER = #{duser,jdbcType=VARCHAR},
+      </if>
+      <if test="dtime != null">
+        DTIME = #{dtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        EUSER = #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        ETIME = #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="examtypeid != null">
+        EXAMTYPEID = #{examtypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="timetype != null">
+        TIMETYPE = #{timetype,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        STARTTIME = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        ENDTIME = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="writetype != null">
+        WRITETYPE = #{writetype,jdbcType=VARCHAR},
+      </if>
+      <if test="roomnote != null">
+        ROOMNOTE = #{roomnote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="timelen != null">
+        TIMELEN = #{timelen,jdbcType=INTEGER},
+      </if>
+      <if test="counttype != null">
+        COUNTTYPE = #{counttype,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="restarttype != null">
+        RESTARTTYPE = #{restarttype,jdbcType=VARCHAR},
+      </if>
+      <if test="imgid != null">
+        IMGID = #{imgid,jdbcType=VARCHAR},
+      </if>
+      <if test="ssorttype != null">
+        SSORTTYPE = #{ssorttype,jdbcType=VARCHAR},
+      </if>
+      <if test="osorttype != null">
+        OSORTTYPE = #{osorttype,jdbcType=VARCHAR},
+      </if>
+      <if test="pshowtype != null">
+        PSHOWTYPE = #{pshowtype,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null">
+        UUID = #{uuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.Room">
+    <!--@mbg.generated-->
+    update wts_room
+    set DUSERNAME = #{dusername,jdbcType=VARCHAR},
+      DUSER = #{duser,jdbcType=VARCHAR},
+      DTIME = #{dtime,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      EUSER = #{euser,jdbcType=VARCHAR},
+      EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      ETIME = #{etime,jdbcType=VARCHAR},
+      CTIME = #{ctime,jdbcType=VARCHAR},
+      EXAMTYPEID = #{examtypeid,jdbcType=VARCHAR},
+      TIMETYPE = #{timetype,jdbcType=VARCHAR},
+      STARTTIME = #{starttime,jdbcType=VARCHAR},
+      ENDTIME = #{endtime,jdbcType=VARCHAR},
+      WRITETYPE = #{writetype,jdbcType=VARCHAR},
+      ROOMNOTE = #{roomnote,jdbcType=LONGVARCHAR},
+      TIMELEN = #{timelen,jdbcType=INTEGER},
+      COUNTTYPE = #{counttype,jdbcType=VARCHAR},
+      `NAME` = #{name,jdbcType=VARCHAR},
+      RESTARTTYPE = #{restarttype,jdbcType=VARCHAR},
+      IMGID = #{imgid,jdbcType=VARCHAR},
+      SSORTTYPE = #{ssorttype,jdbcType=VARCHAR},
+      OSORTTYPE = #{osorttype,jdbcType=VARCHAR},
+      PSHOWTYPE = #{pshowtype,jdbcType=VARCHAR},
+      UUID = #{uuid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

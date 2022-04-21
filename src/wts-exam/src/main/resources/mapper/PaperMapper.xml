@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.PaperMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.Paper">
+    <!--@mbg.generated-->
+    <!--@Table wts_paper-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="EXAMTYPEID" jdbcType="VARCHAR" property="examtypeid" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="ETIME" jdbcType="VARCHAR" property="etime" />
+    <result column="CUSERNAME" jdbcType="VARCHAR" property="cusername" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="EUSERNAME" jdbcType="VARCHAR" property="eusername" />
+    <result column="EUSER" jdbcType="VARCHAR" property="euser" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="SUBJECTNUM" jdbcType="INTEGER" property="subjectnum" />
+    <result column="POINTNUM" jdbcType="INTEGER" property="pointnum" />
+    <result column="COMPLETETNUM" jdbcType="INTEGER" property="completetnum" />
+    <result column="AVGPOINT" jdbcType="INTEGER" property="avgpoint" />
+    <result column="TOPPOINT" jdbcType="INTEGER" property="toppoint" />
+    <result column="LOWPOINT" jdbcType="INTEGER" property="lowpoint" />
+    <result column="ADVICETIME" jdbcType="INTEGER" property="advicetime" />
+    <result column="PAPERNOTE" jdbcType="LONGVARCHAR" property="papernote" />
+    <result column="BOOKNUM" jdbcType="INTEGER" property="booknum" />
+    <result column="UUID" jdbcType="VARCHAR" property="uuid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, EXAMTYPEID, CTIME, ETIME, CUSERNAME, CUSER, EUSERNAME, EUSER, PSTATE, PCONTENT, 
+    `NAME`, SUBJECTNUM, POINTNUM, COMPLETETNUM, AVGPOINT, TOPPOINT, LOWPOINT, ADVICETIME, 
+    PAPERNOTE, BOOKNUM, UUID
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_paper
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_paper
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.Paper">
+    <!--@mbg.generated-->
+    insert into wts_paper (ID, EXAMTYPEID, CTIME, 
+      ETIME, CUSERNAME, CUSER, 
+      EUSERNAME, EUSER, PSTATE, 
+      PCONTENT, `NAME`, SUBJECTNUM, 
+      POINTNUM, COMPLETETNUM, AVGPOINT, 
+      TOPPOINT, LOWPOINT, ADVICETIME, 
+      PAPERNOTE, BOOKNUM, UUID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{examtypeid,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, 
+      #{etime,jdbcType=VARCHAR}, #{cusername,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, 
+      #{eusername,jdbcType=VARCHAR}, #{euser,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, 
+      #{pcontent,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{subjectnum,jdbcType=INTEGER}, 
+      #{pointnum,jdbcType=INTEGER}, #{completetnum,jdbcType=INTEGER}, #{avgpoint,jdbcType=INTEGER}, 
+      #{toppoint,jdbcType=INTEGER}, #{lowpoint,jdbcType=INTEGER}, #{advicetime,jdbcType=INTEGER}, 
+      #{papernote,jdbcType=LONGVARCHAR}, #{booknum,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.Paper">
+    <!--@mbg.generated-->
+    insert into wts_paper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="examtypeid != null">
+        EXAMTYPEID,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="etime != null">
+        ETIME,
+      </if>
+      <if test="cusername != null">
+        CUSERNAME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="eusername != null">
+        EUSERNAME,
+      </if>
+      <if test="euser != null">
+        EUSER,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="subjectnum != null">
+        SUBJECTNUM,
+      </if>
+      <if test="pointnum != null">
+        POINTNUM,
+      </if>
+      <if test="completetnum != null">
+        COMPLETETNUM,
+      </if>
+      <if test="avgpoint != null">
+        AVGPOINT,
+      </if>
+      <if test="toppoint != null">
+        TOPPOINT,
+      </if>
+      <if test="lowpoint != null">
+        LOWPOINT,
+      </if>
+      <if test="advicetime != null">
+        ADVICETIME,
+      </if>
+      <if test="papernote != null">
+        PAPERNOTE,
+      </if>
+      <if test="booknum != null">
+        BOOKNUM,
+      </if>
+      <if test="uuid != null">
+        UUID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="examtypeid != null">
+        #{examtypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectnum != null">
+        #{subjectnum,jdbcType=INTEGER},
+      </if>
+      <if test="pointnum != null">
+        #{pointnum,jdbcType=INTEGER},
+      </if>
+      <if test="completetnum != null">
+        #{completetnum,jdbcType=INTEGER},
+      </if>
+      <if test="avgpoint != null">
+        #{avgpoint,jdbcType=INTEGER},
+      </if>
+      <if test="toppoint != null">
+        #{toppoint,jdbcType=INTEGER},
+      </if>
+      <if test="lowpoint != null">
+        #{lowpoint,jdbcType=INTEGER},
+      </if>
+      <if test="advicetime != null">
+        #{advicetime,jdbcType=INTEGER},
+      </if>
+      <if test="papernote != null">
+        #{papernote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="booknum != null">
+        #{booknum,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.Paper">
+    <!--@mbg.generated-->
+    update wts_paper
+    <set>
+      <if test="examtypeid != null">
+        EXAMTYPEID = #{examtypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        ETIME = #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        EUSER = #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectnum != null">
+        SUBJECTNUM = #{subjectnum,jdbcType=INTEGER},
+      </if>
+      <if test="pointnum != null">
+        POINTNUM = #{pointnum,jdbcType=INTEGER},
+      </if>
+      <if test="completetnum != null">
+        COMPLETETNUM = #{completetnum,jdbcType=INTEGER},
+      </if>
+      <if test="avgpoint != null">
+        AVGPOINT = #{avgpoint,jdbcType=INTEGER},
+      </if>
+      <if test="toppoint != null">
+        TOPPOINT = #{toppoint,jdbcType=INTEGER},
+      </if>
+      <if test="lowpoint != null">
+        LOWPOINT = #{lowpoint,jdbcType=INTEGER},
+      </if>
+      <if test="advicetime != null">
+        ADVICETIME = #{advicetime,jdbcType=INTEGER},
+      </if>
+      <if test="papernote != null">
+        PAPERNOTE = #{papernote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="booknum != null">
+        BOOKNUM = #{booknum,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null">
+        UUID = #{uuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.Paper">
+    <!--@mbg.generated-->
+    update wts_paper
+    set EXAMTYPEID = #{examtypeid,jdbcType=VARCHAR},
+      CTIME = #{ctime,jdbcType=VARCHAR},
+      ETIME = #{etime,jdbcType=VARCHAR},
+      CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      EUSER = #{euser,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      `NAME` = #{name,jdbcType=VARCHAR},
+      SUBJECTNUM = #{subjectnum,jdbcType=INTEGER},
+      POINTNUM = #{pointnum,jdbcType=INTEGER},
+      COMPLETETNUM = #{completetnum,jdbcType=INTEGER},
+      AVGPOINT = #{avgpoint,jdbcType=INTEGER},
+      TOPPOINT = #{toppoint,jdbcType=INTEGER},
+      LOWPOINT = #{lowpoint,jdbcType=INTEGER},
+      ADVICETIME = #{advicetime,jdbcType=INTEGER},
+      PAPERNOTE = #{papernote,jdbcType=LONGVARCHAR},
+      BOOKNUM = #{booknum,jdbcType=INTEGER},
+      UUID = #{uuid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

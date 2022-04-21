@@ -1,6 +1,5 @@
 package com.wts.exam.controller;
 
-import com.wts.exam.domain.SubjectUserOwn;
 import com.wts.exam.service.SubjectUserOwnServiceInter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,6 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import javax.servlet.http.HttpSession;
 import com.farm.core.page.RequestMode;
-import com.farm.core.page.OperateType;
 import com.farm.core.sql.query.DataQuery;
 import com.farm.core.sql.result.DataResult;
 import com.farm.core.page.ViewMode;

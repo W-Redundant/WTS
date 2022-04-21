@@ -1,6 +1,6 @@
 package com.wts.exam.service;
 
-import com.wts.exam.domain.PaperUserOwn;
+import com.wts.exam.domain.PaperUserown;
 import com.farm.core.sql.query.DataQuery;
 import com.farm.core.auth.domain.LoginUser;
 
@@ -20,8 +20,8 @@ public interface PaperUserOwnServiceInter {
 	 * 
 	 * @param entity
 	 */
-	public PaperUserOwn editPaperuserownEntity(PaperUserOwn entity,
-			LoginUser user);
+	public PaperUserown editPaperuserownEntity(PaperUserown entity,
+                                               LoginUser user);
 
 	/**
 	 * 删除实体管理实体
@@ -36,7 +36,7 @@ public interface PaperUserOwnServiceInter {
 	 * @param id
 	 * @return
 	 */
-	public PaperUserOwn getPaperuserownEntity(String id);
+	public PaperUserown getPaperuserownEntity(String id);
 
 	/**
 	 * 创建一个基本查询用来查询当前实体管理实体

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.CardPointHisMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.CardPointHis">
+    <!--@mbg.generated-->
+    <!--@Table wts_card_point_his-->
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="POINT" jdbcType="INTEGER" property="point" />
+    <result column="CARDID" jdbcType="CHAR" property="cardid" />
+    <result column="VERSIONID" jdbcType="CHAR" property="versionid" />
+    <result column="COMPLETE" jdbcType="CHAR" property="complete" />
+    <result column="MPOINT" jdbcType="INTEGER" property="mpoint" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, POINT, CARDID, VERSIONID, COMPLETE, MPOINT
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_card_point_his
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+
+  <select id="countEntitys" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <!--@mbg.generated-->
+    select count(*) from wts_card_point_his
+    where CARDID = #{cardId,jdbcType=CHAR}
+  </select>
+
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_card_point_his
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+
+  <delete id="deleteByCardId" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_card_point_his
+    where CARDID = #{cardId,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.CardPointHis">
+    <!--@mbg.generated-->
+    insert into wts_card_point_his (ID, POINT, CARDID, 
+      VERSIONID, COMPLETE, MPOINT
+      )
+    values (#{id,jdbcType=CHAR}, #{point,jdbcType=INTEGER}, #{cardid,jdbcType=CHAR}, 
+      #{versionid,jdbcType=CHAR}, #{complete,jdbcType=CHAR}, #{mpoint,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.CardPointHis">
+    <!--@mbg.generated-->
+    insert into wts_card_point_his
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="point != null">
+        POINT,
+      </if>
+      <if test="cardid != null">
+        CARDID,
+      </if>
+      <if test="versionid != null">
+        VERSIONID,
+      </if>
+      <if test="complete != null">
+        COMPLETE,
+      </if>
+      <if test="mpoint != null">
+        MPOINT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null">
+        #{cardid,jdbcType=CHAR},
+      </if>
+      <if test="versionid != null">
+        #{versionid,jdbcType=CHAR},
+      </if>
+      <if test="complete != null">
+        #{complete,jdbcType=CHAR},
+      </if>
+      <if test="mpoint != null">
+        #{mpoint,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.CardPointHis">
+    <!--@mbg.generated-->
+    update wts_card_point_his
+    <set>
+      <if test="point != null">
+        POINT = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null">
+        CARDID = #{cardid,jdbcType=CHAR},
+      </if>
+      <if test="versionid != null">
+        VERSIONID = #{versionid,jdbcType=CHAR},
+      </if>
+      <if test="complete != null">
+        COMPLETE = #{complete,jdbcType=CHAR},
+      </if>
+      <if test="mpoint != null">
+        MPOINT = #{mpoint,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.CardPointHis">
+    <!--@mbg.generated-->
+    update wts_card_point_his
+    set POINT = #{point,jdbcType=INTEGER},
+      CARDID = #{cardid,jdbcType=CHAR},
+      VERSIONID = #{versionid,jdbcType=CHAR},
+      COMPLETE = #{complete,jdbcType=CHAR},
+      MPOINT = #{mpoint,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.PaperSubjectMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.PaperSubject">
+    <!--@mbg.generated-->
+    <!--@Table wts_paper_subject-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="VERSIONID" jdbcType="VARCHAR" property="versionid" />
+    <result column="SUBJECTID" jdbcType="VARCHAR" property="subjectid" />
+    <result column="CHAPTERID" jdbcType="VARCHAR" property="chapterid" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="POINT" jdbcType="INTEGER" property="point" />
+    <result column="PAPERID" jdbcType="VARCHAR" property="paperid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, VERSIONID, SUBJECTID, CHAPTERID, SORT, POINT, PAPERID
+  </sql>
+
+  <select id="countByPaperId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <!--@mbg.generated-->
+    select
+    count(*)
+    from wts_paper_subject
+    where PAPERID = #{paperId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByPaperId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_paper_subject
+    where PAPERID = #{paperId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_paper_subject
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_paper_subject
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.PaperSubject">
+    <!--@mbg.generated-->
+    insert into wts_paper_subject (ID, VERSIONID, SUBJECTID, 
+      CHAPTERID, SORT, POINT, 
+      PAPERID)
+    values (#{id,jdbcType=VARCHAR}, #{versionid,jdbcType=VARCHAR}, #{subjectid,jdbcType=VARCHAR}, 
+      #{chapterid,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{point,jdbcType=INTEGER}, 
+      #{paperid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.PaperSubject">
+    <!--@mbg.generated-->
+    insert into wts_paper_subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="versionid != null">
+        VERSIONID,
+      </if>
+      <if test="subjectid != null">
+        SUBJECTID,
+      </if>
+      <if test="chapterid != null">
+        CHAPTERID,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="point != null">
+        POINT,
+      </if>
+      <if test="paperid != null">
+        PAPERID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="versionid != null">
+        #{versionid,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectid != null">
+        #{subjectid,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterid != null">
+        #{chapterid,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="paperid != null">
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.PaperSubject">
+    <!--@mbg.generated-->
+    update wts_paper_subject
+    <set>
+      <if test="versionid != null">
+        VERSIONID = #{versionid,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectid != null">
+        SUBJECTID = #{subjectid,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterid != null">
+        CHAPTERID = #{chapterid,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="point != null">
+        POINT = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="paperid != null">
+        PAPERID = #{paperid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.PaperSubject">
+    <!--@mbg.generated-->
+    update wts_paper_subject
+    set VERSIONID = #{versionid,jdbcType=VARCHAR},
+      SUBJECTID = #{subjectid,jdbcType=VARCHAR},
+      CHAPTERID = #{chapterid,jdbcType=VARCHAR},
+      SORT = #{sort,jdbcType=INTEGER},
+      POINT = #{point,jdbcType=INTEGER},
+      PAPERID = #{paperid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

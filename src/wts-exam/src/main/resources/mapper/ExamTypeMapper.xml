@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.ExamTypeMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.ExamType">
+    <!--@mbg.generated-->
+    <!--@Table wts_exam_type-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="TREECODE" jdbcType="VARCHAR" property="treecode" />
+    <result column="COMMENTS" jdbcType="VARCHAR" property="comments" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="UTIME" jdbcType="VARCHAR" property="utime" />
+    <result column="STATE" jdbcType="CHAR" property="state" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="MUSER" jdbcType="VARCHAR" property="muser" />
+    <result column="PARENTID" jdbcType="VARCHAR" property="parentid" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="MNGPOP" jdbcType="CHAR" property="mngpop" />
+    <result column="ADJUDGEPOP" jdbcType="CHAR" property="adjudgepop" />
+    <result column="QUERYPOP" jdbcType="CHAR" property="querypop" />
+    <result column="SUPERPOP" jdbcType="CHAR" property="superpop" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, TREECODE, COMMENTS, `NAME`, CTIME, UTIME, `STATE`, CUSER, MUSER, PARENTID, SORT, 
+    MNGPOP, ADJUDGEPOP, QUERYPOP, SUPERPOP
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_exam_type
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_exam_type
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.ExamType">
+    <!--@mbg.generated-->
+    insert into wts_exam_type (ID, TREECODE, COMMENTS, 
+      `NAME`, CTIME, UTIME, 
+      `STATE`, CUSER, MUSER, PARENTID, 
+      SORT, MNGPOP, ADJUDGEPOP, 
+      QUERYPOP, SUPERPOP)
+    values (#{id,jdbcType=VARCHAR}, #{treecode,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{utime,jdbcType=VARCHAR}, 
+      #{state,jdbcType=CHAR}, #{cuser,jdbcType=VARCHAR}, #{muser,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{mngpop,jdbcType=CHAR}, #{adjudgepop,jdbcType=CHAR}, 
+      #{querypop,jdbcType=CHAR}, #{superpop,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.ExamType">
+    <!--@mbg.generated-->
+    insert into wts_exam_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="treecode != null">
+        TREECODE,
+      </if>
+      <if test="comments != null">
+        COMMENTS,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="utime != null">
+        UTIME,
+      </if>
+      <if test="state != null">
+        `STATE`,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="muser != null">
+        MUSER,
+      </if>
+      <if test="parentid != null">
+        PARENTID,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="mngpop != null">
+        MNGPOP,
+      </if>
+      <if test="adjudgepop != null">
+        ADJUDGEPOP,
+      </if>
+      <if test="querypop != null">
+        QUERYPOP,
+      </if>
+      <if test="superpop != null">
+        SUPERPOP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="treecode != null">
+        #{treecode,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="utime != null">
+        #{utime,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="muser != null">
+        #{muser,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="mngpop != null">
+        #{mngpop,jdbcType=CHAR},
+      </if>
+      <if test="adjudgepop != null">
+        #{adjudgepop,jdbcType=CHAR},
+      </if>
+      <if test="querypop != null">
+        #{querypop,jdbcType=CHAR},
+      </if>
+      <if test="superpop != null">
+        #{superpop,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.ExamType">
+    <!--@mbg.generated-->
+    update wts_exam_type
+    <set>
+      <if test="treecode != null">
+        TREECODE = #{treecode,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="utime != null">
+        UTIME = #{utime,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `STATE` = #{state,jdbcType=CHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="muser != null">
+        MUSER = #{muser,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        PARENTID = #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="mngpop != null">
+        MNGPOP = #{mngpop,jdbcType=CHAR},
+      </if>
+      <if test="adjudgepop != null">
+        ADJUDGEPOP = #{adjudgepop,jdbcType=CHAR},
+      </if>
+      <if test="querypop != null">
+        QUERYPOP = #{querypop,jdbcType=CHAR},
+      </if>
+      <if test="superpop != null">
+        SUPERPOP = #{superpop,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.ExamType">
+    <!--@mbg.generated-->
+    update wts_exam_type
+    set TREECODE = #{treecode,jdbcType=VARCHAR},
+      COMMENTS = #{comments,jdbcType=VARCHAR},
+      `NAME` = #{name,jdbcType=VARCHAR},
+      CTIME = #{ctime,jdbcType=VARCHAR},
+      UTIME = #{utime,jdbcType=VARCHAR},
+      `STATE` = #{state,jdbcType=CHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      MUSER = #{muser,jdbcType=VARCHAR},
+      PARENTID = #{parentid,jdbcType=VARCHAR},
+      SORT = #{sort,jdbcType=INTEGER},
+      MNGPOP = #{mngpop,jdbcType=CHAR},
+      ADJUDGEPOP = #{adjudgepop,jdbcType=CHAR},
+      QUERYPOP = #{querypop,jdbcType=CHAR},
+      SUPERPOP = #{superpop,jdbcType=CHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

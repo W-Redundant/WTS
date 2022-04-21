@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity(name = "PaperUserOwn")
 @Table(name = "wts_paper_userown")
-public class PaperUserOwn implements java.io.Serializable {
+public class PaperUserown implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

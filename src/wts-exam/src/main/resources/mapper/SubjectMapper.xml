@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.SubjectMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.Subject">
+    <!--@mbg.generated-->
+    <!--@Table wts_subject-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="TYPEID" jdbcType="VARCHAR" property="typeid" />
+    <result column="VERSIONID" jdbcType="VARCHAR" property="versionid" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="MATERIALID" jdbcType="VARCHAR" property="materialid" />
+    <result column="PRAISENUM" jdbcType="INTEGER" property="praisenum" />
+    <result column="COMMENTNUM" jdbcType="INTEGER" property="commentnum" />
+    <result column="ANALYSISNUM" jdbcType="INTEGER" property="analysisnum" />
+    <result column="DONUM" jdbcType="INTEGER" property="donum" />
+    <result column="RIGHTNUM" jdbcType="INTEGER" property="rightnum" />
+    <result column="UUID" jdbcType="VARCHAR" property="uuid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, TYPEID, VERSIONID, PSTATE, MATERIALID, PRAISENUM, COMMENTNUM, ANALYSISNUM, DONUM, 
+    RIGHTNUM, UUID
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_subject
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_subject
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.Subject">
+    <!--@mbg.generated-->
+    insert into wts_subject (ID, TYPEID, VERSIONID, 
+      PSTATE, MATERIALID, PRAISENUM, 
+      COMMENTNUM, ANALYSISNUM, DONUM, 
+      RIGHTNUM, UUID)
+    values (#{id,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, #{versionid,jdbcType=VARCHAR}, 
+      #{pstate,jdbcType=VARCHAR}, #{materialid,jdbcType=VARCHAR}, #{praisenum,jdbcType=INTEGER}, 
+      #{commentnum,jdbcType=INTEGER}, #{analysisnum,jdbcType=INTEGER}, #{donum,jdbcType=INTEGER}, 
+      #{rightnum,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.Subject">
+    <!--@mbg.generated-->
+    insert into wts_subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="typeid != null">
+        TYPEID,
+      </if>
+      <if test="versionid != null">
+        VERSIONID,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="materialid != null">
+        MATERIALID,
+      </if>
+      <if test="praisenum != null">
+        PRAISENUM,
+      </if>
+      <if test="commentnum != null">
+        COMMENTNUM,
+      </if>
+      <if test="analysisnum != null">
+        ANALYSISNUM,
+      </if>
+      <if test="donum != null">
+        DONUM,
+      </if>
+      <if test="rightnum != null">
+        RIGHTNUM,
+      </if>
+      <if test="uuid != null">
+        UUID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="versionid != null">
+        #{versionid,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="materialid != null">
+        #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="praisenum != null">
+        #{praisenum,jdbcType=INTEGER},
+      </if>
+      <if test="commentnum != null">
+        #{commentnum,jdbcType=INTEGER},
+      </if>
+      <if test="analysisnum != null">
+        #{analysisnum,jdbcType=INTEGER},
+      </if>
+      <if test="donum != null">
+        #{donum,jdbcType=INTEGER},
+      </if>
+      <if test="rightnum != null">
+        #{rightnum,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.Subject">
+    <!--@mbg.generated-->
+    update wts_subject
+    <set>
+      <if test="typeid != null">
+        TYPEID = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="versionid != null">
+        VERSIONID = #{versionid,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="materialid != null">
+        MATERIALID = #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="praisenum != null">
+        PRAISENUM = #{praisenum,jdbcType=INTEGER},
+      </if>
+      <if test="commentnum != null">
+        COMMENTNUM = #{commentnum,jdbcType=INTEGER},
+      </if>
+      <if test="analysisnum != null">
+        ANALYSISNUM = #{analysisnum,jdbcType=INTEGER},
+      </if>
+      <if test="donum != null">
+        DONUM = #{donum,jdbcType=INTEGER},
+      </if>
+      <if test="rightnum != null">
+        RIGHTNUM = #{rightnum,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null">
+        UUID = #{uuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.Subject">
+    <!--@mbg.generated-->
+    update wts_subject
+    set TYPEID = #{typeid,jdbcType=VARCHAR},
+      VERSIONID = #{versionid,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      MATERIALID = #{materialid,jdbcType=VARCHAR},
+      PRAISENUM = #{praisenum,jdbcType=INTEGER},
+      COMMENTNUM = #{commentnum,jdbcType=INTEGER},
+      ANALYSISNUM = #{analysisnum,jdbcType=INTEGER},
+      DONUM = #{donum,jdbcType=INTEGER},
+      RIGHTNUM = #{rightnum,jdbcType=INTEGER},
+      UUID = #{uuid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

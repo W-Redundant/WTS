@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.PaperAnswerMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.PaperAnswer">
+    <!--@mbg.generated-->
+    <!--@Table wts_paper_answer-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CARDID" jdbcType="VARCHAR" property="cardid" />
+    <result column="ANSWERID" jdbcType="VARCHAR" property="answerid" />
+    <result column="VERSIONID" jdbcType="VARCHAR" property="versionid" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="VALSTR" jdbcType="LONGVARCHAR" property="valstr" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CARDID, ANSWERID, VERSIONID, CUSER, VALSTR, CTIME, PCONTENT, PSTATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_paper_answer
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_paper_answer
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.wts.exam.domain.PaperAnswer">
+    <!--@mbg.generated-->
+    insert into wts_paper_answer (ID, CARDID, ANSWERID, 
+      VERSIONID, CUSER, VALSTR, 
+      CTIME, PCONTENT, PSTATE
+      )
+    values (#{id,jdbcType=VARCHAR}, #{cardid,jdbcType=VARCHAR}, #{answerid,jdbcType=VARCHAR}, 
+      #{versionid,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, #{valstr,jdbcType=LONGVARCHAR}, 
+      #{ctime,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.PaperAnswer">
+    <!--@mbg.generated-->
+    insert into wts_paper_answer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="cardid != null">
+        CARDID,
+      </if>
+      <if test="answerid != null">
+        ANSWERID,
+      </if>
+      <if test="versionid != null">
+        VERSIONID,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="valstr != null">
+        VALSTR,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cardid != null">
+        #{cardid,jdbcType=VARCHAR},
+      </if>
+      <if test="answerid != null">
+        #{answerid,jdbcType=VARCHAR},
+      </if>
+      <if test="versionid != null">
+        #{versionid,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="valstr != null">
+        #{valstr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wts.exam.domain.PaperAnswer">
+    <!--@mbg.generated-->
+    update wts_paper_answer
+    <set>
+      <if test="cardid != null">
+        CARDID = #{cardid,jdbcType=VARCHAR},
+      </if>
+      <if test="answerid != null">
+        ANSWERID = #{answerid,jdbcType=VARCHAR},
+      </if>
+      <if test="versionid != null">
+        VERSIONID = #{versionid,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="valstr != null">
+        VALSTR = #{valstr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.PaperAnswer">
+    <!--@mbg.generated-->
+    update wts_paper_answer
+    set CARDID = #{cardid,jdbcType=VARCHAR},
+      ANSWERID = #{answerid,jdbcType=VARCHAR},
+      VERSIONID = #{versionid,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      VALSTR = #{valstr,jdbcType=LONGVARCHAR},
+      CTIME = #{ctime,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

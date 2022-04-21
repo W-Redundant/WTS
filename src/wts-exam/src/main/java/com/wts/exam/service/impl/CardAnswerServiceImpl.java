@@ -2,31 +2,23 @@ package com.wts.exam.service.impl;
 
 import com.wts.exam.domain.CardAnswer;
 import com.farm.core.time.TimeTool;
+import com.wts.exam.mapper.CardAnswerMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import com.wts.exam.dao.CardAnswerDaoInter;
 import com.wts.exam.service.CardAnswerServiceInter;
 import com.farm.core.sql.query.DataQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import com.farm.core.auth.domain.LoginUser;
 
-/* *
- *功能：问卷答案服务层实现类
- *详细：
- *
- *版本：v0.1
- *作者：FarmCode代码工程
- *日期：20150707114057
- *说明：
- */
 @Service
+@Slf4j
 public class CardAnswerServiceImpl implements CardAnswerServiceInter {
-	@Resource
-	private CardAnswerDaoInter cardAnswerDaoImpl;
-
-	private static final Logger log = Logger
-			.getLogger(CardAnswerServiceImpl.class);
+	@Autowired
+	private CardAnswerMapper cardAnswerMapper;
 
 	@Override
 	@Transactional
@@ -39,14 +31,15 @@ public class CardAnswerServiceImpl implements CardAnswerServiceInter {
 		// entity.setEusername(user.getName());
 		// entity.setEtime(TimeTool.getTimeDate14());
 		// entity.setPstate("1");
-		return cardAnswerDaoImpl.insertEntity(entity);
+		cardAnswerMapper.insertEntity(entity);
+		return entity;
 	}
 
 	@Override
 	@Transactional
 	public CardAnswer editCardAnswerEntity(CardAnswer entity, LoginUser user) {
 		// TODO 自动生成代码,修改后请去除本注释
-		CardAnswer entity2 = cardAnswerDaoImpl.getEntity(entity.getId());
+		CardAnswer entity2 = cardAnswerMapper.getEntity(entity.getId());
 		// entity2.setEuser(user.getId());
 		// entity2.setEusername(user.getName());
 		// entity2.setEtime(TimeTool.getTimeDate14());
@@ -59,7 +52,7 @@ public class CardAnswerServiceImpl implements CardAnswerServiceInter {
 		entity2.setAnswerid(entity.getAnswerid());
 		entity2.setCardid(entity.getCardid());
 		entity2.setId(entity.getId());
-		cardAnswerDaoImpl.editEntity(entity2);
+		cardAnswerMapper.editEntity(entity2);
 		return entity2;
 	}
 
@@ -67,7 +60,7 @@ public class CardAnswerServiceImpl implements CardAnswerServiceInter {
 	@Transactional
 	public void deleteCardAnswerEntity(String id, LoginUser user) {
 		// TODO 自动生成代码,修改后请去除本注释
-		cardAnswerDaoImpl.deleteEntity(cardAnswerDaoImpl.getEntity(id));
+		cardAnswerMapper.deleteEntity(id);
 	}
 
 	@Override
@@ -77,7 +70,7 @@ public class CardAnswerServiceImpl implements CardAnswerServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return cardAnswerDaoImpl.getEntity(id);
+		return cardAnswerMapper.getEntity(id);
 	}
 
 	@Override

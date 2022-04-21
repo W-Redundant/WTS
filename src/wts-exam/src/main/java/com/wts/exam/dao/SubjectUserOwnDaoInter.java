@@ -1,6 +1,6 @@
 package com.wts.exam.dao;
 
-import com.wts.exam.domain.SubjectUserOwn;
+import com.wts.exam.domain.SubjectUserown;
 import org.hibernate.Session;
 import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DataQuery;
@@ -24,7 +24,7 @@ public interface SubjectUserOwnDaoInter {
 	 * @param entity
 	 *            实体
 	 */
-	public void deleteEntity(SubjectUserOwn subjectuserown);
+	public void deleteEntity(SubjectUserown subjectuserown);
 
 	/**
 	 * 由用户题库id获得一个用户题库实体
@@ -32,14 +32,14 @@ public interface SubjectUserOwnDaoInter {
 	 * @param id
 	 * @return
 	 */
-	public SubjectUserOwn getEntity(String subjectuserownid);
+	public SubjectUserown getEntity(String subjectuserownid);
 
 	/**
 	 * 插入一条用户题库数据
 	 * 
 	 * @param entity
 	 */
-	public SubjectUserOwn insertEntity(SubjectUserOwn subjectuserown);
+	public SubjectUserown insertEntity(SubjectUserown subjectuserown);
 
 	/**
 	 * 获得记录数量
@@ -53,7 +53,7 @@ public interface SubjectUserOwnDaoInter {
 	 * 
 	 * @param entity
 	 */
-	public void editEntity(SubjectUserOwn subjectuserown);
+	public void editEntity(SubjectUserown subjectuserown);
 
 	/**
 	 * 获得一个session
@@ -80,7 +80,7 @@ public interface SubjectUserOwnDaoInter {
 	 *            查询条件
 	 * @return
 	 */
-	public List<SubjectUserOwn> selectEntitys(List<DBRule> rules);
+	public List<SubjectUserown> selectEntitys(List<DBRule> rules);
 
 	/**
 	 * 条件修改用户题库实体，依据对象字段值(一般不建议使用该方法)

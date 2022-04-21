@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.PaperUserownMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.PaperUserown">
+    <!--@mbg.generated-->
+    <!--@Table wts_paper_userown-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="CUSERNAME" jdbcType="VARCHAR" property="cusername" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="MODELTYPE" jdbcType="VARCHAR" property="modeltype" />
+    <result column="PAPERID" jdbcType="VARCHAR" property="paperid" />
+    <result column="ROOMID" jdbcType="VARCHAR" property="roomid" />
+    <result column="PAPERNAME" jdbcType="VARCHAR" property="papername" />
+    <result column="ROOMNAME" jdbcType="VARCHAR" property="roomname" />
+    <result column="SCORE" jdbcType="FLOAT" property="score" />
+    <result column="RPCENT" jdbcType="INTEGER" property="rpcent" />
+    <result column="CARDID" jdbcType="VARCHAR" property="cardid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CTIME, CUSER, CUSERNAME, PSTATE, PCONTENT, MODELTYPE, PAPERID, ROOMID, PAPERNAME, 
+    ROOMNAME, SCORE, RPCENT, CARDID
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_paper_userown
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_paper_userown
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByCardId" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_paper_userown
+    where CARDID = #{cardId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.PaperUserown">
+    <!--@mbg.generated-->
+    insert into wts_paper_userown (ID, CTIME, CUSER, 
+      CUSERNAME, PSTATE, PCONTENT, 
+      MODELTYPE, PAPERID, ROOMID, 
+      PAPERNAME, ROOMNAME, SCORE, 
+      RPCENT, CARDID)
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, 
+      #{cusername,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, 
+      #{modeltype,jdbcType=VARCHAR}, #{paperid,jdbcType=VARCHAR}, #{roomid,jdbcType=VARCHAR}, 
+      #{papername,jdbcType=VARCHAR}, #{roomname,jdbcType=VARCHAR}, #{score,jdbcType=FLOAT}, 
+      #{rpcent,jdbcType=INTEGER}, #{cardid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.PaperUserown">
+    <!--@mbg.generated-->
+    insert into wts_paper_userown
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="cusername != null">
+        CUSERNAME,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="modeltype != null">
+        MODELTYPE,
+      </if>
+      <if test="paperid != null">
+        PAPERID,
+      </if>
+      <if test="roomid != null">
+        ROOMID,
+      </if>
+      <if test="papername != null">
+        PAPERNAME,
+      </if>
+      <if test="roomname != null">
+        ROOMNAME,
+      </if>
+      <if test="score != null">
+        SCORE,
+      </if>
+      <if test="rpcent != null">
+        RPCENT,
+      </if>
+      <if test="cardid != null">
+        CARDID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="modeltype != null">
+        #{modeltype,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null">
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        #{roomid,jdbcType=VARCHAR},
+      </if>
+      <if test="papername != null">
+        #{papername,jdbcType=VARCHAR},
+      </if>
+      <if test="roomname != null">
+        #{roomname,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=FLOAT},
+      </if>
+      <if test="rpcent != null">
+        #{rpcent,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null">
+        #{cardid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.PaperUserown">
+    <!--@mbg.generated-->
+    update wts_paper_userown
+    <set>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="modeltype != null">
+        MODELTYPE = #{modeltype,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null">
+        PAPERID = #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        ROOMID = #{roomid,jdbcType=VARCHAR},
+      </if>
+      <if test="papername != null">
+        PAPERNAME = #{papername,jdbcType=VARCHAR},
+      </if>
+      <if test="roomname != null">
+        ROOMNAME = #{roomname,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        SCORE = #{score,jdbcType=FLOAT},
+      </if>
+      <if test="rpcent != null">
+        RPCENT = #{rpcent,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null">
+        CARDID = #{cardid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.PaperUserown">
+    <!--@mbg.generated-->
+    update wts_paper_userown
+    set CTIME = #{ctime,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      MODELTYPE = #{modeltype,jdbcType=VARCHAR},
+      PAPERID = #{paperid,jdbcType=VARCHAR},
+      ROOMID = #{roomid,jdbcType=VARCHAR},
+      PAPERNAME = #{papername,jdbcType=VARCHAR},
+      ROOMNAME = #{roomname,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=FLOAT},
+      RPCENT = #{rpcent,jdbcType=INTEGER},
+      CARDID = #{cardid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

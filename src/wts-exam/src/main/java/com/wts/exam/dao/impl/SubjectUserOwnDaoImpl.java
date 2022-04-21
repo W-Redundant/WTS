@@ -2,13 +2,12 @@ package com.wts.exam.dao.impl;
 
 import java.math.BigInteger;
 
-import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.wts.exam.domain.SubjectUserOwn;
+import com.wts.exam.domain.SubjectUserown;
 import com.wts.exam.dao.SubjectUserOwnDaoInter;
 import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DataQuery;
@@ -32,14 +31,14 @@ import javax.annotation.Resource;
  *说明：
  */
 @Repository
-public class SubjectUserOwnDaoImpl extends HibernateSQLTools<SubjectUserOwn>
+public class SubjectUserOwnDaoImpl extends HibernateSQLTools<SubjectUserown>
 		implements SubjectUserOwnDaoInter {
 	@Resource(name = "sessionFactory")
 	private SessionFactory sessionFatory;
 	private SqlSessionFactory sqlSessionFactory;
 
 	@Override
-	public void deleteEntity(SubjectUserOwn subjectuserown) {
+	public void deleteEntity(SubjectUserown subjectuserown) {
 		// TODO 自动生成代码,修改后请去除本注释
 		Session session = sessionFatory.getCurrentSession();
 		session.delete(subjectuserown);
@@ -56,15 +55,15 @@ public class SubjectUserOwnDaoImpl extends HibernateSQLTools<SubjectUserOwn>
 	}
 
 	@Override
-	public SubjectUserOwn getEntity(String subjectuserownid) {
+	public SubjectUserown getEntity(String subjectuserownid) {
 		// TODO 自动生成代码,修改后请去除本注释
 		Session session = sessionFatory.getCurrentSession();
-		return (SubjectUserOwn) session.get(SubjectUserOwn.class,
+		return (SubjectUserown) session.get(SubjectUserown.class,
 				subjectuserownid);
 	}
 
 	@Override
-	public SubjectUserOwn insertEntity(SubjectUserOwn subjectuserown) {
+	public SubjectUserown insertEntity(SubjectUserown subjectuserown) {
 		// TODO 自动生成代码,修改后请去除本注释
 		Session session = sessionFatory.getCurrentSession();
 		session.save(subjectuserown);
@@ -72,7 +71,7 @@ public class SubjectUserOwnDaoImpl extends HibernateSQLTools<SubjectUserOwn>
 	}
 
 	@Override
-	public void editEntity(SubjectUserOwn subjectuserown) {
+	public void editEntity(SubjectUserown subjectuserown) {
 		// TODO 自动生成代码,修改后请去除本注释
 		Session session = sessionFatory.getCurrentSession();
 		session.update(subjectuserown);
@@ -101,7 +100,7 @@ public class SubjectUserOwnDaoImpl extends HibernateSQLTools<SubjectUserOwn>
 	}
 
 	@Override
-	public List<SubjectUserOwn> selectEntitys(List<DBRule> rules) {
+	public List<SubjectUserown> selectEntitys(List<DBRule> rules) {
 		// TODO 自动生成代码,修改后请去除本注释
 		return selectSqlFromFunction(sessionFatory.getCurrentSession(), rules);
 	}
@@ -128,7 +127,7 @@ public class SubjectUserOwnDaoImpl extends HibernateSQLTools<SubjectUserOwn>
 
 	@Override
 	protected Class<?> getTypeClass() {
-		return SubjectUserOwn.class;
+		return SubjectUserown.class;
 	}
 
 	@Override

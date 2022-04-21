@@ -1,6 +1,6 @@
 package com.wts.exam.controller;
 
-import com.wts.exam.domain.PaperUserOwn;
+import com.wts.exam.domain.PaperUserown;
 import com.wts.exam.service.PaperUserOwnServiceInter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,8 +67,8 @@ public class PaperUserOwnController extends WebUtils {
 	 */
 	@RequestMapping("/edit")
 	@ResponseBody
-	public Map<String, Object> editSubmit(PaperUserOwn entity,
-			HttpSession session) {
+	public Map<String, Object> editSubmit(PaperUserown entity,
+                                          HttpSession session) {
 		// TODO 自动生成代码,修改后请去除本注释
 		try {
 			entity = paperUserOwnServiceImpl.editPaperuserownEntity(entity,

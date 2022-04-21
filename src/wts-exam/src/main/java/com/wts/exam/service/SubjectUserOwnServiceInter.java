@@ -1,6 +1,6 @@
 package com.wts.exam.service;
 
-import com.wts.exam.domain.SubjectUserOwn;
+import com.wts.exam.domain.SubjectUserown;
 import com.farm.core.sql.query.DataQuery;
 import com.farm.core.auth.domain.LoginUser;
 
@@ -47,7 +47,7 @@ public interface SubjectUserOwnServiceInter {
 	 * @param id
 	 * @return
 	 */
-	public SubjectUserOwn getSubjectuserownEntity(String id);
+	public SubjectUserown getSubjectuserownEntity(String id);
 
 	/**
 	 * 创建一个基本查询用来查询当前实体管理实体

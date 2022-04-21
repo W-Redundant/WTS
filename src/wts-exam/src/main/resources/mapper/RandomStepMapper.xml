@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.RandomStepMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.RandomStep">
+    <!--@mbg.generated-->
+    <!--@Table wts_random_step-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="TYPEID" jdbcType="VARCHAR" property="typeid" />
+    <result column="TIPTYPE" jdbcType="VARCHAR" property="tiptype" />
+    <result column="SUBNUM" jdbcType="INTEGER" property="subnum" />
+    <result column="SUBPOINT" jdbcType="INTEGER" property="subpoint" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="ITEMID" jdbcType="VARCHAR" property="itemid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, TYPEID, TIPTYPE, SUBNUM, SUBPOINT, SORT, `NAME`, PCONTENT, ITEMID
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_random_step
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_random_step
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.RandomStep">
+    <!--@mbg.generated-->
+    insert into wts_random_step (ID, TYPEID, TIPTYPE, 
+      SUBNUM, SUBPOINT, SORT, 
+      `NAME`, PCONTENT, ITEMID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, #{tiptype,jdbcType=VARCHAR}, 
+      #{subnum,jdbcType=INTEGER}, #{subpoint,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, #{itemid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.RandomStep">
+    <!--@mbg.generated-->
+    insert into wts_random_step
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="typeid != null">
+        TYPEID,
+      </if>
+      <if test="tiptype != null">
+        TIPTYPE,
+      </if>
+      <if test="subnum != null">
+        SUBNUM,
+      </if>
+      <if test="subpoint != null">
+        SUBPOINT,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="name != null">
+        `NAME`,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="itemid != null">
+        ITEMID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="tiptype != null">
+        #{tiptype,jdbcType=VARCHAR},
+      </if>
+      <if test="subnum != null">
+        #{subnum,jdbcType=INTEGER},
+      </if>
+      <if test="subpoint != null">
+        #{subpoint,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="itemid != null">
+        #{itemid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.RandomStep">
+    <!--@mbg.generated-->
+    update wts_random_step
+    <set>
+      <if test="typeid != null">
+        TYPEID = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="tiptype != null">
+        TIPTYPE = #{tiptype,jdbcType=VARCHAR},
+      </if>
+      <if test="subnum != null">
+        SUBNUM = #{subnum,jdbcType=INTEGER},
+      </if>
+      <if test="subpoint != null">
+        SUBPOINT = #{subpoint,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        `NAME` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="itemid != null">
+        ITEMID = #{itemid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.RandomStep">
+    <!--@mbg.generated-->
+    update wts_random_step
+    set TYPEID = #{typeid,jdbcType=VARCHAR},
+      TIPTYPE = #{tiptype,jdbcType=VARCHAR},
+      SUBNUM = #{subnum,jdbcType=INTEGER},
+      SUBPOINT = #{subpoint,jdbcType=INTEGER},
+      SORT = #{sort,jdbcType=INTEGER},
+      `NAME` = #{name,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      ITEMID = #{itemid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

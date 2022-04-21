@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wts.exam.mapper.CardMapper">
+  <resultMap id="BaseResultMap" type="com.wts.exam.domain.Card">
+    <!--@mbg.generated-->
+    <!--@Table wts_card-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PAPERID" jdbcType="VARCHAR" property="paperid" />
+    <result column="ROOMID" jdbcType="VARCHAR" property="roomid" />
+    <result column="USERID" jdbcType="VARCHAR" property="userid" />
+    <result column="POINT" jdbcType="FLOAT" property="point" />
+    <result column="ADJUDGEUSERNAME" jdbcType="VARCHAR" property="adjudgeusername" />
+    <result column="ADJUDGEUSER" jdbcType="VARCHAR" property="adjudgeuser" />
+    <result column="ADJUDGETIME" jdbcType="VARCHAR" property="adjudgetime" />
+    <result column="STARTTIME" jdbcType="VARCHAR" property="starttime" />
+    <result column="ENDTIME" jdbcType="VARCHAR" property="endtime" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="COMPLETENUM" jdbcType="INTEGER" property="completenum" />
+    <result column="ALLNUM" jdbcType="INTEGER" property="allnum" />
+    <result column="OVERTIME" jdbcType="VARCHAR" property="overtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, PAPERID, ROOMID, USERID, POINT, ADJUDGEUSERNAME, ADJUDGEUSER, ADJUDGETIME, STARTTIME, 
+    ENDTIME, PSTATE, PCONTENT, COMPLETENUM, ALLNUM, OVERTIME
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from wts_card
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByRoomId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_card
+    where ROOMID = #{roomId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByPaperIdAndRoomId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_card
+    where PAPERID = #{PAPERID,jdbcType=VARCHAR}
+    and ROOMID = #{ROOMID,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByRoomIdAndUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_card
+    where ROOMID = #{ROOMID,jdbcType=VARCHAR}
+    and USERID = #{USERID,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByPaperIdAndUserIdAndRoomId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_card
+    where PAPERID = #{PAPERID,jdbcType=VARCHAR}
+    and USERID = #{USERID,jdbcType=VARCHAR}
+    and ROOMID = #{ROOMID,jdbcType=VARCHAR}
+  </select>
+
+  <select id="countByPaperIdAndRoomId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <!--@mbg.generated-->
+    select
+    count(*)
+    from wts_card
+    where PAPERID = #{PAPERID,jdbcType=VARCHAR}
+    and ROOMID = #{ROOMID,jdbcType=VARCHAR}
+  </select>
+
+  <select id="countByPaperIdAndRoomIdAndPstate" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <!--@mbg.generated-->
+    select
+    count(*)
+    from wts_card
+    where PAPERID = #{PAPERID,jdbcType=VARCHAR}
+    and ROOMID = #{ROOMID,jdbcType=VARCHAR}
+    and PSTATE = #{PSTATE,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_card
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.wts.exam.domain.Card">
+    <!--@mbg.generated-->
+    insert into wts_card (ID, PAPERID, ROOMID, 
+      USERID, POINT, ADJUDGEUSERNAME, 
+      ADJUDGEUSER, ADJUDGETIME, STARTTIME, 
+      ENDTIME, PSTATE, PCONTENT, 
+      COMPLETENUM, ALLNUM, OVERTIME
+      )
+    values (#{id,jdbcType=VARCHAR}, #{paperid,jdbcType=VARCHAR}, #{roomid,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=VARCHAR}, #{point,jdbcType=FLOAT}, #{adjudgeusername,jdbcType=VARCHAR}, 
+      #{adjudgeuser,jdbcType=VARCHAR}, #{adjudgetime,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, 
+      #{endtime,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, 
+      #{completenum,jdbcType=INTEGER}, #{allnum,jdbcType=INTEGER}, #{overtime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wts.exam.domain.Card">
+    <!--@mbg.generated-->
+    insert into wts_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="paperid != null">
+        PAPERID,
+      </if>
+      <if test="roomid != null">
+        ROOMID,
+      </if>
+      <if test="userid != null">
+        USERID,
+      </if>
+      <if test="point != null">
+        POINT,
+      </if>
+      <if test="adjudgeusername != null">
+        ADJUDGEUSERNAME,
+      </if>
+      <if test="adjudgeuser != null">
+        ADJUDGEUSER,
+      </if>
+      <if test="adjudgetime != null">
+        ADJUDGETIME,
+      </if>
+      <if test="starttime != null">
+        STARTTIME,
+      </if>
+      <if test="endtime != null">
+        ENDTIME,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="completenum != null">
+        COMPLETENUM,
+      </if>
+      <if test="allnum != null">
+        ALLNUM,
+      </if>
+      <if test="overtime != null">
+        OVERTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="paperid != null">
+        #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        #{roomid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=FLOAT},
+      </if>
+      <if test="adjudgeusername != null">
+        #{adjudgeusername,jdbcType=VARCHAR},
+      </if>
+      <if test="adjudgeuser != null">
+        #{adjudgeuser,jdbcType=VARCHAR},
+      </if>
+      <if test="adjudgetime != null">
+        #{adjudgetime,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="completenum != null">
+        #{completenum,jdbcType=INTEGER},
+      </if>
+      <if test="allnum != null">
+        #{allnum,jdbcType=INTEGER},
+      </if>
+      <if test="overtime != null">
+        #{overtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.wts.exam.domain.Card">
+    <!--@mbg.generated-->
+    update wts_card
+    <set>
+      <if test="paperid != null">
+        PAPERID = #{paperid,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        ROOMID = #{roomid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        POINT = #{point,jdbcType=FLOAT},
+      </if>
+      <if test="adjudgeusername != null">
+        ADJUDGEUSERNAME = #{adjudgeusername,jdbcType=VARCHAR},
+      </if>
+      <if test="adjudgeuser != null">
+        ADJUDGEUSER = #{adjudgeuser,jdbcType=VARCHAR},
+      </if>
+      <if test="adjudgetime != null">
+        ADJUDGETIME = #{adjudgetime,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        STARTTIME = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        ENDTIME = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="completenum != null">
+        COMPLETENUM = #{completenum,jdbcType=INTEGER},
+      </if>
+      <if test="allnum != null">
+        ALLNUM = #{allnum,jdbcType=INTEGER},
+      </if>
+      <if test="overtime != null">
+        OVERTIME = #{overtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.Card">
+    <!--@mbg.generated-->
+    update wts_card
+    set PAPERID = #{paperid,jdbcType=VARCHAR},
+      ROOMID = #{roomid,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      POINT = #{point,jdbcType=FLOAT},
+      ADJUDGEUSERNAME = #{adjudgeusername,jdbcType=VARCHAR},
+      ADJUDGEUSER = #{adjudgeuser,jdbcType=VARCHAR},
+      ADJUDGETIME = #{adjudgetime,jdbcType=VARCHAR},
+      STARTTIME = #{starttime,jdbcType=VARCHAR},
+      ENDTIME = #{endtime,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      COMPLETENUM = #{completenum,jdbcType=INTEGER},
+      ALLNUM = #{allnum,jdbcType=INTEGER},
+      OVERTIME = #{overtime,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

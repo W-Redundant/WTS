@@ -18,6 +18,8 @@ import com.wts.exam.domain.ex.SubjectUnit;
 import com.wts.exam.domain.ex.TipType;
 import com.farm.core.time.TimeTool;
 
+import com.wts.exam.mapper.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -47,6 +49,7 @@ import com.farm.core.sql.query.DataQuerys;
 import com.farm.core.sql.result.DataResult;
 import com.farm.core.sql.result.ResultsHandle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,46 +80,43 @@ import com.farm.core.auth.domain.LoginUser;
  *说明：
  */
 @Service
+@Slf4j
 public class CardServiceImpl implements CardServiceInter {
-	@Resource
-	private ExamPopsServiceInter examPopsServiceImpl;
-	@Resource
-	private CardAnswerDaoInter cardAnswerDaoImpl;
-	@Resource
-	private PaperSubjectDaoInter papersubjectDaoImpl;
-	@Resource
-	private CardDaoInter cardDaoImpl;
-	@Resource
-	private RoomServiceInter roomServiceImpl;
-	@Resource
-	private RoomDaoInter roomDaoImpl;
-	@Resource
-	private PaperDaoInter paperDaoImpl;
-	@Resource
-	private SubjectVersionDaoInter subjectversionDaoImpl;
-	@Resource
-	private RoomPaperDaoInter roompaperDaoImpl;
-	@Resource
-	private RoomUserDaoInter roomuserDaoImpl;
-	@Resource
-	private CardPointDaoInter cardPointDaoImpl;
-	@Resource
-	private SubjectUserOwnServiceInter subjectUserOwnServiceImpl;
-	@Resource
+
+	@Autowired
+	private CardAnswerMapper cardAnswerMapper;
+	@Autowired
+	private PaperSubjectMapper paperSubjectMapper;
+	@Autowired
+	private CardMapper cardMapper;
+	@Autowired
+	private RoomMapper roomMapper;
+	@Autowired
+	private RoomPaperMapper roomPaperMapper;
+	@Autowired
+	private RoomUserMapper roomUserMapper;
+	@Autowired
+	private CardPointMapper cardPointMapper;
+	@Autowired
+	private PaperMapper paperMapper;
+	@Autowired
+	private PaperUserownMapper paperUserownMapper;
+
+	@Autowired
 	private PaperUserOwnServiceInter paperUserOwnServiceImpl;
-	@Resource
+	@Autowired
 	private ExamStatServiceInter examStatServiceImpl;
-	@Resource
-	private PaperUserOwnDaoInter paperuserownDaoImpl;
-	@Resource
+	@Autowired
 	private SubjectServiceInter subjectServiceImpl;
-	@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger(CardServiceImpl.class);
+	@Autowired
+	private ExamPopsServiceInter examPopsServiceImpl;
+	@Autowired
+	private RoomServiceInter roomServiceImpl;
 
 	@Override
 	@Transactional
 	public Card editCardEntity(Card entity) {
-		Card entity2 = cardDaoImpl.getEntity(entity.getId());
+		Card entity2 = cardMapper.getEntity(entity.getId());
 		entity2.setPcontent(entity.getPcontent());
 		entity2.setEndtime(entity.getEndtime());
 		entity2.setPstate(entity.getPstate());
@@ -128,23 +128,21 @@ public class CardServiceImpl implements CardServiceInter {
 		entity2.setRoomid(entity.getRoomid());
 		entity2.setPaperid(entity.getPaperid());
 		entity2.setId(entity.getId());
-		cardDaoImpl.editEntity(entity2);
+		cardMapper.editEntity(entity2);
 		return entity2;
 	}
 
 	@Override
 	@Transactional
 	public void deleteCardEntity(String id, LoginUser user) {
-		List<DBRule> cardrules = DBRuleList.getInstance()
-				.add(new DBRule("CARDID", id, "=")).toList();
 		// WTS_CARD_ANSWER
-		cardAnswerDaoImpl.deleteEntitys(cardrules);
+		cardAnswerMapper.deleteByCardId(id);
 		// WTS_CARD_POINT
-		cardPointDaoImpl.deleteEntitys(cardrules);
+		cardPointMapper.deleteByCardId(id);
 		// 删除用户答卷记录
-		paperuserownDaoImpl.deleteEntitys(DBRuleList.getInstance()
-				.add(new DBRule("CARDID", id, "=")).toList());
-		cardDaoImpl.deleteEntity(cardDaoImpl.getEntity(id));
+		paperUserownMapper.deleteByCardId(id);
+
+		cardMapper.deleteEntity(id);
 	}
 
 	@Override
@@ -154,7 +152,7 @@ public class CardServiceImpl implements CardServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return cardDaoImpl.getEntity(id);
+		return cardMapper.getEntity(id);
 	}
 
 	@Override
@@ -193,21 +191,19 @@ public class CardServiceImpl implements CardServiceInter {
 			throw new RuntimeException("当前用户无进入权限!");
 		}
 
-		Paper paper = paperDaoImpl.getEntity(paperid);
+		Paper paper = paperMapper.getEntity(paperid);
 		if (paper == null) {
 			throw new RuntimeException("该试卷不存在!id:" + paperid);
 		}
-		List<Card> cards = cardDaoImpl.selectEntitys(DBRuleList.getInstance()
-				.add(new DBRule("PAPERID", paperid, "="))
-				.add(new DBRule("USERID", currentUser.getId(), "="))
-				.add(new DBRule("ROOMID", roomId, "=")).toList());
+		List<Card> cards = cardMapper.findByPaperIdAndUserIdAndRoomId(paperid,currentUser.getId(),roomId);
+
 		// 查询答题卡
 		if (cards.size() > 0) {
 			Card card = cards.get(0);
 			String endTime = card.getEndtime();
 			if (TimeTool.getTimeDate14().compareTo(endTime) >= 0) {
 				card.setPstate("3");
-				cardDaoImpl.editEntity(card);
+				cardMapper.editEntity(card);
 			}
 			return card;
 		} else {// 创建答题卡
@@ -253,7 +249,7 @@ public class CardServiceImpl implements CardServiceInter {
 				card.setRoomid(roomId);
 				card.setOvertime("0");
 				card.setUserid(currentUser.getId());
-				card = cardDaoImpl.insertEntity(card);
+				cardMapper.insertEntity(card);
 			}
 			{
 				// 记录用户答卷记录(匿名房间不记录)
@@ -272,11 +268,7 @@ public class CardServiceImpl implements CardServiceInter {
 	@Override
 	@Transactional
 	public Card loadCard(String paperid, String roomid, String userid) {
-		DBRuleList dbs = DBRuleList.getInstance();
-		dbs.add(new DBRule("PAPERID", paperid, "="));
-		dbs.add(new DBRule("USERID", userid, "="));
-		dbs.add(new DBRule("ROOMID", roomid, "="));
-		List<Card> cards = cardDaoImpl.selectEntitys(dbs.toList());
+		List<Card> cards = cardMapper.findByPaperIdAndUserIdAndRoomId(paperid,userid,roomid);
 		if (cards.size() > 0) {
 			Card card = cards.get(0);
 			String endTime = card.getEndtime();
@@ -284,7 +276,7 @@ public class CardServiceImpl implements CardServiceInter {
 					&& card.getPstate().equals("1")) {
 				// 把未交卷的答题卡设置为超时未交卷
 				card.setPstate("3");
-				cardDaoImpl.editEntity(card);
+				cardMapper.editEntity(card);
 			}
 			return cards.get(0);
 		}
@@ -300,20 +292,10 @@ public class CardServiceImpl implements CardServiceInter {
 			throw new RuntimeException("答题卡获取失败：答题卡");
 		}
 		// 先刪除历史答案
-		cardAnswerDaoImpl.deleteEntitys(DBRuleList.getInstance()
-		//
-				.add(new DBRule("CARDID", card.getId(), "="))
-				//
-				.add(new DBRule("VERSIONID", versionid, "="))
-				//
-				.add(new DBRule("ANSWERID", answerid, "=")).toList());
+		cardAnswerMapper.deleteByCardIdAndVersionIdAndAnswerId(card.getId(),versionid,answerid);
 
-		List<CardAnswer> answers = cardAnswerDaoImpl.selectEntitys(DBRuleList
-				.getInstance()
-				//
-				.add(new DBRule("CARDID", card.getId(), "="))
-				//
-				.add(new DBRule("VERSIONID", versionid, "=")).toList());
+		List<CardAnswer> answers = cardAnswerMapper.findByCardIdAndVersionId(card.getId(),versionid);
+
 		// 添加新的答案
 		CardAnswer answer = new CardAnswer();
 		answer.setAnswerid(answerid);
@@ -323,7 +305,7 @@ public class CardServiceImpl implements CardServiceInter {
 		answer.setPstate("1");
 		answer.setValstr(value);
 		answer.setVersionid(versionid);
-		answer = cardAnswerDaoImpl.insertEntity(answer);
+		cardAnswerMapper.insertEntity(answer);
 		answers.add(answer);
 		// ---------------------------------------------
 		SubjectVersion version = subjectServiceImpl.getSubjectUnit(versionid)
@@ -335,9 +317,8 @@ public class CardServiceImpl implements CardServiceInter {
 	@Override
 	@Transactional
 	public float getCardPointSum(Card card) {
-		List<CardPoint> cardSubs = cardPointDaoImpl.selectEntitys(DBRuleList
-				.getInstance().add(new DBRule("CARDID", card.getId(), "="))
-				.toList());
+		List<CardPoint> cardSubs = cardPointMapper.findByCardId(card.getId());
+
 		float point = 0;
 		for (CardPoint cardSub : cardSubs) {
 			point = point
@@ -368,10 +349,8 @@ public class CardServiceImpl implements CardServiceInter {
 		boolean isAllComplete = true;
 		{
 			// 先获得试卷得分得配置
-			List<PaperSubject> standPoints = papersubjectDaoImpl
-					.selectEntitys(DBRuleList.getInstance()
-							.add(new DBRule("PAPERID", card.getPaperid(), "="))
-							.toList());
+			List<PaperSubject> standPoints = paperSubjectMapper.findByPaperId(card.getPaperid());
+
 			for (PaperSubject standPoint : standPoints) {
 				points.put(standPoint.getVersionid(), standPoint.getPoint());
 			}
@@ -381,14 +360,7 @@ public class CardServiceImpl implements CardServiceInter {
 			int pointWeight = countSubjectPoint(unit);
 			Integer basePoint = points.get(unit.getVersion().getId());
 			int point = (basePoint == null ? 0 : basePoint) * pointWeight / 100;
-			cardPointDaoImpl
-					.deleteEntitys(DBRuleList.getInstance()
-							//
-							.add(new DBRule("CARDID", unit.getCardSubject()
-									.getCardid(), "="))
-							//
-							.add(new DBRule("VERSIONID", unit.getVersion()
-									.getId(), "=")).toList());
+			cardPointMapper.deleteByCardIdAndVersionId(unit.getCardSubject().getCardid(),unit.getVersion().getId());
 
 			{
 				CardPoint cardsub = null;
@@ -405,7 +377,7 @@ public class CardServiceImpl implements CardServiceInter {
 					isAllComplete = false;
 				}
 				cardsub.setPoint(point);
-				cardPointDaoImpl.insertEntity(cardsub);
+				cardPointMapper.insertEntity(cardsub);
 			}
 		}
 		return isAllComplete;
@@ -583,9 +555,8 @@ public class CardServiceImpl implements CardServiceInter {
 	@Transactional
 	public void loadCardPoint(PaperUnit paper, Card card) {
 		// 取得所有答题卡的值
-		List<CardPoint> answerPoints = cardPointDaoImpl
-				.selectEntitys(DBRuleList.getInstance()
-						.add(new DBRule("CARDID", card.getId(), "=")).toList());
+		List<CardPoint> answerPoints = cardPointMapper.findByCardId(card.getId());
+
 		if (answerPoints.size() <= 0) {
 			return;
 		}
@@ -634,9 +605,8 @@ public class CardServiceImpl implements CardServiceInter {
 	@Transactional
 	public void loadCardVal(PaperUnit paper, Card card) {
 		// 取得所有答题卡的值
-		List<CardAnswer> answerVals = cardAnswerDaoImpl
-				.selectEntitys(DBRuleList.getInstance()
-						.add(new DBRule("CARDID", card.getId(), "=")).toList());
+		List<CardAnswer> answerVals = cardAnswerMapper.findByCardId(card.getId());
+
 		if (answerVals.size() <= 0) {
 			return;
 		}
@@ -714,7 +684,7 @@ public class CardServiceImpl implements CardServiceInter {
 	@Transactional
 	public DataResult getRoomPaperUsers(final String roomId,
 			final String paperid, DataQuery query) {
-		final Room room = roomDaoImpl.getEntity(roomId);
+		final Room room = roomMapper.getEntity(roomId);
 		// 用户名称，得分，判卷人，判卷时间，答题开始时间，答题交卷时间，状态
 		if (StringUtils.isNotBlank(paperid)) {
 			DataQuerys.wipeVirus(paperid);
@@ -797,7 +767,7 @@ public class CardServiceImpl implements CardServiceInter {
 	@Transactional
 	public CardInfo autoCountCardPoint(String cardid) {
 		Card card = getCardEntity(cardid);
-		Room room = roomDaoImpl.getEntity(card.getRoomid());
+		Room room = roomMapper.getEntity(card.getRoomid());
 		List<SubjectUnit> subjects = loadUserSubjects(card);
 		// 此处主要慢
 		boolean isAllComplete = runPointCount(subjects, card);
@@ -820,8 +790,7 @@ public class CardServiceImpl implements CardServiceInter {
 		CardInfo info = new CardInfo();
 		{
 			int completeNum = 0;
-			info.setAllNum(papersubjectDaoImpl.countPaperSubjectNum(card
-					.getPaperid()));
+			info.setAllNum(paperSubjectMapper.countByPaperId(card.getPaperid()));
 			for (SubjectUnit subject : subjects) {
 				if (subject.isFinishIs()) {
 					completeNum++;
@@ -839,17 +808,15 @@ public class CardServiceImpl implements CardServiceInter {
 	@Transactional
 	public void finishAdjudge(Card card, Map<String, Integer> points,
 			LoginUser currentUser) {
-		List<CardPoint> cardPoints = cardPointDaoImpl.selectEntitys(DBRuleList
-				.getInstance().add(new DBRule("CARDID", card.getId(), "="))
-				.toList());
+		List<CardPoint> cardPoints = cardPointMapper.findByCardId(card.getId());
+
 		for (CardPoint cardSub : cardPoints) {
 			Integer point = points.get(cardSub.getVersionid());
 			if (point != null) {
-				CardPoint cardSubEntity = cardPointDaoImpl.getEntity(cardSub
-						.getId());
+				CardPoint cardSubEntity = cardPointMapper.getEntity(cardSub.getId());
 				cardSubEntity.setPoint(point);
 				// cardSubEntity.setComplete("1");
-				cardPointDaoImpl.editEntity(cardSubEntity);
+				cardPointMapper.editEntity(cardSubEntity);
 			}
 		}
 		card = getCardEntity(card.getId());
@@ -893,23 +860,12 @@ public class CardServiceImpl implements CardServiceInter {
 	@Transactional
 	public PaperUnit getRoomPaperUserNums(String roomid, String paperid) {
 		PaperUnit paperUnit = new PaperUnit();
-		int currentUsers = cardDaoImpl.countEntitys(DBRuleList.getInstance()
-				.add(new DBRule("PAPERID", paperid, "="))
-				.add(new DBRule("ROOMID", roomid, "=")).toList());
-		int adjudgeUserNum1 = cardDaoImpl.countEntitys(DBRuleList.getInstance()
-				.add(new DBRule("PAPERID", paperid, "="))
-				.add(new DBRule("ROOMID", roomid, "="))
-				.add(new DBRule("PSTATE", "5", "=")).toList());
-		int adjudgeUserNum2 = cardDaoImpl.countEntitys(DBRuleList.getInstance()
-				.add(new DBRule("PAPERID", paperid, "="))
-				.add(new DBRule("ROOMID", roomid, "="))
-				.add(new DBRule("PSTATE", "6", "=")).toList());
-		int adjudgeUserNum3 = cardDaoImpl.countEntitys(DBRuleList.getInstance()
-				.add(new DBRule("PAPERID", paperid, "="))
-				.add(new DBRule("ROOMID", roomid, "="))
-				.add(new DBRule("PSTATE", "7", "=")).toList());
-		int allUser = roomuserDaoImpl.countEntitys(DBRuleList.getInstance()
-				.add(new DBRule("ROOMID", roomid, "=")).toList());
+		int currentUsers = cardMapper.countByPaperIdAndRoomId(paperid,roomid);
+
+		int adjudgeUserNum1 = cardMapper.countByPaperIdAndRoomIdAndPstate(paperid,roomid,"5");
+		int adjudgeUserNum2 = cardMapper.countByPaperIdAndRoomIdAndPstate(paperid,roomid,"6");
+		int adjudgeUserNum3 = cardMapper.countByPaperIdAndRoomIdAndPstate(paperid,roomid,"7");
+		int allUser = roomUserMapper.countByRoomId(roomid);
 		paperUnit.setCurrentUserNum(currentUsers);
 		paperUnit.setAdjudgeUserNum(adjudgeUserNum1 + adjudgeUserNum2
 				+ adjudgeUserNum3);
@@ -921,10 +877,7 @@ public class CardServiceImpl implements CardServiceInter {
 	@Transactional
 	public void clearRoomCard(String roomid, String paperid,
 			LoginUser currentUser) {
-		List<DBRule> rules = DBRuleList.getInstance()
-				.add(new DBRule("ROOMID", roomid, "="))
-				.add(new DBRule("PAPERID", paperid, "=")).toList();
-		List<Card> cards = cardDaoImpl.selectEntitys(rules);
+		List<Card> cards = cardMapper.findByPaperIdAndRoomId(paperid,roomid);
 		for (Card card : cards) {
 			deleteCardEntity(card.getId(), currentUser);
 		}
@@ -936,11 +889,7 @@ public class CardServiceImpl implements CardServiceInter {
 		if (user == null) {
 			throw new RuntimeException("无法获得操作用户!");
 		}
-		List<DBRule> rules = DBRuleList.getInstance()
-				.add(new DBRule("ROOMID", roomid, "="))
-				.add(new DBRule("PAPERID", paperid, "="))
-				.add(new DBRule("USERID", user.getId(), "=")).toList();
-		List<Card> cards = cardDaoImpl.selectEntitys(rules);
+		List<Card> cards = cardMapper.findByPaperIdAndUserIdAndRoomId(paperid,user.getId(),roomid);
 		if (cards.size() > 1) {
 			throw new RuntimeException("the cards is many card!");
 		} else {
@@ -953,17 +902,15 @@ public class CardServiceImpl implements CardServiceInter {
 	@Override
 	@Transactional
 	public void deleteCardsByRoom(String roomid, LoginUser user) {
-		List<Card> cards = cardDaoImpl.selectEntitys(DBRuleList.getInstance()
-				.add(new DBRule("ROOMID", roomid, "=")).toList());
+		List<Card> cards = cardMapper.findByRoomId("roomid");
+
 		for (Card card : cards) {
 			// 删除答题卡用户答案
-			cardAnswerDaoImpl.deleteEntitys(DBRuleList.getInstance()
-					.add(new DBRule("CARDID", card.getId(), "=")).toList());
+			cardAnswerMapper.deleteByCardId(card.getId());
 			// 删除答卷试题得分
-			cardPointDaoImpl.deleteEntitys(DBRuleList.getInstance()
-					.add(new DBRule("CARDID", card.getId(), "=")).toList());
+			cardPointMapper.deleteByCardId(card.getId());
 			// 删除答题卡
-			cardDaoImpl.deleteEntity(card);
+			cardMapper.deleteEntity(card.getId());
 		}
 	}
 
@@ -973,17 +920,14 @@ public class CardServiceImpl implements CardServiceInter {
 		Set<String> roompaperIds = new HashSet<>();
 		{
 			// 房间当前有的答卷（房间有可能有历史答卷，用户之前答卷但是后来被从房间删除了）
-			List<RoomPaper> papers = roompaperDaoImpl.selectEntitys(DBRuleList
-					.getInstance().add(new DBRule("ROOMID", roomid, "="))
-					.toList());
+			List<RoomPaper> papers = roomPaperMapper.findByRoomId(roomid);
 
 			for (RoomPaper paper : papers) {
 				roompaperIds.add(paper.getPaperid());
 			}
 		}
-		List<Card> list = cardDaoImpl.selectEntitys(DBRuleList.getInstance()
-				.add(new DBRule("ROOMID", roomid, "="))
-				.add(new DBRule("USERID", userid, "=")).toList());
+		List<Card> list = cardMapper.findByRoomIdAndUserId(roomid,userid);
+
 		List<String> ids = new ArrayList<>();
 		for (Card card : list) {
 			if (roompaperIds.contains(card.getPaperid())) {
@@ -1003,15 +947,14 @@ public class CardServiceImpl implements CardServiceInter {
 	@Override
 	@Transactional
 	public List<Card> getRoomCards(String roomid) {
-		List<Card> list = cardDaoImpl.selectEntitys(DBRuleList.getInstance()
-				.add(new DBRule("ROOMID", roomid, "=")).toList());
+		List<Card> list = cardMapper.findByRoomId(roomid);
 		return list;
 	}
 
 	@Override
 	@Transactional
 	public void finishExam(String cardId, LoginUser currentUser) {
-		Card card = cardDaoImpl.getEntity(cardId);
+		Card card = cardMapper.getEntity(cardId);
 		{
 			// 数据校验
 			if (currentUser == null) {
@@ -1033,7 +976,7 @@ public class CardServiceImpl implements CardServiceInter {
 	@Override
 	@Transactional
 	public void finishExamNoPop(String cardid, LoginUser currentUser) {
-		Card card = cardDaoImpl.getEntity(cardid);
+		Card card = cardMapper.getEntity(cardid);
 		if (isTheTimeAble(card)) {
 			// 在答题时间内，手动交卷
 			card.setPstate("2");
@@ -1044,7 +987,7 @@ public class CardServiceImpl implements CardServiceInter {
 			card.setPstate("4");
 			card.setOvertime("2");
 		}
-		cardDaoImpl.editEntity(card);
+		cardMapper.editEntity(card);
 		{// 计算得分(回填用戶完成題的數量)
 			// autoCountCardPoint(cardid, currentUser);
 			// 改为异步计算
@@ -1055,9 +998,7 @@ public class CardServiceImpl implements CardServiceInter {
 	@Override
 	@Transactional
 	public void clearRoomCard(String roomid, LoginUser currentUser) {
-		List<DBRule> rules = DBRuleList.getInstance()
-				.add(new DBRule("ROOMID", roomid, "=")).toList();
-		List<Card> cards = cardDaoImpl.selectEntitys(rules);
+		List<Card> cards = cardMapper.findByRoomId(roomid);
 		for (Card card : cards) {
 			deleteCardEntity(card.getId(), currentUser);
 		}
@@ -1066,9 +1007,9 @@ public class CardServiceImpl implements CardServiceInter {
 	@Override
 	@Transactional
 	public void reAdjudge(String cardid, LoginUser currentUser) {
-		Card card = cardDaoImpl.getEntity(cardid);
+		Card card = cardMapper.getEntity(cardid);
 		card.setPstate("2");
-		cardDaoImpl.editEntity(card);
+		cardMapper.editEntity(card);
 	}
 
 	@Override

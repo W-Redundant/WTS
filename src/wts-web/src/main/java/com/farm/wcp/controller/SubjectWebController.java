@@ -27,7 +27,7 @@ import com.wts.exam.domain.RoomPaper;
 import com.wts.exam.domain.Subject;
 import com.wts.exam.domain.SubjectAnalysis;
 import com.wts.exam.domain.SubjectComment;
-import com.wts.exam.domain.SubjectUserOwn;
+import com.wts.exam.domain.SubjectUserown;
 import com.wts.exam.domain.ex.AnswerUnit;
 import com.wts.exam.domain.ex.PaperUnit;
 import com.wts.exam.domain.ex.SubjectUnit;
@@ -207,7 +207,7 @@ public class SubjectWebController extends WebUtils {
 		try {
 			String subjectIds = "";
 			for (String id : parseIds(subjectOwnIds)) {
-				SubjectUserOwn ownEntity = subjectUserOwnServiceImpl.getSubjectuserownEntity(id);
+				SubjectUserown ownEntity = subjectUserOwnServiceImpl.getSubjectuserownEntity(id);
 				if (ownEntity != null) {
 					if (StringUtils.isBlank(ownEntity.getCardid())) {
 						// 不是来源答卷的直接可见

@@ -1,6 +1,6 @@
 package com.wts.exam.dao;
 
-import com.wts.exam.domain.PaperUserOwn;
+import com.wts.exam.domain.PaperUserown;
 import org.hibernate.Session;
 import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DataQuery;
@@ -24,7 +24,7 @@ public interface PaperUserOwnDaoInter {
 	 * @param entity
 	 *            实体
 	 */
-	public void deleteEntity(PaperUserOwn paperuserown);
+	public void deleteEntity(PaperUserown paperuserown);
 
 	/**
 	 * 由用户答卷id获得一个用户答卷实体
@@ -32,14 +32,14 @@ public interface PaperUserOwnDaoInter {
 	 * @param id
 	 * @return
 	 */
-	public PaperUserOwn getEntity(String paperuserownid);
+	public PaperUserown getEntity(String paperuserownid);
 
 	/**
 	 * 插入一条用户答卷数据
 	 * 
 	 * @param entity
 	 */
-	public PaperUserOwn insertEntity(PaperUserOwn paperuserown);
+	public PaperUserown insertEntity(PaperUserown paperuserown);
 
 	/**
 	 * 获得记录数量
@@ -53,7 +53,7 @@ public interface PaperUserOwnDaoInter {
 	 * 
 	 * @param entity
 	 */
-	public void editEntity(PaperUserOwn paperuserown);
+	public void editEntity(PaperUserown paperuserown);
 
 	/**
 	 * 获得一个session
@@ -80,7 +80,7 @@ public interface PaperUserOwnDaoInter {
 	 *            查询条件
 	 * @return
 	 */
-	public List<PaperUserOwn> selectEntitys(List<DBRule> rules);
+	public List<PaperUserown> selectEntitys(List<DBRule> rules);
 
 	/**
 	 * 条件修改用户答卷实体，依据对象字段值(一般不建议使用该方法)
