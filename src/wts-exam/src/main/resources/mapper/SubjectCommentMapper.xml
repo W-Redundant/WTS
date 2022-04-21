@@ -29,6 +29,13 @@
     delete from wts_subject_comment
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
+
+  <delete id="deleteBySubjectId" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_subject_comment
+    where SUBJECTID = #{subjectId,jdbcType=VARCHAR}
+  </delete>
+
   <insert id="insertEntity" parameterType="com.wts.exam.domain.SubjectComment">
     <!--@mbg.generated-->
     insert into wts_subject_comment (ID, CTIME, CUSERNAME, 

@@ -28,6 +28,14 @@
     from wts_subject
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="countByMaterialid" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <!--@mbg.generated-->
+    select
+        count(*)
+    from wts_subject
+    where MATERIALID = #{materialid,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from wts_subject

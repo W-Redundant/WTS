@@ -29,11 +29,43 @@
     where ROOMID = #{roomid,jdbcType=VARCHAR}
   </select>
 
+  <select id="findByPaperIdAndRoomId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_room_paper
+    where PAPERID = #{paperId,jdbcType=VARCHAR}
+    and ROOMID = #{roomid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getPaperAliasByCardId" parameterType="java.lang.String" resultType="java.lang.String">
+    select NAME
+    from WTS_CARD a
+    left join WTS_ROOM_PAPER b
+    on a.ROOMID=b.ROOMID
+    and a.PAPERID=b.PAPERID
+    where a.id= #{id,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from wts_room_paper
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
+
+  <delete id="deleteByRoomIdAndPaperId" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_room_paper
+    where ROOMID = #{roomId,jdbcType=VARCHAR}
+    and PAPERID = #{paperId,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByRoomId" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_room_paper
+    where ROOMID = #{roomId,jdbcType=VARCHAR}
+  </delete>
+
   <insert id="insertEntity" parameterType="com.wts.exam.domain.RoomPaper">
     <!--@mbg.generated-->
     insert into wts_room_paper (ID, ROOMID, PAPERID, 

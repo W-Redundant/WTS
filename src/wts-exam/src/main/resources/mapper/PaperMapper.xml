@@ -39,6 +39,15 @@
     from wts_paper
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="findByExamtypeid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_paper
+    where EXAMTYPEID = #{examtypeid,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from wts_paper

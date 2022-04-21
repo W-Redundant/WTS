@@ -30,6 +30,13 @@
     delete from wts_subject_userown
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
+
+  <delete id="deleteBySubjectId" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_subject_userown
+    where SUBJECTID = #{subjectId,jdbcType=VARCHAR}
+  </delete>
+
   <insert id="insertEntity" parameterType="com.wts.exam.domain.SubjectUserown">
     <!--@mbg.generated-->
     insert into wts_subject_userown (ID, CTIME, CUSER, 

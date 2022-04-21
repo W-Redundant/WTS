@@ -20,6 +20,15 @@
     where ID = #{id,jdbcType=VARCHAR}
   </select>
 
+  <select id="findByRoomIdAndUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_room_user
+    where ROOMID = #{roomId,jdbcType=VARCHAR}
+    and USERID = #{userId,jdbcType=VARCHAR}
+  </select>
+
   <select id="countByRoomId" parameterType="java.lang.String" resultType="java.lang.Integer">
     <!--@mbg.generated-->
     select
@@ -33,6 +42,20 @@
     delete from wts_room_user
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
+
+  <delete id="deleteByRoomId" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_room_user
+    where ROOMID = #{roomId,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByRoomIDAndUserId" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_room_user
+    where ROOMID = #{roomId,jdbcType=VARCHAR}
+    and USERID = #{userId,jdbcType=VARCHAR}
+  </delete>
+
   <insert id="insertEntity" parameterType="com.wts.exam.domain.RoomUser">
     <!--@mbg.generated-->
     insert into wts_room_user (ID, USERID, ROOMID

@@ -32,11 +32,39 @@
     from wts_exam_type
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="getAllSubNodes" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_exam_type
+    where TREECODE like #{treeCode,jdbcType=VARCHAR}
+    order by ctime
+  </select>
+
+  <select id="findByParentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_exam_type
+    where PARENTID = #{parentId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByParentIdAndState" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_exam_type
+    where PARENTID = #{parentId,jdbcType=VARCHAR}
+    and STATE = #{state,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from wts_exam_type
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
+
   <insert id="insertEntity" parameterType="com.wts.exam.domain.ExamType">
     <!--@mbg.generated-->
     insert into wts_exam_type (ID, TREECODE, COMMENTS, 

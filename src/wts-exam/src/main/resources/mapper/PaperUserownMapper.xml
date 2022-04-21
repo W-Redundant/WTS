@@ -31,6 +31,43 @@
     from wts_paper_userown
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="findByCardId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_paper_userown
+    where CARDID = #{cardID,jdbcType=VARCHAR}
+  </select>
+
+  <select id="countByCuserAndModelType" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <!--@mbg.generated-->
+    select
+        count(*)
+    from wts_paper_userown
+    where CUSER = #{cuser,jdbcType=VARCHAR}
+    and MODELTYPE = #{modelType,jdbcType=VARCHAR}
+  </select>
+
+  <select id="countByModelTypeAndPaperId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <!--@mbg.generated-->
+    select
+    count(*)
+    from wts_paper_userown
+    where MODELTYPE = #{modelType,jdbcType=VARCHAR}
+    and PAPERID = #{paperId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="countByModelTypeAndPaperIdAndCuser" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <!--@mbg.generated-->
+    select
+    count(*)
+    from wts_paper_userown
+    where MODELTYPE = #{modelType,jdbcType=VARCHAR}
+    and PAPERID = #{paperId,jdbcType=VARCHAR}
+    and CUSER = #{cuser,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from wts_paper_userown
@@ -41,6 +78,20 @@
     <!--@mbg.generated-->
     delete from wts_paper_userown
     where CARDID = #{cardId,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByRoomId" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_paper_userown
+    where ROOMID = #{roomId,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteByPaperIdAndModerTypeAndCuser" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_paper_userown
+    where PAPERID = #{paperId,jdbcType=VARCHAR}
+    and MODELTYPE = #{modelType,jdbcType=VARCHAR}
+    and CUSER = #{cuser,jdbcType=VARCHAR}
   </delete>
 
   <insert id="insertEntity" parameterType="com.wts.exam.domain.PaperUserown">

@@ -116,4 +116,10 @@
     and a.USERID = #{USERID,jdbcType=VARCHAR}
     and a.FUNTYPE = #{FUNTYPE,jdbcType=VARCHAR}
   </delete>
+
+  <delete id="deleteByTypeId">
+    delete from wts_exam_pop a
+    where a.TYPEID = #{typeId,jdbcType=VARCHAR}
+  </delete>
+
 </mapper>

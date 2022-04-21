@@ -30,6 +30,25 @@
     from wts_paper_chapter
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="findByParentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_paper_chapter
+    where PAPERID = #{parentId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByParentIdAndPtypeAndName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_paper_chapter
+    where PAPERID = #{parentId,jdbcType=VARCHAR}
+    and PTYPE = #{ptype,jdbcType=VARCHAR}
+    and NAME = #{name,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from wts_paper_chapter

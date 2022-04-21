@@ -24,11 +24,27 @@
     from wts_subject_analysis
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+
+  <select id="findBySubjectId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_subject_analysis
+    where SUBJECTID = #{subjectidjdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteEntity" parameterType="java.lang.String">
     <!--@mbg.generated-->
     delete from wts_subject_analysis
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
+
+  <delete id="deleteBySubjectId" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from wts_subject_analysis
+    where SUBJECTID = #{subjectid,jdbcType=VARCHAR}
+  </delete>
+
   <insert id="insertEntity" parameterType="com.wts.exam.domain.SubjectAnalysis">
     <!--@mbg.generated-->
     insert into wts_subject_analysis (ID, CTIME, CUSERNAME, 

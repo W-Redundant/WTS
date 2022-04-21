@@ -25,12 +25,47 @@
     where PAPERID = #{paperId,jdbcType=VARCHAR}
   </select>
 
+  <select id="countByChapterid" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <!--@mbg.generated-->
+    select
+    count(*)
+    from wts_paper_subject
+    where CHAPTERID = #{chapterid,jdbcType=VARCHAR}
+  </select>
+
   <select id="findByPaperId" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
     from wts_paper_subject
     where PAPERID = #{paperId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByChapterId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_paper_subject
+    where CHAPTERID = #{chapterid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByPaperIdAndSubjectid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_paper_subject
+    where PAPERID = #{paperId,jdbcType=VARCHAR}
+    and SUBJECTID = #{subjectId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByChapteridAndPaperIdAndSubjectid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <include refid="Base_Column_List" />
+    from wts_paper_subject
+    where CHAPTERID = #{chapterid,jdbcType=VARCHAR}
+    and PAPERID = #{paperId,jdbcType=VARCHAR}
+    and SUBJECTID = #{subjectId,jdbcType=VARCHAR}
   </select>
 
   <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
