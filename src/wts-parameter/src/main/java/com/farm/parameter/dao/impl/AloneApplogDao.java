@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.farm.core.sql.query.DBRule;
@@ -27,7 +28,7 @@ import javax.annotation.Resource;
  */
 @Repository
 public class AloneApplogDao extends HibernateSQLTools<AloneApplog>implements AloneApplogDaoInter {
-	@Resource(name = "sessionFactory")
+	@Autowired
 	private SessionFactory sessionFatory;
 
 	public void deleteEntity(AloneApplog entity) {

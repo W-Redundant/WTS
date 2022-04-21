@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.SubjectVersionMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.SubjectVersion">
+<mapper namespace="com.farm.exam.mapper.SubjectVersionMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.SubjectVersion">
     <!--@mbg.generated-->
     <!--@Table wts_subject_version-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -33,7 +33,7 @@
     delete from wts_subject_version
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.SubjectVersion">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.SubjectVersion">
     <!--@mbg.generated-->
     insert into wts_subject_version (ID, CTIME, CUSERNAME, 
       CUSER, PSTATE, PCONTENT, 
@@ -44,7 +44,7 @@
       #{tipstr,jdbcType=VARCHAR}, #{tipnote,jdbcType=LONGVARCHAR}, #{tiptype,jdbcType=VARCHAR}, 
       #{subjectid,jdbcType=VARCHAR}, #{answered,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.SubjectVersion">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.SubjectVersion">
     <!--@mbg.generated-->
     insert into wts_subject_version
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -118,7 +118,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.SubjectVersion">
+  <update id="editEntity" parameterType="com.farm.exam.domain.SubjectVersion">
     <!--@mbg.generated-->
     update wts_subject_version
     <set>
@@ -155,7 +155,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.SubjectVersion">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.SubjectVersion">
     <!--@mbg.generated-->
     update wts_subject_version
     set CTIME = #{ctime,jdbcType=VARCHAR},

@@ -1,5 +1,6 @@
 package com.farm.wcp.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,8 +20,8 @@ import com.farm.core.sql.query.DataQuery;
 import com.farm.core.sql.result.DataResult;
 import com.farm.web.WebUtils;
 import com.farm.web.easyui.EasyUiUtils;
-import com.wts.exam.domain.Room;
-import com.wts.exam.service.RoomServiceInter;
+import com.farm.exam.domain.Room;
+import com.farm.exam.service.RoomServiceInter;
 
 /* *
  *功能：业务权限控组件
@@ -59,9 +60,9 @@ import com.wts.exam.service.RoomServiceInter;
 @Controller
 public class PopComponentController extends WebUtils {
 	private final static Logger log = Logger.getLogger(PopComponentController.class);
-	@Resource
+	@Autowired
 	private PopServiceInter popServiceImpl;
-	@Resource
+	@Autowired
 	private RoomServiceInter roomServiceImpl;
 
 	/**

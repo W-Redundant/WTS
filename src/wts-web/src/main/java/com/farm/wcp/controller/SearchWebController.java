@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,9 +23,9 @@ import com.farm.doc.server.UsermessageServiceInter;
 import com.farm.parameter.FarmParameterService;
 import com.farm.web.WebUtils;
 import com.farm.web.easyui.EasyUiUtils;
-import com.wts.exam.service.CardHisServiceInter;
-import com.wts.exam.service.ExamTypeServiceInter;
-import com.wts.exam.service.RoomPaperServiceInter;
+import com.farm.exam.service.CardHisServiceInter;
+import com.farm.exam.service.ExamTypeServiceInter;
+import com.farm.exam.service.RoomPaperServiceInter;
 
 /**
  * 查询
@@ -35,13 +36,13 @@ import com.wts.exam.service.RoomPaperServiceInter;
 @RequestMapping("/search")
 @Controller
 public class SearchWebController extends WebUtils {
-	@Resource
+	@Autowired
 	private UsermessageServiceInter usermessageServiceImpl;
-	@Resource
+	@Autowired
 	private ExamTypeServiceInter examTypeServiceImpl;
-	@Resource
+	@Autowired
 	private CardHisServiceInter cardHisServiceImpl;
-	@Resource
+	@Autowired
 	private RoomPaperServiceInter roomPaperServiceImpl;
 	private static final Logger log = Logger.getLogger(SearchWebController.class);
 

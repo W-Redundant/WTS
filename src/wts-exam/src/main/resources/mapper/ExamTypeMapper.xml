@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.ExamTypeMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.ExamType">
+<mapper namespace="com.farm.exam.mapper.ExamTypeMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.ExamType">
     <!--@mbg.generated-->
     <!--@Table wts_exam_type-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -50,13 +50,13 @@
     where PARENTID = #{parentId,jdbcType=VARCHAR}
   </select>
 
-  <select id="findByParentIdAndState" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="findByParentIdAndState" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select
     <include refid="Base_Column_List" />
-    from wts_exam_type
-    where PARENTID = #{parentId,jdbcType=VARCHAR}
-    and STATE = #{state,jdbcType=VARCHAR}
+    from wts_exam_type a
+    where a.PARENTID = #{parentId,jdbcType=VARCHAR}
+    and a.STATE = #{state,jdbcType=VARCHAR}
   </select>
 
   <delete id="deleteEntity" parameterType="java.lang.String">
@@ -65,7 +65,7 @@
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.ExamType">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.ExamType">
     <!--@mbg.generated-->
     insert into wts_exam_type (ID, TREECODE, COMMENTS, 
       `NAME`, CTIME, UTIME, 
@@ -78,7 +78,7 @@
       #{sort,jdbcType=INTEGER}, #{mngpop,jdbcType=CHAR}, #{adjudgepop,jdbcType=CHAR}, 
       #{querypop,jdbcType=CHAR}, #{superpop,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.ExamType">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.ExamType">
     <!--@mbg.generated-->
     insert into wts_exam_type
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -176,7 +176,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.ExamType">
+  <update id="editEntity" parameterType="com.farm.exam.domain.ExamType">
     <!--@mbg.generated-->
     update wts_exam_type
     <set>
@@ -225,7 +225,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.ExamType">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.ExamType">
     <!--@mbg.generated-->
     update wts_exam_type
     set TREECODE = #{treecode,jdbcType=VARCHAR},
@@ -244,4 +244,5 @@
       SUPERPOP = #{superpop,jdbcType=CHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+
 </mapper>

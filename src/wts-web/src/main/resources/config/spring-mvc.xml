@@ -13,7 +13,7 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
         ">
-	<context:component-scan base-package="com.farm,com.wcp,com.wts" />
+	<context:component-scan base-package="com.farm,com.wts" />
 	<!-- 基于注释的事务，当注释中发现@Transactional时，使用id为“transactionManager”的事务管理器 -->
 	<!-- 如果没有设置transaction-manager的值，则spring以缺省默认的事务管理器来处理事务，默认事务管理器为第一个加载的事务管理器 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />

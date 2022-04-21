@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.SubjectTypeMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.SubjectType">
+<mapper namespace="com.farm.exam.mapper.SubjectTypeMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.SubjectType">
     <!--@mbg.generated-->
     <!--@Table wts_subject_type-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -35,7 +35,7 @@
     delete from wts_subject_type
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.SubjectType">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.SubjectType">
     <!--@mbg.generated-->
     insert into wts_subject_type (ID, TREECODE, COMMENTS, 
       `NAME`, CTIME, UTIME, 
@@ -46,7 +46,7 @@
       #{state,jdbcType=CHAR}, #{cuser,jdbcType=VARCHAR}, #{muser,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, 
       #{sort,jdbcType=INTEGER}, #{readpop,jdbcType=CHAR}, #{writepop,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.SubjectType">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.SubjectType">
     <!--@mbg.generated-->
     insert into wts_subject_type
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -132,7 +132,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.SubjectType">
+  <update id="editEntity" parameterType="com.farm.exam.domain.SubjectType">
     <!--@mbg.generated-->
     update wts_subject_type
     <set>
@@ -175,7 +175,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.SubjectType">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.SubjectType">
     <!--@mbg.generated-->
     update wts_subject_type
     set TREECODE = #{treecode,jdbcType=VARCHAR},

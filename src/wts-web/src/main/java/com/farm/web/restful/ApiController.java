@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,9 +38,9 @@ import com.farm.web.filter.FilterUserInfo;
 @Controller
 public class ApiController extends WebUtils {
 	private final static Logger log = Logger.getLogger(ApiController.class);
-	@Resource
+	@Autowired
 	private OrganizationServiceInter organizationServiceImpl;
-	@Resource
+	@Autowired
 	private UserServiceInter userServiceImpl;
 
 	/**

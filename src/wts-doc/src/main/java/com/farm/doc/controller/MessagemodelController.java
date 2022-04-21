@@ -2,6 +2,7 @@ package com.farm.doc.controller;
 
 import com.farm.doc.domain.MessageModel;
 import com.farm.doc.server.MessagemodelServiceInter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,7 +36,7 @@ import com.farm.web.WebUtils;
 @Controller
 public class MessagemodelController extends WebUtils {
 	private final static Logger log = Logger.getLogger(MessagemodelController.class);
-	@Resource
+	@Autowired
 	MessagemodelServiceInter messageModelServiceImpl;
 
 	public MessagemodelServiceInter getMessagemodelServiceImpl() {

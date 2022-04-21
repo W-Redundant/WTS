@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.farm.quartz.dao.FarmQzTriggerDaoInter;
@@ -28,7 +29,7 @@ import javax.annotation.Resource;
 @Repository
 public class FarmQzTriggerDao extends HibernateSQLTools<FarmQzTrigger>
 		implements FarmQzTriggerDaoInter {
-	@Resource(name = "sessionFactory")
+	@Autowired
 	private SessionFactory sessionFatory;
 
 	public void deleteEntity(FarmQzTrigger entity) {

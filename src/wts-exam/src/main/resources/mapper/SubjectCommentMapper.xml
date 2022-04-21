@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.SubjectCommentMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.SubjectComment">
+<mapper namespace="com.farm.exam.mapper.SubjectCommentMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.SubjectComment">
     <!--@mbg.generated-->
     <!--@Table wts_subject_comment-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -36,7 +36,7 @@
     where SUBJECTID = #{subjectId,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.SubjectComment">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.SubjectComment">
     <!--@mbg.generated-->
     insert into wts_subject_comment (ID, CTIME, CUSERNAME, 
       PSTATE, PCONTENT, `TEXT`, 
@@ -45,7 +45,7 @@
       #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, #{text,jdbcType=LONGVARCHAR}, 
       #{subjectid,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.SubjectComment">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.SubjectComment">
     <!--@mbg.generated-->
     insert into wts_subject_comment
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -101,7 +101,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.SubjectComment">
+  <update id="editEntity" parameterType="com.farm.exam.domain.SubjectComment">
     <!--@mbg.generated-->
     update wts_subject_comment
     <set>
@@ -129,7 +129,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.SubjectComment">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.SubjectComment">
     <!--@mbg.generated-->
     update wts_subject_comment
     set CTIME = #{ctime,jdbcType=VARCHAR},

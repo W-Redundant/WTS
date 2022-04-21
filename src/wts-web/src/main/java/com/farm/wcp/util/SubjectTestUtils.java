@@ -10,9 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.wts.exam.domain.Material;
-import com.wts.exam.domain.ex.SubjectUnit;
-import com.wts.exam.service.MaterialServiceInter;
+import com.farm.exam.domain.Material;
+import com.farm.exam.domain.ex.SubjectUnit;
+import com.farm.exam.service.MaterialServiceInter;
 
 /**
  * 创建一场随机测试，或者从一场测试中取出题

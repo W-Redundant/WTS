@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.SubjectPopMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.SubjectPop">
+<mapper namespace="com.farm.exam.mapper.SubjectPopMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.SubjectPop">
     <!--@mbg.generated-->
     <!--@Table wts_subject_pop-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -26,14 +26,14 @@
     delete from wts_subject_pop
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.SubjectPop">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.SubjectPop">
     <!--@mbg.generated-->
     insert into wts_subject_pop (ID, FUNTYPE, USERID, 
       USERNAME, TYPEID)
     values (#{id,jdbcType=VARCHAR}, #{funtype,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
       #{username,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.SubjectPop">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.SubjectPop">
     <!--@mbg.generated-->
     insert into wts_subject_pop
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -71,7 +71,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.SubjectPop">
+  <update id="editEntity" parameterType="com.farm.exam.domain.SubjectPop">
     <!--@mbg.generated-->
     update wts_subject_pop
     <set>
@@ -90,7 +90,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.SubjectPop">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.SubjectPop">
     <!--@mbg.generated-->
     update wts_subject_pop
     set FUNTYPE = #{funtype,jdbcType=VARCHAR},

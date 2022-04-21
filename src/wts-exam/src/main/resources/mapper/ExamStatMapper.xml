@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.ExamStatMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.ExamStat">
+<mapper namespace="com.farm.exam.mapper.ExamStatMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.ExamStat">
     <!--@mbg.generated-->
     <!--@Table wts_exam_stat-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -35,7 +35,7 @@
     delete from wts_exam_stat
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.ExamStat">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.ExamStat">
     <!--@mbg.generated-->
     insert into wts_exam_stat (ID, CTIME, ETIME, 
       CUSERNAME, CUSER, EUSERNAME, 
@@ -48,7 +48,7 @@
       #{subjectnum,jdbcType=INTEGER}, #{errorsubnum,jdbcType=INTEGER}, #{papernum,jdbcType=INTEGER}, 
       #{testnum,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.ExamStat">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.ExamStat">
     <!--@mbg.generated-->
     insert into wts_exam_stat
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -134,7 +134,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.ExamStat">
+  <update id="editEntity" parameterType="com.farm.exam.domain.ExamStat">
     <!--@mbg.generated-->
     update wts_exam_stat
     <set>
@@ -177,7 +177,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.ExamStat">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.ExamStat">
     <!--@mbg.generated-->
     update wts_exam_stat
     set CTIME = #{ctime,jdbcType=VARCHAR},

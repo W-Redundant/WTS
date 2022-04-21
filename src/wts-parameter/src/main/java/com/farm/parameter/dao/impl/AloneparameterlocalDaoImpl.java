@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.farm.parameter.domain.AloneParameterLocal;
@@ -31,7 +32,7 @@ import javax.annotation.Resource;
  */
 @Repository
 public class AloneparameterlocalDaoImpl implements AloneparameterlocalDaoInter {
-	@Resource(name = "sessionFactory")
+	@Autowired
 	private SessionFactory sessionFatory;
 	private HibernateSQLTools<AloneParameterLocal> sqlTools;
 

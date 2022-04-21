@@ -11,6 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,8 +22,8 @@ import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.doc.server.commons.FarmDocFiles;
 import com.farm.parameter.FarmParameterService;
 import com.farm.web.WebUtils;
-import com.wts.exam.service.ExamTypeServiceInter;
-import com.wts.exam.service.RoomServiceInter;
+import com.farm.exam.service.ExamTypeServiceInter;
+import com.farm.exam.service.RoomServiceInter;
 
 /**
  * 考试
@@ -33,11 +34,11 @@ import com.wts.exam.service.RoomServiceInter;
 @RequestMapping("/utils")
 @Controller
 public class UtilsWebController extends WebUtils {
-	@Resource
+	@Autowired
 	private RoomServiceInter roomServiceImpl;
-	@Resource
+	@Autowired
 	private ExamTypeServiceInter examTypeServiceImpl;
-	@Resource
+	@Autowired
 	private FarmFileManagerInter farmFileManagerImpl;
 	private static final Logger log = Logger.getLogger(UtilsWebController.class);
 

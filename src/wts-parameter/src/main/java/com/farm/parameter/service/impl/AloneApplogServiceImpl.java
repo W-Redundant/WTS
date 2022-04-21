@@ -22,7 +22,7 @@ import com.farm.parameter.service.AloneApplogServiceInter;
  */
 @Service
 public class AloneApplogServiceImpl implements AloneApplogServiceInter {
-	@Resource
+	@Autowired
 	private AloneApplogDaoInter aloneApplogDao;
 
 	@Autowired

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,11 +40,11 @@ import com.farm.doc.server.UsermessageServiceInter;
 import com.farm.parameter.FarmParameterService;
 import com.farm.wcp.util.ThemesUtil;
 import com.farm.web.WebUtils;
-import com.wts.exam.domain.ExamStat;
-import com.wts.exam.service.ExamStatServiceInter;
-import com.wts.exam.service.PaperUserOwnServiceInter;
-import com.wts.exam.service.RoomPaperServiceInter;
-import com.wts.exam.service.SubjectUserOwnServiceInter;
+import com.farm.exam.domain.ExamStat;
+import com.farm.exam.service.ExamStatServiceInter;
+import com.farm.exam.service.PaperUserOwnServiceInter;
+import com.farm.exam.service.RoomPaperServiceInter;
+import com.farm.exam.service.SubjectUserOwnServiceInter;
 
 /**
  * 统计
@@ -54,24 +55,24 @@ import com.wts.exam.service.SubjectUserOwnServiceInter;
 @RequestMapping("/webuser")
 @Controller
 public class UserWebController extends WebUtils {
-	@Resource
+	@Autowired
 	private FarmFileManagerInter farmFileManagerImpl;
-	@Resource
+	@Autowired
 	private UserServiceInter userServiceImpl;
-	@Resource
+	@Autowired
 	private UsermessageServiceInter usermessageServiceImpl;
 	// private final static Logger log = Logger.getLogger(UserController.class);
-	@Resource
+	@Autowired
 	private PopServiceInter popServiceImpl;
-	@Resource
+	@Autowired
 	private OrganizationServiceInter organizationServiceImpl;
-	@Resource
+	@Autowired
 	private SubjectUserOwnServiceInter subjectUserOwnServiceImpl;
-	@Resource
+	@Autowired
 	private ExamStatServiceInter examStatServiceImpl;
-	@Resource
+	@Autowired
 	private PaperUserOwnServiceInter paperUserOwnServiceImpl;
-	@Resource
+	@Autowired
 	private RoomPaperServiceInter roomPaperServiceImpl;
 	private static final Logger log = Logger.getLogger(UserWebController.class);
 

@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.farm.parameter.dao.DictionaryTypeDaoInter;
@@ -16,7 +17,7 @@ import com.farm.parameter.domain.AloneDictionaryType;
 
 @Repository
 public class DictionaryTypeDao implements DictionaryTypeDaoInter {
-	@Resource(name = "sessionFactory")
+	@Autowired
 	private SessionFactory sessionFatory;
 
 	public void deleteEntity(AloneDictionaryType entity) {

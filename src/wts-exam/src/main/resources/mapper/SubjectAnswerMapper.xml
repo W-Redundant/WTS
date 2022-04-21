@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.SubjectAnswerMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.SubjectAnswer">
+<mapper namespace="com.farm.exam.mapper.SubjectAnswerMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.SubjectAnswer">
     <!--@mbg.generated-->
     <!--@Table wts_subject_answer-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -34,7 +34,7 @@
     delete from wts_subject_answer
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.SubjectAnswer">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.SubjectAnswer">
     <!--@mbg.generated-->
     insert into wts_subject_answer (ID, CTIME, CUSERNAME, 
       CUSER, PSTATE, PCONTENT, 
@@ -47,7 +47,7 @@
       #{sort,jdbcType=INTEGER}, #{rightanswer,jdbcType=VARCHAR}, #{pointweight,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.SubjectAnswer">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.SubjectAnswer">
     <!--@mbg.generated-->
     insert into wts_subject_answer
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -127,7 +127,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.SubjectAnswer">
+  <update id="editEntity" parameterType="com.farm.exam.domain.SubjectAnswer">
     <!--@mbg.generated-->
     update wts_subject_answer
     <set>
@@ -167,7 +167,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.SubjectAnswer">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.SubjectAnswer">
     <!--@mbg.generated-->
     update wts_subject_answer
     set CTIME = #{ctime,jdbcType=VARCHAR},

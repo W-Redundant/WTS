@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,7 +41,7 @@ import com.farm.core.sql.result.DataResult;
 @Controller
 public class ActionFarmQzSchedulerQuery extends WebUtils {
 	private static final Logger log = Logger.getLogger(ActionFarmQzSchedulerQuery.class);
-	@Resource
+	@Autowired
 	FarmQzSchedulerManagerInter farmQzSchedulerManagerImpl;
 
 	@RequestMapping("/query")

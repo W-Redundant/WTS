@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.SubjectAnalysisMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.SubjectAnalysis">
+<mapper namespace="com.farm.exam.mapper.SubjectAnalysisMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.SubjectAnalysis">
     <!--@mbg.generated-->
     <!--@Table wts_subject_analysis-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -45,7 +45,7 @@
     where SUBJECTID = #{subjectid,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.SubjectAnalysis">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.SubjectAnalysis">
     <!--@mbg.generated-->
     insert into wts_subject_analysis (ID, CTIME, CUSERNAME, 
       PSTATE, PCONTENT, `TEXT`, 
@@ -54,7 +54,7 @@
       #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, #{text,jdbcType=LONGVARCHAR}, 
       #{subjectid,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.SubjectAnalysis">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.SubjectAnalysis">
     <!--@mbg.generated-->
     insert into wts_subject_analysis
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -110,7 +110,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.SubjectAnalysis">
+  <update id="editEntity" parameterType="com.farm.exam.domain.SubjectAnalysis">
     <!--@mbg.generated-->
     update wts_subject_analysis
     <set>
@@ -138,7 +138,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.SubjectAnalysis">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.SubjectAnalysis">
     <!--@mbg.generated-->
     update wts_subject_analysis
     set CTIME = #{ctime,jdbcType=VARCHAR},

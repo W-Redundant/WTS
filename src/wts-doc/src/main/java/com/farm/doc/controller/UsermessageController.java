@@ -3,6 +3,7 @@ package com.farm.doc.controller;
 import com.farm.doc.domain.UserMessage;
 import com.farm.doc.server.UsermessageServiceInter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,11 +53,11 @@ import com.farm.web.WebUtils;
 @Controller
 public class UsermessageController extends WebUtils {
 	private final static Logger log = Logger.getLogger(UsermessageController.class);
-	@Resource
+	@Autowired
 	private UsermessageServiceInter usermessageServiceImpl;
-	@Resource
+	@Autowired
 	private UserServiceInter userServiceImpl;
-	@Resource
+	@Autowired
 	private OrganizationServiceInter organizationServiceImpl;
 
 	public UsermessageServiceInter getUsermessageServiceImpl() {

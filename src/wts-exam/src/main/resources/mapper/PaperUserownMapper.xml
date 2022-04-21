@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.PaperUserownMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.PaperUserown">
+<mapper namespace="com.farm.exam.mapper.PaperUserownMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.PaperUserown">
     <!--@mbg.generated-->
     <!--@Table wts_paper_userown-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -94,7 +94,7 @@
     and CUSER = #{cuser,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.PaperUserown">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.PaperUserown">
     <!--@mbg.generated-->
     insert into wts_paper_userown (ID, CTIME, CUSER, 
       CUSERNAME, PSTATE, PCONTENT, 
@@ -107,7 +107,7 @@
       #{papername,jdbcType=VARCHAR}, #{roomname,jdbcType=VARCHAR}, #{score,jdbcType=FLOAT}, 
       #{rpcent,jdbcType=INTEGER}, #{cardid,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.PaperUserown">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.PaperUserown">
     <!--@mbg.generated-->
     insert into wts_paper_userown
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -199,7 +199,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.PaperUserown">
+  <update id="editEntity" parameterType="com.farm.exam.domain.PaperUserown">
     <!--@mbg.generated-->
     update wts_paper_userown
     <set>
@@ -245,7 +245,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.PaperUserown">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.PaperUserown">
     <!--@mbg.generated-->
     update wts_paper_userown
     set CTIME = #{ctime,jdbcType=VARCHAR},

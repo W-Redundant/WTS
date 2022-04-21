@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,26 +23,26 @@ import com.farm.parameter.FarmParameterService;
 import com.farm.wcp.util.SubjectTestUtils;
 import com.farm.wcp.util.ThemesUtil;
 import com.farm.web.WebUtils;
-import com.wts.exam.domain.Card;
-import com.wts.exam.domain.RoomPaper;
-import com.wts.exam.domain.Subject;
-import com.wts.exam.domain.SubjectAnalysis;
-import com.wts.exam.domain.SubjectComment;
-import com.wts.exam.domain.SubjectUserown;
-import com.wts.exam.domain.ex.AnswerUnit;
-import com.wts.exam.domain.ex.PaperUnit;
-import com.wts.exam.domain.ex.SubjectUnit;
-import com.wts.exam.service.ExamTypeServiceInter;
-import com.wts.exam.service.MaterialServiceInter;
-import com.wts.exam.service.PaperServiceInter;
-import com.wts.exam.service.PaperUserOwnServiceInter;
-import com.wts.exam.service.CardServiceInter;
-import com.wts.exam.service.ExamStatServiceInter;
-import com.wts.exam.service.RoomServiceInter;
-import com.wts.exam.service.SubjectAnalysisServiceInter;
-import com.wts.exam.service.SubjectCommentServiceInter;
-import com.wts.exam.service.SubjectServiceInter;
-import com.wts.exam.service.SubjectUserOwnServiceInter;
+import com.farm.exam.domain.Card;
+import com.farm.exam.domain.RoomPaper;
+import com.farm.exam.domain.Subject;
+import com.farm.exam.domain.SubjectAnalysis;
+import com.farm.exam.domain.SubjectComment;
+import com.farm.exam.domain.SubjectUserown;
+import com.farm.exam.domain.ex.AnswerUnit;
+import com.farm.exam.domain.ex.PaperUnit;
+import com.farm.exam.domain.ex.SubjectUnit;
+import com.farm.exam.service.ExamTypeServiceInter;
+import com.farm.exam.service.MaterialServiceInter;
+import com.farm.exam.service.PaperServiceInter;
+import com.farm.exam.service.PaperUserOwnServiceInter;
+import com.farm.exam.service.CardServiceInter;
+import com.farm.exam.service.ExamStatServiceInter;
+import com.farm.exam.service.RoomServiceInter;
+import com.farm.exam.service.SubjectAnalysisServiceInter;
+import com.farm.exam.service.SubjectCommentServiceInter;
+import com.farm.exam.service.SubjectServiceInter;
+import com.farm.exam.service.SubjectUserOwnServiceInter;
 
 /**
  * 考题
@@ -52,27 +53,27 @@ import com.wts.exam.service.SubjectUserOwnServiceInter;
 @RequestMapping("/websubject")
 @Controller
 public class SubjectWebController extends WebUtils {
-	@Resource
+	@Autowired
 	private PaperServiceInter paperServiceImpl;
-	@Resource
+	@Autowired
 	private ExamTypeServiceInter examTypeServiceImpl;
-	@Resource
+	@Autowired
 	private RoomServiceInter roomServiceImpl;
-	@Resource
+	@Autowired
 	private CardServiceInter cardServiceImpl;
-	@Resource
+	@Autowired
 	private SubjectServiceInter subjectServiceImpl;
-	@Resource
+	@Autowired
 	private SubjectAnalysisServiceInter SubjectAnalysisServiceImpl;
-	@Resource
+	@Autowired
 	private MaterialServiceInter materialServiceImpl;
-	@Resource
+	@Autowired
 	private SubjectUserOwnServiceInter subjectUserOwnServiceImpl;
-	@Resource
+	@Autowired
 	private SubjectCommentServiceInter SubjectCommentServiceImpl;
-	@Resource
+	@Autowired
 	private PaperUserOwnServiceInter paperUserOwnServiceImpl;
-	@Resource
+	@Autowired
 	private ExamStatServiceInter examStatServiceImpl;
 
 	private static final Logger log = Logger.getLogger(SubjectWebController.class);

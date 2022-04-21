@@ -1,7 +1,6 @@
 package com.farm.wcp.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,21 +29,20 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.wts.exam.domain.Paper;
-import com.wts.exam.domain.Card;
-import com.wts.exam.domain.Room;
-import com.wts.exam.domain.SubjectAnalysis;
-import com.wts.exam.domain.ex.PaperUnit;
-import com.wts.exam.domain.ex.RoomUnit;
-import com.wts.exam.domain.ex.SubjectUnit;
-import com.wts.exam.service.ExamTypeServiceInter;
-import com.wts.exam.service.MaterialServiceInter;
-import com.wts.exam.service.PaperServiceInter;
-import com.wts.exam.service.CardServiceInter;
-import com.wts.exam.service.ExamPopsServiceInter;
-import com.wts.exam.service.RoomServiceInter;
-import com.wts.exam.service.SubjectAnalysisServiceInter;
-import com.wts.exam.service.SubjectServiceInter;
+import com.farm.exam.domain.Paper;
+import com.farm.exam.domain.Card;
+import com.farm.exam.domain.Room;
+import com.farm.exam.domain.ex.PaperUnit;
+import com.farm.exam.domain.ex.RoomUnit;
+import com.farm.exam.domain.ex.SubjectUnit;
+import com.farm.exam.service.ExamTypeServiceInter;
+import com.farm.exam.service.MaterialServiceInter;
+import com.farm.exam.service.PaperServiceInter;
+import com.farm.exam.service.CardServiceInter;
+import com.farm.exam.service.ExamPopsServiceInter;
+import com.farm.exam.service.RoomServiceInter;
+import com.farm.exam.service.SubjectAnalysisServiceInter;
+import com.farm.exam.service.SubjectServiceInter;
 
 /**
  * 判卷
@@ -54,21 +53,21 @@ import com.wts.exam.service.SubjectServiceInter;
 @RequestMapping("/adjudge")
 @Controller
 public class adjudgeWebController extends WebUtils {
-	@Resource
+	@Autowired
 	private RoomServiceInter roomServiceImpl;
-	@Resource
+	@Autowired
 	private ExamTypeServiceInter examTypeServiceImpl;
-	@Resource
+	@Autowired
 	private PaperServiceInter paperServiceImpl;
-	@Resource
+	@Autowired
 	private CardServiceInter cardServiceImpl;
-	@Resource
+	@Autowired
 	private ExamPopsServiceInter examPopsServiceImpl;
-	@Resource
+	@Autowired
 	private SubjectServiceInter subjectServiceImpl;
-	@Resource
+	@Autowired
 	private MaterialServiceInter materialServiceImpl;
-	@Resource
+	@Autowired
 	private SubjectAnalysisServiceInter SubjectAnalysisServiceImpl;
 	private static final Logger log = Logger.getLogger(adjudgeWebController.class);
 

@@ -1,6 +1,7 @@
 package com.farm.authority.controller;
 
 import com.farm.authority.service.PopServiceInter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,7 +31,7 @@ import com.farm.web.WebUtils;
 @Controller
 public class PopController extends WebUtils {
 	private final static Logger log = Logger.getLogger(PopController.class);
-	@Resource
+	@Autowired
 	PopServiceInter popServiceImpl;
 
 	public PopServiceInter getPopServiceImpl() {

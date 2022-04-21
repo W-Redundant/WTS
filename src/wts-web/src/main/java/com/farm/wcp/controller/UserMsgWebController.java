@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,13 +32,13 @@ import com.farm.web.WebUtils;
 @RequestMapping("/webusermessage")
 @Controller
 public class UserMsgWebController extends WebUtils {
-	@Resource
+	@Autowired
 	private UsermessageServiceInter usermessageServiceImpl;
-	@Resource
+	@Autowired
 	private UserServiceInter userServiceImpl;
-	@Resource
+	@Autowired
 	private FarmFileManagerInter farmFileManagerImpl;
-	@Resource
+	@Autowired
 	private OrganizationServiceInter organizationServiceImpl;
 
 	public static String getThemePath() {

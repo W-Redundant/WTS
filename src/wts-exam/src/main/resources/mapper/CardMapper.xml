@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.CardMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.Card">
+<mapper namespace="com.farm.exam.mapper.CardMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.Card">
     <!--@mbg.generated-->
     <!--@Table wts_card-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -93,7 +93,7 @@
     delete from wts_card
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.Card">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.Card">
     <!--@mbg.generated-->
     insert into wts_card (ID, PAPERID, ROOMID, 
       USERID, POINT, ADJUDGEUSERNAME, 
@@ -108,7 +108,7 @@
       #{completenum,jdbcType=INTEGER}, #{allnum,jdbcType=INTEGER}, #{overtime,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.Card">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.Card">
     <!--@mbg.generated-->
     insert into wts_card
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -206,7 +206,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.Card">
+  <update id="editEntity" parameterType="com.farm.exam.domain.Card">
     <!--@mbg.generated-->
     update wts_card
     <set>
@@ -255,7 +255,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.Card">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.Card">
     <!--@mbg.generated-->
     update wts_card
     set PAPERID = #{paperid,jdbcType=VARCHAR},

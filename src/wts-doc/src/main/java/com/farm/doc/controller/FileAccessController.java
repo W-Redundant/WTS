@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +45,7 @@ import com.farm.web.WebUtils;
 @Controller
 public class FileAccessController extends WebUtils {
 	private static final Logger log = Logger.getLogger(FileAccessController.class);
-	@Resource
+	@Autowired
 	private FarmFileManagerInter farmFileManagerImpl;
 	private static String IMG_EXNAMES_STR = null;
 	private static String MEDIA_EXNAMES_STR = null;

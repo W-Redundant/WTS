@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.CardAnswerMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.CardAnswer">
+<mapper namespace="com.farm.exam.mapper.CardAnswerMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.CardAnswer">
     <!--@mbg.generated-->
     <!--@Table wts_card_answer-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -63,7 +63,7 @@
     where CARDID = #{cardId,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.CardAnswer">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.CardAnswer">
     <!--@mbg.generated-->
     insert into wts_card_answer (ID, CARDID, ANSWERID, 
       VERSIONID, CUSER, VALSTR, 
@@ -74,7 +74,7 @@
       #{ctime,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.CardAnswer">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.CardAnswer">
     <!--@mbg.generated-->
     insert into wts_card_answer
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -136,7 +136,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.CardAnswer">
+  <update id="editEntity" parameterType="com.farm.exam.domain.CardAnswer">
     <!--@mbg.generated-->
     update wts_card_answer
     <set>
@@ -167,7 +167,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.CardAnswer">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.CardAnswer">
     <!--@mbg.generated-->
     update wts_card_answer
     set CARDID = #{cardid,jdbcType=VARCHAR},

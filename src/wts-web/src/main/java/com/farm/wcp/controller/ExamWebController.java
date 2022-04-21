@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,9 +15,9 @@ import com.farm.core.page.ViewMode;
 import com.farm.parameter.FarmParameterService;
 import com.farm.wcp.util.ThemesUtil;
 import com.farm.web.WebUtils;
-import com.wts.exam.domain.ex.RoomUnit;
-import com.wts.exam.service.ExamTypeServiceInter;
-import com.wts.exam.service.RoomServiceInter;
+import com.farm.exam.domain.ex.RoomUnit;
+import com.farm.exam.service.ExamTypeServiceInter;
+import com.farm.exam.service.RoomServiceInter;
 
 /**
  * 考试
@@ -27,9 +28,9 @@ import com.wts.exam.service.RoomServiceInter;
 @RequestMapping("/exam")
 @Controller
 public class ExamWebController extends WebUtils {
-	@Resource
+	@Autowired
 	private RoomServiceInter roomServiceImpl;
-	@Resource
+	@Autowired
 	private ExamTypeServiceInter examTypeServiceImpl;
 
 	private static final Logger log = Logger.getLogger(ExamWebController.class);

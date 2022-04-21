@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,16 +26,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.wts.exam.domain.Card;
-import com.wts.exam.domain.Room;
-import com.wts.exam.domain.RoomPaper;
-import com.wts.exam.domain.ex.PaperUnit;
-import com.wts.exam.service.ExamTypeServiceInter;
-import com.wts.exam.service.PaperServiceInter;
-import com.wts.exam.service.PaperUserOwnServiceInter;
-import com.wts.exam.service.CardServiceInter;
-import com.wts.exam.service.RoomServiceInter;
-import com.wts.exam.utils.CheatUtils;
+import com.farm.exam.domain.Card;
+import com.farm.exam.domain.Room;
+import com.farm.exam.domain.RoomPaper;
+import com.farm.exam.domain.ex.PaperUnit;
+import com.farm.exam.service.ExamTypeServiceInter;
+import com.farm.exam.service.PaperServiceInter;
+import com.farm.exam.service.PaperUserOwnServiceInter;
+import com.farm.exam.service.CardServiceInter;
+import com.farm.exam.service.RoomServiceInter;
+import com.farm.exam.utils.CheatUtils;
 
 /**
  * 考试
@@ -45,15 +46,15 @@ import com.wts.exam.utils.CheatUtils;
 @RequestMapping("/webpaper")
 @Controller
 public class PaperWebController extends WebUtils {
-	@Resource
+	@Autowired
 	private PaperServiceInter paperServiceImpl;
-	@Resource
+	@Autowired
 	private ExamTypeServiceInter examTypeServiceImpl;
-	@Resource
+	@Autowired
 	private RoomServiceInter roomServiceImpl;
-	@Resource
+	@Autowired
 	private CardServiceInter cardServiceImpl;
-	@Resource
+	@Autowired
 	private PaperUserOwnServiceInter paperUserOwnServiceImpl;
 	private static final Logger log = Logger.getLogger(PaperWebController.class);
 

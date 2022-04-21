@@ -2,6 +2,7 @@ package com.farm.authority.controller;
 
 import com.farm.authority.domain.Outuser;
 import com.farm.authority.service.OutuserServiceInter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,7 +33,7 @@ import com.farm.web.WebUtils;
 @Controller
 public class OutuserController extends WebUtils {
 	private final static Logger log = Logger.getLogger(OutuserController.class);
-	@Resource
+	@Autowired
 	OutuserServiceInter outUserServiceImpl;
 
 	public OutuserServiceInter getOutuserServiceImpl() {

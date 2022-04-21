@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.RandomStepMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.RandomStep">
+<mapper namespace="com.farm.exam.mapper.RandomStepMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.RandomStep">
     <!--@mbg.generated-->
     <!--@Table wts_random_step-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -39,7 +39,7 @@
     delete from wts_random_step
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.RandomStep">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.RandomStep">
     <!--@mbg.generated-->
     insert into wts_random_step (ID, TYPEID, TIPTYPE, 
       SUBNUM, SUBPOINT, SORT, 
@@ -50,7 +50,7 @@
       #{name,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, #{itemid,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.RandomStep">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.RandomStep">
     <!--@mbg.generated-->
     insert into wts_random_step
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -112,7 +112,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.RandomStep">
+  <update id="editEntity" parameterType="com.farm.exam.domain.RandomStep">
     <!--@mbg.generated-->
     update wts_random_step
     <set>
@@ -143,7 +143,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.RandomStep">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.RandomStep">
     <!--@mbg.generated-->
     update wts_random_step
     set TYPEID = #{typeid,jdbcType=VARCHAR},

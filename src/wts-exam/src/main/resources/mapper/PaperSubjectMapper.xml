@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.PaperSubjectMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.PaperSubject">
+<mapper namespace="com.farm.exam.mapper.PaperSubjectMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.PaperSubject">
     <!--@mbg.generated-->
     <!--@Table wts_paper_subject-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -81,7 +81,7 @@
     delete from wts_paper_subject
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.PaperSubject">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.PaperSubject">
     <!--@mbg.generated-->
     insert into wts_paper_subject (ID, VERSIONID, SUBJECTID, 
       CHAPTERID, SORT, POINT, 
@@ -90,7 +90,7 @@
       #{chapterid,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{point,jdbcType=INTEGER}, 
       #{paperid,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.PaperSubject">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.PaperSubject">
     <!--@mbg.generated-->
     insert into wts_paper_subject
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -140,7 +140,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.PaperSubject">
+  <update id="editEntity" parameterType="com.farm.exam.domain.PaperSubject">
     <!--@mbg.generated-->
     update wts_paper_subject
     <set>
@@ -165,7 +165,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.PaperSubject">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.PaperSubject">
     <!--@mbg.generated-->
     update wts_paper_subject
     set VERSIONID = #{versionid,jdbcType=VARCHAR},

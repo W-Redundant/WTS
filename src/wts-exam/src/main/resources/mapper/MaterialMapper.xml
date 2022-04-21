@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.MaterialMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.Material">
+<mapper namespace="com.farm.exam.mapper.MaterialMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.Material">
     <!--@mbg.generated-->
     <!--@Table wts_material-->
     <id column="ID" jdbcType="VARCHAR" property="id" />
@@ -31,7 +31,7 @@
     delete from wts_material
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.Material">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.Material">
     <!--@mbg.generated-->
     insert into wts_material (ID, CTIME, ETIME, 
       CUSER, EUSER, PSTATE, 
@@ -42,7 +42,7 @@
       #{pcontent,jdbcType=VARCHAR}, #{text,jdbcType=LONGVARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{uuid,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.Material">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.Material">
     <!--@mbg.generated-->
     insert into wts_material
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -110,7 +110,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.Material">
+  <update id="editEntity" parameterType="com.farm.exam.domain.Material">
     <!--@mbg.generated-->
     update wts_material
     <set>
@@ -144,7 +144,7 @@
     </set>
     where ID = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.Material">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.Material">
     <!--@mbg.generated-->
     update wts_material
     set CTIME = #{ctime,jdbcType=VARCHAR},

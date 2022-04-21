@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,7 +40,7 @@ public class DictionaryTypeController extends WebUtils {
 	private String parentName;// 父组织机构名称
 	private static final Logger log = Logger.getLogger(DictionaryTypeController.class);
 
-	@Resource
+	@Autowired
 	DictionaryTypeServiceInter dictionaryTypeServiceImpl;
 
 	/**

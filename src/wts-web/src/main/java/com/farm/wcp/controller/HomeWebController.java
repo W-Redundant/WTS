@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,9 +33,9 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
-import com.wts.exam.domain.ex.ExamTypeUnit;
-import com.wts.exam.domain.ex.RoomUnit;
-import com.wts.exam.service.ExamTypeServiceInter;
+import com.farm.exam.domain.ex.ExamTypeUnit;
+import com.farm.exam.domain.ex.RoomUnit;
+import com.farm.exam.service.ExamTypeServiceInter;
 
 /**
  * 文件
@@ -45,9 +46,9 @@ import com.wts.exam.service.ExamTypeServiceInter;
 @RequestMapping("/home")
 @Controller
 public class HomeWebController extends WebUtils {
-	@Resource
+	@Autowired
 	private UsermessageServiceInter usermessageServiceImpl;
-	@Resource
+	@Autowired
 	private ExamTypeServiceInter examTypeServiceImpl;
 	private static final Logger log = Logger.getLogger(HomeWebController.class);
 

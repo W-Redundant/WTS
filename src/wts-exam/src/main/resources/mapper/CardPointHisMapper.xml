@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wts.exam.mapper.CardPointHisMapper">
-  <resultMap id="BaseResultMap" type="com.wts.exam.domain.CardPointHis">
+<mapper namespace="com.farm.exam.mapper.CardPointHisMapper">
+  <resultMap id="BaseResultMap" type="com.farm.exam.domain.CardPointHis">
     <!--@mbg.generated-->
     <!--@Table wts_card_point_his-->
     <id column="ID" jdbcType="CHAR" property="id" />
@@ -41,7 +41,7 @@
     where CARDID = #{cardId,jdbcType=CHAR}
   </delete>
 
-  <insert id="insertEntity" parameterType="com.wts.exam.domain.CardPointHis">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.CardPointHis">
     <!--@mbg.generated-->
     insert into wts_card_point_his (ID, POINT, CARDID, 
       VERSIONID, COMPLETE, MPOINT
@@ -50,7 +50,7 @@
       #{versionid,jdbcType=CHAR}, #{complete,jdbcType=CHAR}, #{mpoint,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.wts.exam.domain.CardPointHis">
+  <insert id="insertSelective" parameterType="com.farm.exam.domain.CardPointHis">
     <!--@mbg.generated-->
     insert into wts_card_point_his
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -94,7 +94,7 @@
       </if>
     </trim>
   </insert>
-  <update id="editEntity" parameterType="com.wts.exam.domain.CardPointHis">
+  <update id="editEntity" parameterType="com.farm.exam.domain.CardPointHis">
     <!--@mbg.generated-->
     update wts_card_point_his
     <set>
@@ -116,7 +116,7 @@
     </set>
     where ID = #{id,jdbcType=CHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wts.exam.domain.CardPointHis">
+  <update id="updateByPrimaryKey" parameterType="com.farm.exam.domain.CardPointHis">
     <!--@mbg.generated-->
     update wts_card_point_his
     set POINT = #{point,jdbcType=INTEGER},
