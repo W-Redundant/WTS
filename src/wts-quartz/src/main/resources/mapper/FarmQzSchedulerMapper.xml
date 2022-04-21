@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.quartz.mapper.FarmQzSchedulerMapper">
+  <resultMap id="BaseResultMap" type="com.farm.quartz.domain.FarmQzScheduler">
+    <!--@mbg.generated-->
+    <!--@Table farm_qz_scheduler-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="AUTOIS" jdbcType="VARCHAR" property="autois" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="ETIME" jdbcType="VARCHAR" property="etime" />
+    <result column="CUSERNAME" jdbcType="VARCHAR" property="cusername" />
+    <result column="CUSER" jdbcType="VARCHAR" property="cuser" />
+    <result column="EUSERNAME" jdbcType="VARCHAR" property="eusername" />
+    <result column="EUSER" jdbcType="VARCHAR" property="euser" />
+    <result column="PSTATE" jdbcType="VARCHAR" property="pstate" />
+    <result column="PCONTENT" jdbcType="VARCHAR" property="pcontent" />
+    <result column="TASKID" jdbcType="VARCHAR" property="taskid" />
+    <result column="TRIGGERID" jdbcType="VARCHAR" property="triggerid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, AUTOIS, CTIME, ETIME, CUSERNAME, CUSER, EUSERNAME, EUSER, PSTATE, PCONTENT, TASKID, 
+    TRIGGERID
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from farm_qz_scheduler
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from farm_qz_scheduler
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.farm.quartz.domain.FarmQzScheduler">
+    <!--@mbg.generated-->
+    insert into farm_qz_scheduler (ID, AUTOIS, CTIME, 
+      ETIME, CUSERNAME, CUSER, 
+      EUSERNAME, EUSER, PSTATE, 
+      PCONTENT, TASKID, TRIGGERID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{autois,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, 
+      #{etime,jdbcType=VARCHAR}, #{cusername,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, 
+      #{eusername,jdbcType=VARCHAR}, #{euser,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, 
+      #{pcontent,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, #{triggerid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.farm.quartz.domain.FarmQzScheduler">
+    <!--@mbg.generated-->
+    insert into farm_qz_scheduler
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="autois != null">
+        AUTOIS,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="etime != null">
+        ETIME,
+      </if>
+      <if test="cusername != null">
+        CUSERNAME,
+      </if>
+      <if test="cuser != null">
+        CUSER,
+      </if>
+      <if test="eusername != null">
+        EUSERNAME,
+      </if>
+      <if test="euser != null">
+        EUSER,
+      </if>
+      <if test="pstate != null">
+        PSTATE,
+      </if>
+      <if test="pcontent != null">
+        PCONTENT,
+      </if>
+      <if test="taskid != null">
+        TASKID,
+      </if>
+      <if test="triggerid != null">
+        TRIGGERID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="autois != null">
+        #{autois,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null">
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerid != null">
+        #{triggerid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.farm.quartz.domain.FarmQzScheduler">
+    <!--@mbg.generated-->
+    update farm_qz_scheduler
+    <set>
+      <if test="autois != null">
+        AUTOIS = #{autois,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        ETIME = #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="cusername != null">
+        CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      </if>
+      <if test="cuser != null">
+        CUSER = #{cuser,jdbcType=VARCHAR},
+      </if>
+      <if test="eusername != null">
+        EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      </if>
+      <if test="euser != null">
+        EUSER = #{euser,jdbcType=VARCHAR},
+      </if>
+      <if test="pstate != null">
+        PSTATE = #{pstate,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null">
+        PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null">
+        TASKID = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="triggerid != null">
+        TRIGGERID = #{triggerid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.farm.quartz.domain.FarmQzScheduler">
+    <!--@mbg.generated-->
+    update farm_qz_scheduler
+    set AUTOIS = #{autois,jdbcType=VARCHAR},
+      CTIME = #{ctime,jdbcType=VARCHAR},
+      ETIME = #{etime,jdbcType=VARCHAR},
+      CUSERNAME = #{cusername,jdbcType=VARCHAR},
+      CUSER = #{cuser,jdbcType=VARCHAR},
+      EUSERNAME = #{eusername,jdbcType=VARCHAR},
+      EUSER = #{euser,jdbcType=VARCHAR},
+      PSTATE = #{pstate,jdbcType=VARCHAR},
+      PCONTENT = #{pcontent,jdbcType=VARCHAR},
+      TASKID = #{taskid,jdbcType=VARCHAR},
+      TRIGGERID = #{triggerid,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
