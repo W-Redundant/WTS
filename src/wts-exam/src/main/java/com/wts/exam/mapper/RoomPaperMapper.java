@@ -2,6 +2,7 @@ package com.wts.exam.mapper;
 
 import com.wts.exam.domain.RoomPaper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,5 +23,13 @@ public interface RoomPaperMapper {
     int updateByPrimaryKey(RoomPaper record);
 
     List<RoomPaper> findByRoomId(String roomid);
+
+    List<RoomPaper> findByPaperIdAndRoomId(@Param("paperId") String paperId, @Param("roomid") String roomid);
+
+    int deleteByRoomIdAndPaperId(@Param("roomId") String roomId, @Param("paperId") String paperId);
+
+    int deleteByRoomId(String roomId);
+
+    List<String> getPaperAliasByCardId(String id);
 
 }

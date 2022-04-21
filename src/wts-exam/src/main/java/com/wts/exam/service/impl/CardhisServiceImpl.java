@@ -2,14 +2,8 @@ package com.wts.exam.service.impl;
 
 import com.farm.authority.FarmAuthorityService;
 import com.farm.core.auth.domain.LoginUser;
-import com.farm.core.sql.query.DBRule;
-import com.farm.core.sql.query.DBRuleList;
 import com.farm.core.sql.query.DBSort;
 import com.farm.core.sql.query.DataQuery;
-import com.wts.exam.dao.CardDaoInter;
-import com.wts.exam.dao.CardPointHisDaoInter;
-import com.wts.exam.dao.PaperDaoInter;
-import com.wts.exam.dao.RoomDaoInter;
 import com.wts.exam.domain.*;
 import com.wts.exam.mapper.*;
 import com.wts.exam.service.CardHisServiceInter;
@@ -20,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -171,12 +164,12 @@ public class CardhisServiceImpl implements CardHisServiceInter {
                 cardAnswerHisMapper.insertEntity(cardAnswerHis);
             }
 
-            if (cardPointHisMapper.countEntitys(card.getId()) <= 0){
+            if (cardPointHisMapper.countEntitys(card.getId()) <= 0) {
                 List<CardPoint> cardPoint = cardPointMapper.findByCardId(card.getId());
                 CardPointHis cardPointHis = new CardPointHis();
-				BeanUtils.copyProperties(cardPointHis, cardPoint.get(0));
-				cardPointHisMapper.insertEntity(cardPointHis);
-			}
+                BeanUtils.copyProperties(cardPointHis, cardPoint.get(0));
+                cardPointHisMapper.insertEntity(cardPointHis);
+            }
         }
     }
 

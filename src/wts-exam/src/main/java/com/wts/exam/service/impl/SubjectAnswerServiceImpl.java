@@ -5,6 +5,7 @@ import com.farm.core.time.TimeTool;
 import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.doc.server.FarmFileManagerInter.FILE_APPLICATION_TYPE;
 
+import com.wts.exam.mapper.SubjectAnswerMapper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import com.wts.exam.dao.SubjectAnswerDaoInter;
@@ -12,6 +13,7 @@ import com.wts.exam.service.SubjectAnswerServiceInter;
 import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DBRuleList;
 import com.farm.core.sql.query.DataQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,12 +33,14 @@ import com.farm.core.auth.domain.LoginUser;
  */
 @Service
 public class SubjectAnswerServiceImpl implements SubjectAnswerServiceInter {
-	@Resource
+	@Autowired
 	private SubjectAnswerDaoInter subjectanswerDaoImpl;
-	@Resource
+
+	@Autowired
+	private SubjectAnswerMapper subjectAnswerMapper;
+
+	@Autowired
 	private FarmFileManagerInter farmFileManagerImpl;
-	private static final Logger log = Logger
-			.getLogger(SubjectAnswerServiceImpl.class);
 
 	@Override
 	@Transactional
@@ -55,7 +59,7 @@ public class SubjectAnswerServiceImpl implements SubjectAnswerServiceInter {
 		if (entity.getSort() == null) {
 			entity.setSort(99);
 		}
-		entity = subjectanswerDaoImpl.insertEntity(entity);
+		subjectAnswerMapper.insertEntity(entity);
 		// -------------------------------------
 		farmFileManagerImpl
 				.submitFileByAppHtml(entity.getAnswernote(),
@@ -68,7 +72,7 @@ public class SubjectAnswerServiceImpl implements SubjectAnswerServiceInter {
 	@Transactional
 	public SubjectAnswer editSubjectanswerEntity(SubjectAnswer entity,
 			LoginUser user) {
-		SubjectAnswer entity2 = subjectanswerDaoImpl.getEntity(entity.getId());
+		SubjectAnswer entity2 = subjectAnswerMapper.getEntity(entity.getId());
 		String oldText = entity2.getAnswernote();
 		entity2.setRightanswer(entity.getRightanswer());
 		entity2.setAnswernote(entity.getAnswernote());
@@ -87,7 +91,7 @@ public class SubjectAnswerServiceImpl implements SubjectAnswerServiceInter {
 		if (entity2.getSort() == null) {
 			entity2.setSort(99);
 		}
-		subjectanswerDaoImpl.editEntity(entity2);
+		subjectAnswerMapper.editEntity(entity2);
 		// ------------------
 		farmFileManagerImpl.updateFileByAppHtml(oldText,
 				entity2.getAnswernote(), entity.getVersionid(),
@@ -98,7 +102,7 @@ public class SubjectAnswerServiceImpl implements SubjectAnswerServiceInter {
 	@Override
 	@Transactional
 	public void deleteSubjectanswerEntity(String id, LoginUser user) {
-		subjectanswerDaoImpl.deleteEntity(subjectanswerDaoImpl.getEntity(id));
+		subjectAnswerMapper.deleteEntity(id);
 		// 此处不取消该答案的附件状态，将在删除题的时候进行取消
 	}
 
@@ -109,7 +113,7 @@ public class SubjectAnswerServiceImpl implements SubjectAnswerServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return subjectanswerDaoImpl.getEntity(id);
+		return subjectAnswerMapper.getEntity(id);
 	}
 
 	@Override
@@ -125,7 +129,7 @@ public class SubjectAnswerServiceImpl implements SubjectAnswerServiceInter {
 	@Override
 	@Transactional
 	public void setOnlyRight(String answerId, LoginUser currentUser) {
-		SubjectAnswer answerRight = subjectanswerDaoImpl.getEntity(answerId);
+		SubjectAnswer answerRight = subjectAnswerMapper.getEntity(answerId);
 		List<SubjectAnswer> answers = subjectanswerDaoImpl
 				.selectEntitys(DBRuleList
 						.getInstance()
@@ -136,13 +140,13 @@ public class SubjectAnswerServiceImpl implements SubjectAnswerServiceInter {
 			ans.setCtime(TimeTool.getTimeDate14());
 			ans.setCuser(currentUser.getId());
 			ans.setCusername(currentUser.getName());
-			subjectanswerDaoImpl.editEntity(ans);
+			subjectAnswerMapper.editEntity(ans);
 		}
 		answerRight.setRightanswer("1");
 		answerRight.setCtime(TimeTool.getTimeDate14());
 		answerRight.setCuser(currentUser.getId());
 		answerRight.setCusername(currentUser.getName());
-		subjectanswerDaoImpl.editEntity(answerRight);
+		subjectAnswerMapper.editEntity(answerRight);
 	}
 
 	@Override

@@ -18,4 +18,6 @@ public interface SubjectCommentMapper {
     int editEntity(SubjectComment record);
 
     int updateByPrimaryKey(SubjectComment record);
+
+    int deleteBySubjectId(String subjectId);
 }

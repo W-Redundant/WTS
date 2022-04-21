@@ -18,4 +18,7 @@ public interface SubjectUserownMapper {
     int editEntity(SubjectUserown record);
 
     int updateByPrimaryKey(SubjectUserown record);
+
+    int deleteBySubjectId(String subjectId);
+
 }

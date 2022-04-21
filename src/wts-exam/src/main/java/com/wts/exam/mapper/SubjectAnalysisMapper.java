@@ -4,10 +4,15 @@ import com.wts.exam.domain.SubjectAnalysis;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface SubjectAnalysisMapper {
     int deleteEntity(String id);
+
+    int deleteBySubjectId(String subjectid);
+
 
     int insertEntity(SubjectAnalysis record);
 
@@ -18,4 +23,6 @@ public interface SubjectAnalysisMapper {
     int editEntity(SubjectAnalysis record);
 
     int updateByPrimaryKey(SubjectAnalysis record);
+
+    List<SubjectAnalysis> findBySubjectId(String subjectid);
 }

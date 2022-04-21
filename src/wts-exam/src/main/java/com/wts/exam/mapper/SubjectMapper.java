@@ -18,4 +18,6 @@ public interface SubjectMapper {
     int editEntity(Subject record);
 
     int updateByPrimaryKey(Subject record);
+
+    int countByMaterialid(String materialid);
 }

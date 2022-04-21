@@ -25,4 +25,6 @@ public interface ExamPopMapper {
     int deleteByTypeIdAndUserIdAndFuntype(@Param("TYPEID") String typeId, @Param("USERID") String userId, @Param("FUNTYPE") String funtype);
 
     List<ExamPop> findByTypeIdAndFunType(@Param("typeId") String typeId, @Param("funType") String funType);
+
+    int deleteByTypeId(String typeId);
 }

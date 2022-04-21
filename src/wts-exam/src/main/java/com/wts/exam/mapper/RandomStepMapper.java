@@ -4,6 +4,8 @@ import com.wts.exam.domain.RandomStep;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface RandomStepMapper {
@@ -18,4 +20,6 @@ public interface RandomStepMapper {
     int editEntity(RandomStep record);
 
     int updateByPrimaryKey(RandomStep record);
+
+    List<RandomStep> findByItemId(String itemId);
 }

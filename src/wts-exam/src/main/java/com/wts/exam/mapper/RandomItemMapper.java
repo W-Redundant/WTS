@@ -4,6 +4,8 @@ import com.wts.exam.domain.RandomItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface RandomItemMapper {
@@ -14,6 +16,8 @@ public interface RandomItemMapper {
     int insertSelective(RandomItem record);
 
     RandomItem getEntity(String id);
+
+    List<RandomItem> findByPstate(String pstate);
 
     int editEntity(RandomItem record);
 

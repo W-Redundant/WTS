@@ -1,7 +1,9 @@
 package com.wts.exam.service.impl;
 
+import com.wts.exam.domain.Subject;
 import com.wts.exam.domain.SubjectPop;
 import com.wts.exam.domain.SubjectType;
+import com.wts.exam.mapper.SubjectPopMapper;
 import org.apache.log4j.Logger;
 import com.wts.exam.dao.SubjectPopDaoInter;
 import com.wts.exam.service.SubjectPopServiceInter;
@@ -9,6 +11,7 @@ import com.wts.exam.service.SubjectTypeServiceInter;
 import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DBRuleList;
 import com.farm.core.sql.query.DataQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,23 +23,16 @@ import javax.annotation.Resource;
 import com.farm.authority.FarmAuthorityService;
 import com.farm.core.auth.domain.LoginUser;
 
-/* *
- *功能：题库权限服务层实现类
- *详细：
- *
- *版本：v0.1
- *作者：FarmCode代码工程
- *日期：20150707114057
- *说明：
- */
 @Service
 public class SubjectPopServiceImpl implements SubjectPopServiceInter {
 	@Resource
 	private SubjectPopDaoInter subjectpopDaoImpl;
-	@Resource
+
+	@Autowired
+	private SubjectPopMapper subjectPopMapper;
+
+	@Autowired
 	private SubjectTypeServiceInter subjectTypeServiceImpl;
-	private static final Logger log = Logger
-			.getLogger(SubjectPopServiceImpl.class);
 
 	@Override
 	@Transactional
@@ -49,14 +45,15 @@ public class SubjectPopServiceImpl implements SubjectPopServiceInter {
 		// entity.setEusername(user.getName());
 		// entity.setEtime(TimeTool.getTimeDate14());
 		// entity.setPstate("1");
-		return subjectpopDaoImpl.insertEntity(entity);
+		subjectPopMapper.insertEntity(entity);
+		return entity;
 	}
 
 	@Override
 	@Transactional
 	public SubjectPop editSubjectpopEntity(SubjectPop entity, LoginUser user) {
 		// TODO 自动生成代码,修改后请去除本注释
-		SubjectPop entity2 = subjectpopDaoImpl.getEntity(entity.getId());
+		SubjectPop entity2 = subjectPopMapper.getEntity(entity.getId());
 		// entity2.setEuser(user.getId());
 		// entity2.setEusername(user.getName());
 		// entity2.setEtime(TimeTool.getTimeDate14());
@@ -65,7 +62,7 @@ public class SubjectPopServiceImpl implements SubjectPopServiceInter {
 		entity2.setUserid(entity.getUserid());
 		entity2.setFuntype(entity.getFuntype());
 		entity2.setId(entity.getId());
-		subjectpopDaoImpl.editEntity(entity2);
+		subjectPopMapper.editEntity(entity2);
 		return entity2;
 	}
 
@@ -76,7 +73,7 @@ public class SubjectPopServiceImpl implements SubjectPopServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return subjectpopDaoImpl.getEntity(id);
+		return subjectPopMapper.getEntity(id);
 	}
 
 	@Override
@@ -92,7 +89,7 @@ public class SubjectPopServiceImpl implements SubjectPopServiceInter {
 	@Override
 	@Transactional
 	public void deleteSubjectpopEntity(String id, LoginUser user) {
-		SubjectPop pop = subjectpopDaoImpl.getEntity(id);
+		SubjectPop pop = subjectPopMapper.getEntity(id);
 		{
 			List<String> ids = new ArrayList<>();
 			ids.add(pop.getTypeid());
@@ -148,7 +145,7 @@ public class SubjectPopServiceImpl implements SubjectPopServiceInter {
 									.add(new DBRule("USERID", userid, "="))
 									.add(new DBRule("FUNTYPE", functype, "="))
 									.toList());
-					subjectpopDaoImpl.insertEntity(pop);
+					subjectPopMapper.insertEntity(pop);
 					SubjectType type = subjectTypeServiceImpl
 							.getSubjecttypeEntity(typeid);
 					if (functype.equals("1")) {

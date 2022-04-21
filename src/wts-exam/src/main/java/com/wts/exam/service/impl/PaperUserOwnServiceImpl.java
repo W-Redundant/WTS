@@ -6,6 +6,7 @@ import com.wts.exam.domain.PaperUserown;
 import com.wts.exam.domain.Room;
 import com.farm.core.time.TimeTool;
 
+import com.wts.exam.mapper.PaperUserownMapper;
 import org.apache.log4j.Logger;
 import com.wts.exam.dao.PaperUserOwnDaoInter;
 import com.wts.exam.service.CardServiceInter;
@@ -15,6 +16,7 @@ import com.wts.exam.service.RoomServiceInter;
 import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DBRuleList;
 import com.farm.core.sql.query.DataQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,11 +38,15 @@ import com.farm.core.auth.domain.LoginUser;
 public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 	@Resource
 	private PaperUserOwnDaoInter paperuserownDaoImpl;
-	@Resource
+
+	@Autowired
+	private PaperUserownMapper paperUserownMapper;
+
+	@Autowired
 	private PaperServiceInter paperServiceImpl;
-	@Resource
+	@Autowired
 	private CardServiceInter cardServiceImpl;
-	@Resource
+	@Autowired
 	private RoomServiceInter roomServiceImpl;
 	private static final Logger log = Logger
 			.getLogger(PaperUserOwnServiceImpl.class);
@@ -53,16 +59,12 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 	 */
 	private PaperUserown insertAndUpdatePaperUserOwn(String modeltype,
                                                      String paperid, String papername, LoginUser user) {
-		if (paperuserownDaoImpl.countEntitys(DBRuleList.getInstance()
-				.add(new DBRule("CUSER", user.getId(), "="))
-				.add(new DBRule("MODELTYPE", modeltype, "=")).toList()) > 1000) {
+		if (paperUserownMapper.countByCuserAndModelType(user.getId(),modeltype) > 1000) {
 			// 如果大于20条记录，就删除5条最早的
 			paperuserownDaoImpl.delEarliestSubject(user.getId(), modeltype);
 		}
-		paperuserownDaoImpl.deleteEntitys(DBRuleList.getInstance()
-				.add(new DBRule("PAPERID", paperid, "="))
-				.add(new DBRule("MODELTYPE", modeltype, "="))
-				.add(new DBRule("CUSER", user.getId(), "=")).toList());
+		paperUserownMapper.deleteByPaperIdAndModerTypeAndCuser(paperid,modeltype,user.getId());
+
 		PaperUserown userOwn = new PaperUserown();
 		userOwn.setCtime(TimeTool.getTimeDate14());
 		userOwn.setCuser(user.getId());
@@ -73,7 +75,7 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 		userOwn.setRpcent(-1000);
 		userOwn.setScore(-1000);
 		userOwn.setPstate("1");
-		paperuserownDaoImpl.insertEntity(userOwn);
+		paperUserownMapper.insertEntity(userOwn);
 		return userOwn;
 	}
 
@@ -82,7 +84,7 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 	public PaperUserown editPaperuserownEntity(PaperUserown entity,
                                                LoginUser user) {
 		// TODO 自动生成代码,修改后请去除本注释
-		PaperUserown entity2 = paperuserownDaoImpl.getEntity(entity.getId());
+		PaperUserown entity2 = paperUserownMapper.getEntity(entity.getId());
 		// entity2.setEuser(user.getId());
 		// entity2.setEusername(user.getName());
 		// entity2.setEtime(TimeTool.getTimeDate14());
@@ -97,29 +99,25 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 		entity2.setCuser(entity.getCuser());
 		entity2.setCtime(entity.getCtime());
 		entity2.setId(entity.getId());
-		paperuserownDaoImpl.editEntity(entity2);
+		paperUserownMapper.editEntity(entity2);
 		return entity2;
 	}
 
 	@Override
 	@Transactional
 	public void deletePaperuserownEntity(String id, LoginUser user) {
-		PaperUserown paperUserOwn = paperuserownDaoImpl.getEntity(id);
+		PaperUserown paperUserOwn = paperUserownMapper.getEntity(id);
 		String paperid = null;
 		if (paperUserOwn.getModeltype().equals("2")) {
 			paperid = paperUserOwn.getPaperid();
 		}
-		paperuserownDaoImpl.deleteEntity(paperUserOwn);
+		paperUserownMapper.deleteEntity(paperUserOwn.getId());
 		if (paperid != null) {
 			paperuserownDaoImpl.getSession().flush();
 			paperServiceImpl
 					.updateBooknum(
 							paperid,
-							paperuserownDaoImpl.countEntitys(DBRuleList
-									.getInstance()
-									.add(new DBRule("MODELTYPE", "2", "="))
-									.add(new DBRule("PAPERID", paperid, "="))
-									.toList()));
+							paperUserownMapper.countByModelTypeAndPaperId("2",paperid));
 		}
 	}
 
@@ -130,7 +128,7 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return paperuserownDaoImpl.getEntity(id);
+		return paperUserownMapper.getEntity(id);
 	}
 
 	@Override
@@ -150,7 +148,7 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 		PaperUserown userOwn = insertAndUpdatePaperUserOwn("1", paperId,
 				paper.getName(), user);
 		userOwn.setRpcent(RPcent);
-		paperuserownDaoImpl.editEntity(userOwn);
+		paperUserownMapper.editEntity(userOwn);
 	}
 
 	@Override
@@ -164,36 +162,30 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 		userOwn.setRoomid(room.getId());
 		userOwn.setRoomname(room.getName());
 		userOwn.setCardid(cardId);
-		paperuserownDaoImpl.editEntity(userOwn);
+		paperUserownMapper.editEntity(userOwn);
 	}
 
 	@Override
 	@Transactional
 	public void refreshScore(String cardId, Float allnum) {
-		List<PaperUserown> list = paperuserownDaoImpl.selectEntitys(DBRuleList
-				.getInstance().add(new DBRule("CARDID", cardId, "=")).toList());
+		List<PaperUserown> list = paperUserownMapper.findByCardId(cardId);
+
 		if (list.size() > 0) {
 			PaperUserown userown = list.get(0);
-			PaperUserown entity = paperuserownDaoImpl
-					.getEntity(userown.getId());
+			PaperUserown entity = paperUserownMapper.getEntity(userown.getId());
 			entity.setScore(allnum);
-			paperuserownDaoImpl.editEntity(entity);
+			paperUserownMapper.editEntity(entity);
 		}
 	}
 
 	@Override
 	@Transactional
 	public boolean doBook(String roomid, String paperid, LoginUser user) {
-		boolean isBook = paperuserownDaoImpl.countEntitys(DBRuleList
-				.getInstance().add(new DBRule("MODELTYPE", "2", "="))
-				.add(new DBRule("PAPERID", paperid, "="))
-				.add(new DBRule("CUSER", user.getId(), "=")).toList()) > 0;
+		boolean isBook = paperUserownMapper.countByModelTypeAndPaperIdAndCuser("2",paperid,user.getId()) > 0;
+
 		if (isBook) {
 			// 取消
-			paperuserownDaoImpl.deleteEntitys(DBRuleList.getInstance()
-					.add(new DBRule("MODELTYPE", "2", "="))
-					.add(new DBRule("PAPERID", paperid, "="))
-					.add(new DBRule("CUSER", user.getId(), "=")).toList());
+			paperUserownMapper.deleteByPaperIdAndModerTypeAndCuser(paperid,"2",user.getId());
 		} else {
 			Room room = roomServiceImpl.getRoomEntity(roomid);
 			Paper paper = paperServiceImpl.getPaperEntity(paperid);
@@ -202,24 +194,19 @@ public class PaperUserOwnServiceImpl implements PaperUserOwnServiceInter {
 					paper.getId(), paper.getName(), user);
 			userOwn.setRoomid(room.getId());
 			userOwn.setRoomname(room.getName());
-			paperuserownDaoImpl.editEntity(userOwn);
+			paperUserownMapper.editEntity(userOwn);
 		}
-		paperuserownDaoImpl.getSession().flush();
+
 		paperServiceImpl.updateBooknum(
 				paperid,
-				paperuserownDaoImpl.countEntitys(DBRuleList.getInstance()
-						.add(new DBRule("MODELTYPE", "2", "="))
-						.add(new DBRule("PAPERID", paperid, "=")).toList()));
+				paperUserownMapper.countByModelTypeAndPaperId("2",paperid));
 		return !isBook;
 	}
 
 	@Override
 	@Transactional
 	public boolean isBook(String paperid, String userid) {
-		return paperuserownDaoImpl.countEntitys(DBRuleList.getInstance()
-				.add(new DBRule("MODELTYPE", "2", "="))
-				.add(new DBRule("PAPERID", paperid, "="))
-				.add(new DBRule("CUSER", userid, "=")).toList()) > 0;
+		return paperUserownMapper.countByModelTypeAndPaperIdAndCuser("2",paperid,userid)>0;
 	}
 
 }

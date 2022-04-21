@@ -14,6 +14,8 @@ import com.farm.core.time.TimeTool;
 import com.farm.doc.server.FarmFileManagerInter;
 import com.farm.doc.server.FarmFileManagerInter.FILE_APPLICATION_TYPE;
 
+import com.wts.exam.mapper.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -35,6 +37,7 @@ import com.wts.exam.utils.CheatUtils;
 import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DBRuleList;
 import com.farm.core.sql.query.DataQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,38 +68,38 @@ import com.farm.core.auth.domain.LoginUser;
  *说明：
  */
 @Service
+@Slf4j
 public class RoomServiceImpl implements RoomServiceInter {
-	@Resource
+	@Autowired
 	private RoomDaoInter roomDaoImpl;
-	@Resource
-	private ExamPopsServiceInter examPopsServiceImpl;
-	@Resource
-	private RoomPaperDaoInter roompaperDaoImpl;
-	@Resource
+	@Autowired
+	private RoomMapper roomMapper;
+	@Autowired
 	private RoomUserDaoInter roomuserDaoImpl;
-	@Resource
-	private ExamTypeDaoInter examtypeDaoImpl;
-	@Resource
-	private PaperServiceInter paperServiceImpl;
-	@Resource
-	private PaperDaoInter paperDaoImpl;
-	@Resource
-	private CardServiceInter cardServiceImpl;
-	@Resource
-	private FarmFileManagerInter farmFileManagerImpl;
-	@Resource
-	private ExamTypeServiceInter examTypeServiceImpl;
-	@Resource
-	private CardHisServiceInter cardHisServiceImpl;
-	@Resource
-	private PaperUserOwnDaoInter paperuserownDaoImpl;
-	@Resource
-	private SubjectUserOwnServiceInter subjectUserOwnServiceImpl;
-	@Resource
+	@Autowired
+	private RoomUserMapper roomUserMapper;
+	@Autowired
 	private CardPointDaoInter cardPointDaoImpl;
-	@Resource
+	@Autowired
+	private RoomPaperMapper roomPaperMapper;
+	@Autowired
+	private ExamTypeMapper examTypeMapper;
+	@Autowired
+	private PaperUserownMapper paperUserownMapper;
+	@Autowired
 	private UserServiceInter userServiceImpl;
-	private static final Logger log = Logger.getLogger(RoomServiceImpl.class);
+	@Autowired
+	private SubjectUserOwnServiceInter subjectUserOwnServiceImpl;
+	@Autowired
+	private ExamTypeServiceInter examTypeServiceImpl;
+	@Autowired
+	private CardHisServiceInter cardHisServiceImpl;
+	@Autowired
+	private PaperServiceInter paperServiceImpl;
+	@Autowired
+	private CardServiceInter cardServiceImpl;
+	@Autowired
+	private FarmFileManagerInter farmFileManagerImpl;
 
 	@Override
 	@Transactional
@@ -113,7 +116,7 @@ public class RoomServiceImpl implements RoomServiceInter {
 		if (StringUtils.isBlank(entity.getPstate())) {
 			entity.setPstate("1");
 		}
-		entity = roomDaoImpl.insertEntity(entity);
+		roomMapper.insertEntity(entity);
 		// --------------------------------------------------
 		farmFileManagerImpl.submitFileByAppHtml(entity.getRoomnote(),
 				entity.getId(), FILE_APPLICATION_TYPE.ROOMNOTE);
@@ -126,7 +129,7 @@ public class RoomServiceImpl implements RoomServiceInter {
 	@Transactional
 	public void editDoTimes(String roomid, String timetype, String starttime,
 			String endtime) {
-		Room entity2 = roomDaoImpl.getEntity(roomid);
+		Room entity2 = roomMapper.getEntity(roomid);
 		if (timetype.equals("1")) {
 			entity2.setStarttime(null);
 			entity2.setEndtime(null);
@@ -136,13 +139,13 @@ public class RoomServiceImpl implements RoomServiceInter {
 		}
 
 		entity2.setTimetype(timetype);
-		roomDaoImpl.editEntity(entity2);
+		roomMapper.editEntity(entity2);
 	}
 
 	@Override
 	@Transactional
 	public Room editRoomEntity(Room entity, LoginUser user) {
-		Room entity2 = roomDaoImpl.getEntity(entity.getId());
+		Room entity2 = roomMapper.getEntity(entity.getId());
 		String oldtext = entity2.getRoomnote();
 		entity2.setCounttype(entity.getCounttype());
 		entity2.setRoomnote(entity.getRoomnote());
@@ -180,7 +183,7 @@ public class RoomServiceImpl implements RoomServiceInter {
 		if (StringUtils.isBlank(entity2.getExamtypeid())) {
 			entity2.setExamtypeid(null);
 		}
-		roomDaoImpl.editEntity(entity2);
+		roomMapper.editEntity(entity2);
 		farmFileManagerImpl.updateFileByAppHtml(oldtext, entity.getRoomnote(),
 				entity2.getId(), FILE_APPLICATION_TYPE.ROOMNOTE);
 		farmFileManagerImpl.submitFile(entity2.getImgid(),
@@ -195,7 +198,7 @@ public class RoomServiceImpl implements RoomServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return roomDaoImpl.getEntity(id);
+		return roomMapper.getEntity(id);
 	}
 
 	@Override
@@ -213,12 +216,12 @@ public class RoomServiceImpl implements RoomServiceInter {
 	public void examTypeSetting(String roomid, String examtypeId,
 			LoginUser currentUser) {
 		if (StringUtils.isNotBlank(examtypeId)) {
-			Room entity2 = roomDaoImpl.getEntity(roomid);
+			Room entity2 = roomMapper.getEntity(roomid);
 			entity2.setExamtypeid(examtypeId);
 			entity2.setEtime(TimeTool.getTimeDate14());
 			entity2.setEuser(currentUser.getId());
 			entity2.setEusername(currentUser.getName());
-			roomDaoImpl.editEntity(entity2);
+			roomMapper.editEntity(entity2);
 		}
 	}
 
@@ -226,13 +229,13 @@ public class RoomServiceImpl implements RoomServiceInter {
 	@Transactional
 	public RoomUnit getRoomUnit(String roomid, LoginUser currentUser,
 			boolean isShuffle) {
-		Room entity = roomDaoImpl.getEntity(roomid);
+		Room entity = roomMapper.getEntity(roomid);
 		RoomUnit roomunit = new RoomUnit();
 		roomunit.setRoom(entity);
-		ExamType examtype = examtypeDaoImpl.getEntity(entity.getExamtypeid());
+		ExamType examtype = examTypeMapper.getEntity(entity.getExamtypeid());
 		roomunit.setType(examtype);
-		List<RoomPaper> papers = roompaperDaoImpl.selectEntitys(DBRuleList
-				.getInstance().add(new DBRule("ROOMID", roomid, "=")).toList());
+		List<RoomPaper> papers = roomPaperMapper.findByRoomId(roomid);
+
 		// 房间内可用答卷id集合
 		Set<String> allPaperSet = new HashSet<>();
 		for (RoomPaper rpaper : papers) {
@@ -336,16 +339,15 @@ public class RoomServiceImpl implements RoomServiceInter {
 	@Override
 	@Transactional
 	public boolean isUserAbleRoom(String roomid, LoginUser currentUser) {
-		Room room = roomDaoImpl.getEntity(roomid);
+		Room room = roomMapper.getEntity(roomid);
 		if (room.getWritetype().equals("0") || room.getWritetype().equals("2")) {
 			return true;
 		}
 		if (currentUser == null) {
 			return false;
 		}
-		List<RoomUser> users = roomuserDaoImpl.selectEntitys(DBRuleList
-				.getInstance().add(new DBRule("ROOMID", roomid, "="))
-				.add(new DBRule("USERID", currentUser.getId(), "=")).toList());
+		List<RoomUser> users = roomUserMapper.findByRoomIdAndUserId(roomid,currentUser.getId());
+
 		return users.size() > 0;
 	}
 
@@ -396,7 +398,7 @@ public class RoomServiceImpl implements RoomServiceInter {
 			List<Paper> list = dbQuery.search().getObjectList(Paper.class);
 			return list;
 		} catch (SQLException e) {
-			log.error(e);
+			log.error(e.getMessage());
 			return new ArrayList<>();
 		}
 	}
@@ -485,19 +487,19 @@ public class RoomServiceImpl implements RoomServiceInter {
 	@Override
 	@Transactional
 	public void deleteRoomEntity(String id, LoginUser user) {
-		Room room = roomDaoImpl.getEntity(id);
+		Room room = roomMapper.getEntity(id);
 		// 1新建，0停用，2发布，3结束，4归档
 		if (room.getPstate().equals("1") || room.getPstate().equals("3")
 				|| room.getPstate().equals("4")) {
 			// 删除参考人员和考场试卷
-			roompaperDaoImpl.deleteEntitys(DBRuleList.getInstance()
-					.add(new DBRule("ROOMID", id, "=")).toList());
-			roomuserDaoImpl.deleteEntitys(DBRuleList.getInstance()
-					.add(new DBRule("ROOMID", id, "=")).toList());
+			roomPaperMapper.deleteByRoomId(id);
+
+			roomUserMapper.deleteByRoomId(id);
+
 			cardServiceImpl.deleteCardsByRoom(id, user);
-			paperuserownDaoImpl.deleteEntitys(DBRuleList.getInstance()
-					.add(new DBRule("ROOMID", id, "=")).toList());
-			roomDaoImpl.deleteEntity(roomDaoImpl.getEntity(id));
+
+			paperUserownMapper.deleteByRoomId(id);
+			roomMapper.deleteEntity(id);
 			farmFileManagerImpl.cancelFilesByApp(id);
 		} else {
 			throw new RuntimeException("只有新建、结束、归档状态的答题室可删除!");
@@ -507,7 +509,7 @@ public class RoomServiceImpl implements RoomServiceInter {
 	@Override
 	@Transactional
 	public void editState(String id, String state, LoginUser currentUser) {
-		Room entity2 = roomDaoImpl.getEntity(id);
+		Room entity2 = roomMapper.getEntity(id);
 		// 1新建，0停用，2发布，3结束，4归档
 		if (state.equals("1")) {
 			// 不存在修改为新建的情况
@@ -544,7 +546,7 @@ public class RoomServiceImpl implements RoomServiceInter {
 		entity2.setEtime(TimeTool.getTimeDate14());
 		entity2.setEuser(currentUser.getId());
 		entity2.setEusername(currentUser.getName());
-		roomDaoImpl.editEntity(entity2);
+		roomMapper.editEntity(entity2);
 	}
 
 	// 结束答题
@@ -570,8 +572,8 @@ public class RoomServiceImpl implements RoomServiceInter {
 		editState(roomid, "4", currentUser);
 		// 将用户答题信息进行统计汇总 POINT,MPOINT,SUBJECTID,USERID
 		{
-			List<Map<String, Object>> cardPoints = cardPointDaoImpl
-					.getAllRoomCardPoints(roomid);
+			List<Map<String, Object>> cardPoints = cardPointDaoImpl.getAllRoomCardPoints(roomid);
+
 			for (Map<String, Object> node : cardPoints) {
 				try {// 统计答题记录，题记录和用户记录
 					int point = (int) node.get("POINT");
@@ -599,8 +601,8 @@ public class RoomServiceImpl implements RoomServiceInter {
 	@Transactional
 	public List<String> getPapers(String roomid) {
 		List<String> ids = new ArrayList<>();
-		List<RoomPaper> papers = roompaperDaoImpl.selectEntitys(DBRuleList
-				.getInstance().add(new DBRule("ROOMID", roomid, "=")).toList());
+		List<RoomPaper> papers = roomPaperMapper.findByRoomId(roomid);
+
 		for (RoomPaper paper : papers) {
 			ids.add(paper.getPaperid());
 		}
@@ -615,7 +617,7 @@ public class RoomServiceImpl implements RoomServiceInter {
 			return false;
 		}
 		// 房间是否练习间
-		Room entity = roomDaoImpl.getEntity(roomid);
+		Room entity = roomMapper.getEntity(roomid);
 		if (!entity.getPshowtype().equals("3")) {
 			return false;
 		}
@@ -637,7 +639,7 @@ public class RoomServiceImpl implements RoomServiceInter {
 			return false;
 		}
 		// 房间是否练习间
-		Room entity = roomDaoImpl.getEntity(roomid);
+		Room entity = roomMapper.getEntity(roomid);
 		if (!entity.getPshowtype().equals("4")) {
 			return false;
 		}
@@ -654,9 +656,8 @@ public class RoomServiceImpl implements RoomServiceInter {
 	@Override
 	@Transactional
 	public RoomPaper getRoomPaper(String roomId, String paperid) {
-		List<RoomPaper> roompapers = roompaperDaoImpl.selectEntitys(DBRuleList
-				.getInstance().add(new DBRule("PAPERID", paperid, "="))
-				.add(new DBRule("ROOMID", roomId, "=")).toList());
+		List<RoomPaper> roompapers = roomPaperMapper.findByPaperIdAndRoomId(paperid,roomId);
+
 		if (roompapers.size() > 0) {
 			return roompapers.get(0);
 		}
@@ -666,9 +667,9 @@ public class RoomServiceImpl implements RoomServiceInter {
 	@Override
 	@Transactional
 	public void editRestartAble(String id, Boolean ableType) {
-		Room entity2 = roomDaoImpl.getEntity(id);
+		Room entity2 = roomMapper.getEntity(id);
 		entity2.setRestarttype(ableType ? "2" : "1");
-		roomDaoImpl.editEntity(entity2);
+		roomMapper.editEntity(entity2);
 	}
 
 	@Override

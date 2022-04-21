@@ -5,6 +5,9 @@ import com.wts.exam.domain.SubjectType;
 import com.farm.core.time.TimeTool;
 import com.farm.web.easyui.EasyUiTreeNode;
 
+import com.wts.exam.mapper.SubjectMapper;
+import com.wts.exam.mapper.SubjectPopMapper;
+import com.wts.exam.mapper.SubjectTypeMapper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -16,6 +19,7 @@ import com.wts.exam.service.SubjectTypeServiceInter;
 import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DBRuleList;
 import com.farm.core.sql.query.DataQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,16 +41,21 @@ import com.farm.core.auth.domain.LoginUser;
  */
 @Service
 public class SubjectTypeServiceImpl implements SubjectTypeServiceInter {
-	@Resource
+	@Autowired
 	private SubjectTypeDaoInter subjecttypeDaoImpl;
-	@Resource
-	private SubjectServiceInter subjectServiceImpl;
-	@Resource
+	@Autowired
+	private SubjectTypeMapper subjectTypeMapper;
+	@Autowired
 	private SubjectDaoInter subjectDaoImpl;
-	@Resource
+	@Autowired
 	private SubjectPopDaoInter subjectpopDaoImpl;
-	private static final Logger log = Logger
-			.getLogger(SubjectTypeServiceImpl.class);
+	@Autowired
+	private SubjectPopMapper subjectPopMapper;
+
+	@Autowired
+	private SubjectServiceInter subjectServiceImpl;
+
+
 
 	@Override
 	@Transactional
@@ -67,7 +76,7 @@ public class SubjectTypeServiceImpl implements SubjectTypeServiceInter {
 			entity.setWritepop("1");
 		}
 		entity.setTreecode("NONE");
-		entity = subjecttypeDaoImpl.insertEntity(entity);
+		subjectTypeMapper.insertEntity(entity);
 		initTreeCode(entity.getId());
 		return entity;
 	}
@@ -77,16 +86,16 @@ public class SubjectTypeServiceImpl implements SubjectTypeServiceInter {
 		if (node.getParentid().equals("NONE")) {
 			node.setTreecode(node.getId());
 		} else {
-			node.setTreecode(subjecttypeDaoImpl.getEntity(node.getParentid())
+			node.setTreecode(subjectTypeMapper.getEntity(node.getParentid())
 					.getTreecode() + node.getId());
 		}
-		subjecttypeDaoImpl.editEntity(node);
+		subjectTypeMapper.editEntity(node);
 	}
 
 	@Override
 	@Transactional
 	public SubjectType editSubjecttypeEntity(SubjectType entity, LoginUser user) {
-		SubjectType entity2 = subjecttypeDaoImpl.getEntity(entity.getId());
+		SubjectType entity2 = subjectTypeMapper.getEntity(entity.getId());
 		entity2.setMuser(user.getId());
 		entity2.setSort(entity.getSort());
 		entity2.setState(entity.getState());
@@ -102,7 +111,7 @@ public class SubjectTypeServiceImpl implements SubjectTypeServiceInter {
 		if (entity2.getWritepop() == null) {
 			entity2.setWritepop("1");
 		}
-		subjecttypeDaoImpl.editEntity(entity2);
+		subjectTypeMapper.editEntity(entity2);
 		return entity2;
 	}
 
@@ -137,7 +146,7 @@ public class SubjectTypeServiceImpl implements SubjectTypeServiceInter {
 		}
 		subjectpopDaoImpl.deleteEntitys(DBRuleList.getInstance()
 				.add(new DBRule("TYPEID", id, "=")).toList());
-		subjecttypeDaoImpl.deleteEntity(subjecttypeDaoImpl.getEntity(id));
+		subjectTypeMapper.deleteEntity(id);
 	}
 
 	@Override
@@ -147,7 +156,7 @@ public class SubjectTypeServiceImpl implements SubjectTypeServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return subjecttypeDaoImpl.getEntity(id);
+		return subjectTypeMapper.getEntity(id);
 	}
 
 	@Override
@@ -181,7 +190,7 @@ public class SubjectTypeServiceImpl implements SubjectTypeServiceInter {
 				}
 				node.setParentid(targetOrgId);
 			}
-			subjecttypeDaoImpl.editEntity(node);
+			subjectTypeMapper.editEntity(node);
 			// 构造所有树TREECODE
 			List<SubjectType> list = subjecttypeDaoImpl
 					.getAllSubNodes(orgIds[i]);

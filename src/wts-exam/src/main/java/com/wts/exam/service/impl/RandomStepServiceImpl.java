@@ -2,32 +2,23 @@ package com.wts.exam.service.impl;
 
 import com.wts.exam.domain.RandomStep;
 import com.farm.core.time.TimeTool;
+import com.wts.exam.mapper.RandomStepMapper;
 import org.apache.log4j.Logger;
 import com.wts.exam.dao.RandomStepDaoInter;
 import com.wts.exam.service.RandomStepServiceInter;
 import com.farm.core.sql.query.DBSort;
 import com.farm.core.sql.query.DataQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import com.farm.core.auth.domain.LoginUser;
 
-/* *
- *功能：答卷随机步骤服务层实现类
- *详细：
- *
- *版本：v0.1
- *作者：FarmCode代码工程
- *日期：20150707114057
- *说明：
- */
 @Service
 public class RandomStepServiceImpl implements RandomStepServiceInter {
-	@Resource
-	private RandomStepDaoInter randomstepDaoImpl;
 
-	private static final Logger log = Logger
-			.getLogger(RandomStepServiceImpl.class);
+	@Autowired
+	private RandomStepMapper randomStepMapper;
 
 	@Override
 	@Transactional
@@ -40,14 +31,15 @@ public class RandomStepServiceImpl implements RandomStepServiceInter {
 		// entity.setEusername(user.getName());
 		// entity.setEtime(TimeTool.getTimeDate14());
 		// entity.setPstate("1");
-		return randomstepDaoImpl.insertEntity(entity);
+		randomStepMapper.insertEntity(entity);
+		return entity;
 	}
 
 	@Override
 	@Transactional
 	public RandomStep editRandomstepEntity(RandomStep entity, LoginUser user) {
 		// TODO 自动生成代码,修改后请去除本注释
-		RandomStep entity2 = randomstepDaoImpl.getEntity(entity.getId());
+		RandomStep entity2 = randomStepMapper.getEntity(entity.getId());
 		// entity2.setEuser(user.getId());
 		// entity2.setEusername(user.getName());
 		// entity2.setEtime(TimeTool.getTimeDate14());
@@ -60,7 +52,7 @@ public class RandomStepServiceImpl implements RandomStepServiceInter {
 		entity2.setTiptype(entity.getTiptype());
 		entity2.setTypeid(entity.getTypeid());
 		entity2.setId(entity.getId());
-		randomstepDaoImpl.editEntity(entity2);
+		randomStepMapper.editEntity(entity2);
 		return entity2;
 	}
 
@@ -68,7 +60,7 @@ public class RandomStepServiceImpl implements RandomStepServiceInter {
 	@Transactional
 	public void deleteRandomstepEntity(String id, LoginUser user) {
 		// TODO 自动生成代码,修改后请去除本注释
-		randomstepDaoImpl.deleteEntity(randomstepDaoImpl.getEntity(id));
+		randomStepMapper.deleteEntity(id);
 	}
 
 	@Override
@@ -78,7 +70,7 @@ public class RandomStepServiceImpl implements RandomStepServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return randomstepDaoImpl.getEntity(id);
+		return randomStepMapper.getEntity(id);
 	}
 
 	@Override

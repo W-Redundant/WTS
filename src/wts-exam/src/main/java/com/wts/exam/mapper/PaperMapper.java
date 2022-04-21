@@ -4,6 +4,8 @@ import com.wts.exam.domain.Paper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface PaperMapper {
@@ -18,4 +20,6 @@ public interface PaperMapper {
     int editEntity(Paper record);
 
     int updateByPrimaryKey(Paper record);
+
+    List<Paper> findByExamtypeid(String examtypeid);
 }
