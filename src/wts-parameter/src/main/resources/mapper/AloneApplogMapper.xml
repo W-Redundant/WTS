@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farm.parameter.mapper.AloneApplogMapper">
+  <resultMap id="BaseResultMap" type="com.farm.parameter.domain.AloneApplog">
+    <!--@mbg.generated-->
+    <!--@Table alone_applog-->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CTIME" jdbcType="VARCHAR" property="ctime" />
+    <result column="DESCRIBES" jdbcType="VARCHAR" property="describes" />
+    <result column="APPUSER" jdbcType="VARCHAR" property="appuser" />
+    <result column="LEVELS" jdbcType="VARCHAR" property="levels" />
+    <result column="METHOD" jdbcType="VARCHAR" property="method" />
+    <result column="CLASSNAME" jdbcType="VARCHAR" property="classname" />
+    <result column="IP" jdbcType="VARCHAR" property="ip" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    ID, CTIME, DESCRIBES, APPUSER, LEVELS, `METHOD`, CLASSNAME, IP
+  </sql>
+  <select id="getEntity" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from alone_applog
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from alone_applog
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertEntity" parameterType="com.farm.parameter.domain.AloneApplog">
+    <!--@mbg.generated-->
+    insert into alone_applog (ID, CTIME, DESCRIBES, 
+      APPUSER, LEVELS, `METHOD`, 
+      CLASSNAME, IP)
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{describes,jdbcType=VARCHAR}, 
+      #{appuser,jdbcType=VARCHAR}, #{levels,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, 
+      #{classname,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.farm.parameter.domain.AloneApplog">
+    <!--@mbg.generated-->
+    insert into alone_applog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="describes != null">
+        DESCRIBES,
+      </if>
+      <if test="appuser != null">
+        APPUSER,
+      </if>
+      <if test="levels != null">
+        LEVELS,
+      </if>
+      <if test="method != null">
+        `METHOD`,
+      </if>
+      <if test="classname != null">
+        CLASSNAME,
+      </if>
+      <if test="ip != null">
+        IP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="describes != null">
+        #{describes,jdbcType=VARCHAR},
+      </if>
+      <if test="appuser != null">
+        #{appuser,jdbcType=VARCHAR},
+      </if>
+      <if test="levels != null">
+        #{levels,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null">
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="editEntity" parameterType="com.farm.parameter.domain.AloneApplog">
+    <!--@mbg.generated-->
+    update alone_applog
+    <set>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="describes != null">
+        DESCRIBES = #{describes,jdbcType=VARCHAR},
+      </if>
+      <if test="appuser != null">
+        APPUSER = #{appuser,jdbcType=VARCHAR},
+      </if>
+      <if test="levels != null">
+        LEVELS = #{levels,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        `METHOD` = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null">
+        CLASSNAME = #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.farm.parameter.domain.AloneApplog">
+    <!--@mbg.generated-->
+    update alone_applog
+    set CTIME = #{ctime,jdbcType=VARCHAR},
+      DESCRIBES = #{describes,jdbcType=VARCHAR},
+      APPUSER = #{appuser,jdbcType=VARCHAR},
+      LEVELS = #{levels,jdbcType=VARCHAR},
+      `METHOD` = #{method,jdbcType=VARCHAR},
+      CLASSNAME = #{classname,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

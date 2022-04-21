@@ -2,6 +2,8 @@ package com.farm.parameter.service.impl;
 
 import javax.annotation.Resource;
 
+import com.farm.parameter.mapper.AloneApplogMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +25,16 @@ public class AloneApplogServiceImpl implements AloneApplogServiceInter {
 	@Resource
 	private AloneApplogDaoInter aloneApplogDao;
 
+	@Autowired
+	private AloneApplogMapper aloneApplogMapper;
+
 	public AloneApplog insertEntity(AloneApplog entity, LoginUser user) {
 		// entity.setCtime(TimeTool.getTimeDate12());
 		// entity.setEtime(TimeTool.getTimeDate12());
 		// entity.setCuser(user.getId());
 		// entity.setEuser(user.getId());
-		return aloneApplogDao.insertEntity(entity);
+		aloneApplogMapper.insertEntity(entity);
+		return entity;
 	}
 
 	public AloneApplog editEntity(AloneApplog entity, LoginUser user) {
@@ -41,12 +47,12 @@ public class AloneApplogServiceImpl implements AloneApplogServiceInter {
 		entity2.setLevels(entity.getLevels());
 		entity2.setMethod(entity.getMethod());
 		entity2.setClassname(entity.getClassname());
-		aloneApplogDao.editEntity(entity2);
+		aloneApplogMapper.editEntity(entity2);
 		return entity2;
 	}
 
 	public void deleteEntity(String entity, LoginUser user) {
-		aloneApplogDao.deleteEntity(aloneApplogDao.getEntity(entity));
+		aloneApplogMapper.deleteEntity(entity);
 	}
 
 	@Transactional
@@ -54,23 +60,15 @@ public class AloneApplogServiceImpl implements AloneApplogServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return aloneApplogDao.getEntity(id);
-	}
-
-	// ----------------------------------------------------------------------------------
-	public AloneApplogDaoInter getaloneApplogDao() {
-		return aloneApplogDao;
-	}
-
-	public void setaloneApplogDao(AloneApplogDaoInter dao) {
-		this.aloneApplogDao = dao;
+		return aloneApplogMapper.getEntity(id);
 	}
 
 	@Override
 	@Transactional
 	public AloneApplog log(String describes, String appuser, String level, String method, String classname, String ip) {
-		return aloneApplogDao.insertEntity(
-				new AloneApplog(TimeTool.getTimeDate14(), describes, appuser, level, method, classname, ip));
+		AloneApplog aloneApplog = new AloneApplog(TimeTool.getTimeDate14(), describes, appuser, level, method, classname, ip);
+		aloneApplogMapper.insertEntity(aloneApplog);
+		return aloneApplog;
 	}
 
 	@Override

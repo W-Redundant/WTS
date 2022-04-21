@@ -1,6 +1,6 @@
 package com.farm.parameter.dao;
 
-import com.farm.parameter.domain.Aloneparameterlocal;
+import com.farm.parameter.domain.AloneParameterLocal;
 import org.hibernate.Session;
 import com.farm.core.sql.query.DBRule;
 import com.farm.core.sql.query.DataQuery;
@@ -24,7 +24,7 @@ public interface AloneparameterlocalDaoInter {
 	 * @param entity
 	 *            实体
 	 */
-	public void deleteEntity(Aloneparameterlocal aloneparameterlocal);
+	public void deleteEntity(AloneParameterLocal aloneparameterlocal);
 
 	/**
 	 * 由用户个性化参数id获得一个用户个性化参数实体
@@ -32,15 +32,15 @@ public interface AloneparameterlocalDaoInter {
 	 * @param id
 	 * @return
 	 */
-	public Aloneparameterlocal getEntity(String aloneparameterlocalid);
+	public AloneParameterLocal getEntity(String aloneparameterlocalid);
 
 	/**
 	 * 插入一条用户个性化参数数据
 	 * 
 	 * @param entity
 	 */
-	public Aloneparameterlocal insertEntity(
-			Aloneparameterlocal aloneparameterlocal);
+	public AloneParameterLocal insertEntity(
+			AloneParameterLocal aloneparameterlocal);
 
 	/**
 	 * 获得记录数量
@@ -54,7 +54,7 @@ public interface AloneparameterlocalDaoInter {
 	 * 
 	 * @param entity
 	 */
-	public void editEntity(Aloneparameterlocal aloneparameterlocal);
+	public void editEntity(AloneParameterLocal aloneparameterlocal);
 
 	/**
 	 * 获得一个session
@@ -81,7 +81,7 @@ public interface AloneparameterlocalDaoInter {
 	 *            查询条件
 	 * @return
 	 */
-	public List<Aloneparameterlocal> selectEntitys(List<DBRule> rules);
+	public List<AloneParameterLocal> selectEntitys(List<DBRule> rules);
 
 	/**
 	 * 条件修改用户个性化参数实体，依据对象字段值(一般不建议使用该方法)
@@ -108,5 +108,5 @@ public interface AloneparameterlocalDaoInter {
 	 * @param parameterId
 	 * @return
 	 */
-	public Aloneparameterlocal getEntityByUser(String userId, String parameterId);
+	public AloneParameterLocal getEntityByUser(String userId, String parameterId);
 }

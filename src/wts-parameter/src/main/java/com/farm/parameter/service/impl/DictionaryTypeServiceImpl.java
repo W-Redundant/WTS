@@ -10,6 +10,8 @@ import java.util.Vector;
 
 import javax.annotation.Resource;
 
+import com.farm.parameter.mapper.AloneDictionaryTypeMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +23,14 @@ import com.farm.parameter.service.DictionaryEntityServiceInter;
 import com.farm.parameter.service.DictionaryTypeServiceInter;
 @Service
 public class DictionaryTypeServiceImpl implements DictionaryTypeServiceInter {
-	@Resource
+	@Autowired
 	private DictionaryTypeDaoInter dictionarytypeDao;
-	@Resource
+	@Autowired
+	private AloneDictionaryTypeMapper aloneDictionaryTypeMapper;
+
+	@Autowired
 	private DictionaryEntityServiceInter dicManager;
+
 	private static final List<AloneDictionaryType> DictionaryTypeList = new Vector<AloneDictionaryType>();
 
 	public String getConfigValue(String key) {
@@ -35,7 +41,7 @@ public class DictionaryTypeServiceImpl implements DictionaryTypeServiceInter {
 	@Override
 	@Transactional
 	public void deleteEntity(String entity, LoginUser user) {
-		AloneDictionaryType dictypeEntity = dictionarytypeDao.getEntity(entity);
+		AloneDictionaryType dictypeEntity = aloneDictionaryTypeMapper.getEntity(entity);
 		dictionarytypeDao.deleteEntityByTreecode(dictypeEntity.getId());//先删除
 		dicManager.editComments(dictypeEntity.getEntity());//后编辑
 		DictionaryEntityServiceImpl.dicCache.remove(dicManager.getDicKey(dictypeEntity.getEntity()));
@@ -55,7 +61,7 @@ public class DictionaryTypeServiceImpl implements DictionaryTypeServiceInter {
 		entity2.setComments(entity.getComments());
 		entity2.setUtime(TimeTool.getTimeDate12());
 		entity2.setMuser(user.getName());
-		dictionarytypeDao.editEntity(entity2);
+		aloneDictionaryTypeMapper.editEntity(entity2);
 		//修改数据字典备注的内容
 		if(entity.getEntity()==null||entity.getEntity().equals("")){
 			throw new RuntimeException("无法关联数据字典！");
@@ -80,7 +86,7 @@ public class DictionaryTypeServiceImpl implements DictionaryTypeServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return dictionarytypeDao.getEntity(id);
+		return aloneDictionaryTypeMapper.getEntity(id);
 	}
 
 	@Override
@@ -97,7 +103,7 @@ public class DictionaryTypeServiceImpl implements DictionaryTypeServiceInter {
 		entity.setUtime(TimeTool.getTimeDate12());
 		entity.setMuser(user.getId());
 		entity.setState("1");
-		dictionarytypeDao.insertEntity(entity);
+		aloneDictionaryTypeMapper.insertEntity(entity);
 		
 		// 获取新增后的实体ID，并修改树索引码
 		AloneDictionaryType fatherEntity = getEntity(entity.getParentid());
@@ -106,7 +112,7 @@ public class DictionaryTypeServiceImpl implements DictionaryTypeServiceInter {
 		} else {
 			entity.setTreecode(fatherEntity.getTreecode() + entity.getId());
 		}
-		dictionarytypeDao.editEntity(entity);
+		aloneDictionaryTypeMapper.editEntity(entity);
 		
 		//修改数据字典备注的内容
 		if(entity.getEntity()==null||entity.getEntity().equals("")){
@@ -121,13 +127,6 @@ public class DictionaryTypeServiceImpl implements DictionaryTypeServiceInter {
 		return DictionaryTypeList;
 	}
 
-	public DictionaryTypeDaoInter getdictionarytypeDao() {
-		return dictionarytypeDao;
-	}
-
-	public void setdictionarytypeDao(DictionaryTypeDaoInter dictionarytypeDao) {
-		this.dictionarytypeDao = dictionarytypeDao;
-	}
 
 	public DictionaryEntityServiceInter getDicManager() {
 		return dicManager;

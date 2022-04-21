@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity(name = "Aloneparameterlocal")
 @Table(name = "alone_parameter_local")
-public class Aloneparameterlocal implements java.io.Serializable {
+public class AloneParameterLocal implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	@Column(name = "PVALUE", length = 32, nullable = false)
 	private String pvalue;

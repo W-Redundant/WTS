@@ -9,15 +9,18 @@ import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
+import com.farm.parameter.mapper.AloneParameterLocalMapper;
+import com.farm.parameter.mapper.AloneParameterMapper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.farm.parameter.dao.AloneparameterlocalDaoInter;
 import com.farm.parameter.dao.ParameterDaoInter;
 import com.farm.parameter.domain.AloneParameter;
-import com.farm.parameter.domain.Aloneparameterlocal;
+import com.farm.parameter.domain.AloneParameterLocal;
 import com.farm.parameter.exception.KeyExistException;
 import com.farm.core.auth.domain.LoginUser;
 import com.farm.core.sql.query.DBSort;
@@ -30,10 +33,16 @@ import com.farm.util.web.FarmHtmlUtils;
 
 @Service
 public class ParameterServiceImpl implements ParameterServiceInter {
-	@Resource
+	@Autowired
 	private ParameterDaoInter parameterDao;
-	@Resource
+	@Autowired
+	private AloneParameterMapper aloneParameterMapper;
+
+	@Autowired
 	private AloneparameterlocalDaoInter aloneparameterlocalDao;
+	@Autowired
+	private AloneParameterLocalMapper aloneParameterLocalMapper;
+
 	// 参数值缓存
 	private static final Map<String, String> parameterCache = new HashMap<String, String>();
 	// 参数实体缓存
@@ -53,7 +62,7 @@ public class ParameterServiceImpl implements ParameterServiceInter {
 	@Override
 	@Transactional
 	public void deleteEntity(String entity, LoginUser user) {
-		parameterDao.deleteEntity(parameterDao.getEntity(entity));
+		aloneParameterMapper.deleteEntity(entity);
 	}
 
 	@Override
@@ -76,7 +85,7 @@ public class ParameterServiceImpl implements ParameterServiceInter {
 		entity.setCuser(aloneUser.getId());
 		entity.setMuser(aloneUser.getId());
 		entity.setState("1");// 默认启用（暂无用）
-		parameterDao.insertEntity(entity);
+		aloneParameterMapper.insertEntity(entity);
 		return entity;
 	}
 
@@ -104,7 +113,7 @@ public class ParameterServiceImpl implements ParameterServiceInter {
 		entity2.setUserable(entity.getUserable());
 		entity2.setComments(entity.getComments());
 		entity2.setVtype(entity.getVtype());
-		parameterDao.editEntity(entity2);
+		aloneParameterMapper.editEntity(entity2);
 		return entity2;
 	}
 
@@ -128,23 +137,7 @@ public class ParameterServiceImpl implements ParameterServiceInter {
 		if (id == null) {
 			return null;
 		}
-		return parameterDao.getEntity(id);
-	}
-
-	public ParameterDaoInter getParameterDao() {
-		return parameterDao;
-	}
-
-	public void setParameterDao(ParameterDaoInter parameterDao) {
-		this.parameterDao = parameterDao;
-	}
-
-	public AloneparameterlocalDaoInter getAloneparameterlocalDao() {
-		return aloneparameterlocalDao;
-	}
-
-	public void setAloneparameterlocalDao(AloneparameterlocalDaoInter aloneparameterlocalDao) {
-		this.aloneparameterlocalDao = aloneparameterlocalDao;
+		return aloneParameterMapper.getEntity(id);
 	}
 
 	@Override
@@ -209,7 +202,7 @@ public class ParameterServiceImpl implements ParameterServiceInter {
 		if (!pValue.equals(value)) {
 			log.info("修改参数" + key + "的值" + value + "为" + pValue);
 		}
-		parameterDao.editEntity(entity);
+		aloneParameterMapper.editEntity(entity);
 	}
 
 	@Override
@@ -271,16 +264,16 @@ public class ParameterServiceImpl implements ParameterServiceInter {
 		if (entity.getUserable().equals("0")) {
 			throw new RuntimeException("该参数不允许用户自定义！");
 		}
-		Aloneparameterlocal localPara = aloneparameterlocalDao.getEntityByUser(aloneUser.getId(), entity.getId());
+		AloneParameterLocal localPara = aloneparameterlocalDao.getEntityByUser(aloneUser.getId(), entity.getId());
 		if (localPara == null) {
-			localPara = new Aloneparameterlocal();
+			localPara = new AloneParameterLocal();
 			localPara.setEuser(aloneUser.getId());
 			localPara.setParameterid(entity.getId());
 			localPara.setPvalue(pValue);
-			aloneparameterlocalDao.insertEntity(localPara);
+			aloneParameterLocalMapper.insertEntity(localPara);
 		} else {
 			localPara.setPvalue(pValue);
-			aloneparameterlocalDao.editEntity(localPara);
+			aloneParameterLocalMapper.editEntity(localPara);
 		}
 		parameterCache.clear();
 	}
@@ -313,7 +306,7 @@ public class ParameterServiceImpl implements ParameterServiceInter {
 		}
 		// 如果允许，且有，取1.用户个性化参数.或
 		if (entity.getUserable().equals("1")) {
-			Aloneparameterlocal localPara = aloneparameterlocalDao.getEntityByUser(userId, entity.getId());
+			AloneParameterLocal localPara = aloneparameterlocalDao.getEntityByUser(userId, entity.getId());
 			if (localPara != null) {
 				return localPara.getPvalue();
 			}

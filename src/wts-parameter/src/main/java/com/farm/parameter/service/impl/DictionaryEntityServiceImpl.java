@@ -2,16 +2,15 @@ package com.farm.parameter.service.impl;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
+import com.farm.parameter.mapper.AloneDictionaryEntityMapper;
+import com.farm.parameter.mapper.AloneDictionaryTypeMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,10 +28,16 @@ import com.farm.parameter.service.DictionaryEntityServiceInter;
 
 @Service
 public class DictionaryEntityServiceImpl implements DictionaryEntityServiceInter {
-	@Resource
+	@Autowired
 	private DictionaryEntityDaoInter dictionaryentityDao;
-	@Resource
+	@Autowired
+	private AloneDictionaryEntityMapper aloneDictionaryEntityMapper;
+
+	@Autowired
 	private DictionaryTypeDaoInter dictionarytypeDao;
+	@Autowired
+	private AloneDictionaryTypeMapper aloneDictionaryTypeMapper;
+
 	protected static final Map<String, List<AloneDictionaryType>> dicCache = new HashMap<String, List<AloneDictionaryType>>();
 
 	@Override
@@ -41,9 +46,9 @@ public class DictionaryEntityServiceImpl implements DictionaryEntityServiceInter
 		List<AloneDictionaryType> list = dictionarytypeDao.getListByEntityId(entity);
 		for (Iterator<AloneDictionaryType> iterator = list.iterator(); iterator.hasNext();) {
 			AloneDictionaryType aloneDictionaryType = (AloneDictionaryType) iterator.next();
-			dictionarytypeDao.deleteEntity(aloneDictionaryType);
+			aloneDictionaryTypeMapper.deleteEntity(aloneDictionaryType.getId());
 		}
-		dictionaryentityDao.deleteEntity(dictionaryentityDao.getEntity(entity));
+		aloneDictionaryEntityMapper.deleteEntity(entity);
 	}
 
 	@Override
@@ -60,7 +65,7 @@ public class DictionaryEntityServiceImpl implements DictionaryEntityServiceInter
 		entity2.setUtime(TimeTool.getTimeDate12());
 		entity2.setMuser(user.getId());
 		entity2.setType(entity.getType());
-		dictionaryentityDao.editEntity(entity2);
+		aloneDictionaryEntityMapper.editEntity(entity2);
 		return entity2;
 	}
 
@@ -77,7 +82,7 @@ public class DictionaryEntityServiceImpl implements DictionaryEntityServiceInter
 	public AloneDictionaryEntity getEntity(String id) {
 		if (id == null)
 			return null;
-		return dictionaryentityDao.getEntity(id);
+		return aloneDictionaryEntityMapper.getEntity(id);
 	}
 
 	@Override
@@ -93,11 +98,8 @@ public class DictionaryEntityServiceImpl implements DictionaryEntityServiceInter
 		entity.setState("1");
 		entity.setName(entity.getName().trim());
 		entity.setEntityindex(entity.getEntityindex().trim());// 必须去空格
-		return dictionaryentityDao.insertEntity(entity);
-	}
-
-	public DictionaryEntityDaoInter getdictionaryentityDao() {
-		return dictionaryentityDao;
+		aloneDictionaryEntityMapper.insertEntity(entity);
+		return entity;
 	}
 
 	@Override
@@ -118,7 +120,7 @@ public class DictionaryEntityServiceImpl implements DictionaryEntityServiceInter
 			return;
 		}
 
-		AloneDictionaryEntity dicEntity = dictionaryentityDao.getEntity(id);
+		AloneDictionaryEntity dicEntity = aloneDictionaryEntityMapper.getEntity(id);
 		// if(dicEntity.getComments()!=null&&!dicEntity.getComments().equals("")){
 		// return;
 		// }
@@ -142,19 +144,7 @@ public class DictionaryEntityServiceImpl implements DictionaryEntityServiceInter
 		} else {
 			dicEntity.setComments(sBuilder.toString());
 		}
-		dictionaryentityDao.editEntity(dicEntity);
-	}
-
-	public void setdictionaryentityDao(DictionaryEntityDaoInter dictionaryentityDao) {
-		this.dictionaryentityDao = dictionaryentityDao;
-	}
-
-	public DictionaryTypeDaoInter getDictionarytypeDao() {
-		return dictionarytypeDao;
-	}
-
-	public void setDictionarytypeDao(DictionaryTypeDaoInter dictionarytypeDao) {
-		this.dictionarytypeDao = dictionarytypeDao;
+		aloneDictionaryEntityMapper.editEntity(dicEntity);
 	}
 
 	@Override
@@ -221,7 +211,7 @@ public class DictionaryEntityServiceImpl implements DictionaryEntityServiceInter
 			entity.setState("1");
 			entity.setType(type);
 			entity.setUtime(TimeTool.getTimeDate12());
-			entity = dictionaryentityDao.insertEntity(entity);
+			aloneDictionaryEntityMapper.insertEntity(entity);
 		}
 		return entity;
 	}
@@ -240,9 +230,9 @@ public class DictionaryEntityServiceImpl implements DictionaryEntityServiceInter
 		type.setSort(BigDecimal.valueOf(1));
 		type.setState("1");
 		type.setUtime(TimeTool.getTimeDate12());
-		dictionarytypeDao.insertEntity(type);
+		aloneDictionaryTypeMapper.insertEntity(type);
 		type.setTreecode(type.getId());
-		dictionarytypeDao.editEntity(type);
+		aloneDictionaryTypeMapper.editEntity(type);
 		DictionaryEntityServiceImpl.dicCache.remove(getDicKey(type.getEntity()));
 	}
 }
