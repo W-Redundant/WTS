@@ -8,6 +8,10 @@
 			<taglib-uri>/view/conf/farmtag.tld</taglib-uri>
 			<taglib-location>/view/conf/farmtag.tld</taglib-location>
 		</taglib>
+		<taglib>
+			<taglib-uri>/view/conf/tip.tld</taglib-uri>
+			<taglib-location>/view/conf/tip.tld</taglib-location>
+		</taglib>
 		<jsp-property-group>
 			<url-pattern>*.jsp</url-pattern>
 			<el-ignored>false</el-ignored>
