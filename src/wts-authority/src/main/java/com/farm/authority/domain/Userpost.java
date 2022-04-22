@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.farm.util.uuid.UUIDUtils;
 import org.hibernate.annotations.GenericGenerator;
 /* *
  *功能：置顶文档类
@@ -25,7 +26,7 @@ public class Userpost implements java.io.Serializable {
     @GenericGenerator(name = "systemUUID", strategy = "uuid")
     @GeneratedValue(generator = "systemUUID")
     @Column(name = "ID", length = 32, insertable = true, updatable = true, nullable = false)
-    private String id;
+    private String id = UUIDUtils.randomUUID();
     @Column(name = "POSTID", length = 32, nullable = false)
     private String postid;
     @Column(name = "USERID", length = 32, nullable = false)

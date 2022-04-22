@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.farm.util.uuid.UUIDUtils;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.farm.core.auth.domain.LoginUser;
@@ -52,7 +53,7 @@ public class User implements java.io.Serializable, LoginUser {
     @GenericGenerator(name = "systemUUID", strategy = "uuid")
     @GeneratedValue(generator = "systemUUID")
     @Column(name = "ID", length = 32, insertable = true, updatable = true, nullable = false)
-    private String id;
+    private String id = UUIDUtils.randomUUID();
     @Transient
     private String ip;
 

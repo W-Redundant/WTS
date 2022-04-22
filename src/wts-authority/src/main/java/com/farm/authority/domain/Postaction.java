@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.farm.util.uuid.UUIDUtils;
 import org.hibernate.annotations.GenericGenerator;
 
 /* *
@@ -29,7 +30,7 @@ public class Postaction implements java.io.Serializable {
     @GenericGenerator(name = "systemUUID", strategy = "uuid")
     @GeneratedValue(generator = "systemUUID")
     @Column(name = "ID", length = 32, insertable = true, updatable = true, nullable = false)
-    private String id;
+    private String id = UUIDUtils.randomUUID();
 
 
     public String  getPostid() {
