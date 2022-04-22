@@ -35,14 +35,14 @@
     delete from wts_exam_stat
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertEntity" parameterType="com.farm.exam.domain.ExamStat">
+  <insert id="insertEntity" parameterType="com.farm.exam.domain.ExamStat" useGeneratedKeys="true" keyProperty="ID">
     <!--@mbg.generated-->
-    insert into wts_exam_stat (ID, CTIME, ETIME, 
+    insert into wts_exam_stat (ID, CTIME, ETIME,
       CUSERNAME, CUSER, EUSERNAME, 
       EUSER, PSTATE, PCONTENT, 
       SUBJECTNUM, ERRORSUBNUM, PAPERNUM, 
       TESTNUM)
-    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{etime,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{ctime,jdbcType=VARCHAR}, #{etime,jdbcType=VARCHAR},
       #{cusername,jdbcType=VARCHAR}, #{cuser,jdbcType=VARCHAR}, #{eusername,jdbcType=VARCHAR}, 
       #{euser,jdbcType=VARCHAR}, #{pstate,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, 
       #{subjectnum,jdbcType=INTEGER}, #{errorsubnum,jdbcType=INTEGER}, #{papernum,jdbcType=INTEGER}, 

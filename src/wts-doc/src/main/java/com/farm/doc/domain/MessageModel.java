@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.farm.util.uuid.UUIDUtils;
 import org.hibernate.annotations.GenericGenerator;
 /* *
  *功能：消息模板类
@@ -25,7 +26,7 @@ public class MessageModel implements java.io.Serializable {
         @GenericGenerator(name = "systemUUID", strategy = "uuid")
         @GeneratedValue(generator = "systemUUID")
         @Column(name = "ID", length = 32, insertable = true, updatable = true, nullable = false)
-        private String id;
+        private String id = UUIDUtils.randomUUID();
         @Column(name = "CONTENTMODEL", length = 512, nullable = false)
         private String contentmodel;
         @Column(name = "TYPEKEY", length = 128, nullable = false)

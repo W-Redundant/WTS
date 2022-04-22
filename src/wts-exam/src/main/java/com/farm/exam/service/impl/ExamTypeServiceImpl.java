@@ -178,9 +178,8 @@ public class ExamTypeServiceImpl implements ExamTypeServiceInter {
         }
         List<ExamTypeUnit> typeunits = new ArrayList<>();
         // 获得所有一级目录
-        List<ExamType> types = examtypeDaoImpl.selectEntitys(DBRuleList
-                .getInstance().add(new DBRule("PARENTID", "NONE", "="))
-                .add(new DBRule("STATE", "1", "=")).toList());
+
+        List<ExamType> types = examTypeMapper.findByParentIdAndState("NONE","1");
 
         Collections.sort(types, new Comparator<ExamType>() {
             @Override

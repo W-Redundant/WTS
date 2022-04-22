@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.farm.util.uuid.UUIDUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -24,7 +25,7 @@ public class Docfile implements java.io.Serializable, java.lang.Cloneable {
 	@GenericGenerator(name = "systemUUID", strategy = "uuid")
 	@GeneratedValue(generator = "systemUUID")
 	@Column(name = "ID", length = 32, insertable = true, updatable = true, nullable = false)
-	private String id;
+	private String id = UUIDUtils.randomUUID();
 	@Column(name = "PSTATE", length = 2, nullable = false)
 	private String pstate;
 	@Column(name = "EUSER", length = 32, nullable = false)

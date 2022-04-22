@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.farm.util.uuid.UUIDUtils;
 import org.hibernate.annotations.GenericGenerator;
 
 /* *
@@ -26,7 +27,7 @@ public class PaperSubject implements java.io.Serializable {
 	@GenericGenerator(name = "systemUUID", strategy = "uuid")
 	@GeneratedValue(generator = "systemUUID")
 	@Column(name = "ID", length = 32, insertable = true, updatable = true, nullable = false)
-	private String id;
+	private String id = UUIDUtils.randomUUID();
 	@Column(name = "POINT", length = 10, nullable = false)
 	private Integer point;
 	@Column(name = "SORT", length = 10, nullable = false)

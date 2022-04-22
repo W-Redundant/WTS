@@ -6,7 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.farm.util.uuid.UUIDUtils;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.util.UUID;
 
 /* *
  *功能：用户答题统计类
@@ -26,7 +29,7 @@ public class ExamStat implements java.io.Serializable {
 	@GenericGenerator(name = "systemUUID", strategy = "uuid")
 	@GeneratedValue(generator = "systemUUID")
 	@Column(name = "ID", length = 32, insertable = true, updatable = true, nullable = false)
-	private String id;
+	private String id = UUIDUtils.randomUUID();
 	@Column(name = "PAPERNUM", length = 10, nullable = false)
 	private Integer papernum;
 	@Column(name = "ERRORSUBNUM", length = 10, nullable = false)

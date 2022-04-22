@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.farm.util.uuid.UUIDUtils;
 import org.hibernate.annotations.GenericGenerator;
 
 /* *
@@ -24,7 +25,7 @@ public class CardHis implements java.io.Serializable {
 
 	@Id
 	@Column(name = "ID", length = 32, insertable = true, updatable = true, nullable = false)
-	private String id;
+	private String id = UUIDUtils.randomUUID();
 	@Column(name = "ALLNUM", length = 10)
 	private Integer allnum;
 	@Column(name = "COMPLETENUM", length = 10)
